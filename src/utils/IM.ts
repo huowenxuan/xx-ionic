@@ -1,4 +1,4 @@
-import {IMClient, Realtime, TextMessage} from 'leancloud-realtime'
+﻿import {Realtime, TextMessage, IMClient} from 'leancloud-realtime'
 import AV from 'leancloud-storage'
 import {TypedMessagesPlugin, ImageMessage} from 'leancloud-realtime-plugin-typed-messages'
 
@@ -27,7 +27,7 @@ export class IM {
     })
   }
 
-  getClient(): IMClient {
+  getClient(): Promise<any>{
     return new Promise(async (resolve, reject) => {
       if (!this.userId) {
         console.warn('没登录')

@@ -9,22 +9,19 @@ const LCMasterKey = 'n4LgUleKqdD8RVrBl7dBsDvE'
 let _instance: IM
 let _client
 
+// AV.init({appId: LCAppId, appKey: LCAppKey})
+
 export class IM {
   userId: String
 
-  static defaultIM() {
-    if (_instance) {
-      return _instance
-    } else {
-      return new IM()
+  public static shareIM() {
+    if (!_instance) {
+      _instance = new IM()
     }
+    return _instance
   }
 
   private constructor() {
-    AV.init({
-      appId: LCAppId,
-      appKey: LCAppKey
-    })
   }
 
   getClient(): Promise<any>{
@@ -40,7 +37,6 @@ export class IM {
           plugins: [TypedMessagesPlugin], // 注册富媒体消息插件
           region: 'cn'
         })
-
         _client = await realtime.createIMClient(this.userId)
       }
 
@@ -48,7 +44,7 @@ export class IM {
     })
   }
 
-  login(userId) {
+  public login(userId) {3
     this.userId = userId
 
     this.receiveMessage((conversation, message)=>{
@@ -56,14 +52,14 @@ export class IM {
     })
   }
 
-  async receiveMessage(callback) {
+  public async receiveMessage(callback) {
     let client  = await this.getClient()
     client.on('message', (message, conversation) => {
       callback(conversation, message)
     })
   }
 
-  async createSingleConversation(toUserId) {
+  public async createSingleConversation(toUserId) {4
     let client  = await this.getClient()
     return client.createConversation({
       members: [this.userId, toUserId],
@@ -71,7 +67,7 @@ export class IM {
     })
   }
 
-  static sencTextMessage(conversation, text) {
+  public sendTextMessage(conversation, text) {
     return conversation.send(new TextMessage(text))
   }
 }

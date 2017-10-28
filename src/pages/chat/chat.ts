@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavParams } from 'ionic-angular';
 import { Events, Content, TextInput } from 'ionic-angular';
 import { ChatService, ChatMessage, UserInfo } from "../../providers/chat-service";
+import {IM} from "../../utils/IM";
 
 @IonicPage()
 @Component({
@@ -9,7 +10,6 @@ import { ChatService, ChatMessage, UserInfo } from "../../providers/chat-service
   templateUrl: 'chat.html',
 })
 export class Chat {
-
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: TextInput;
   msgList: ChatMessage[] = [];
@@ -17,6 +17,8 @@ export class Chat {
   toUser: UserInfo;
   editorMsg = '';
   showEmojiPicker = false;
+  im: IM
+  _conversation
 
   constructor(public navParams: NavParams,
               public chatService: ChatService,
@@ -31,6 +33,18 @@ export class Chat {
       .then((res) => {
         this.user = res
       });
+
+    this.im = IM.shareIM()
+    this.getConversation()
+  }
+
+  getConversation(): Promise<any> {
+    return new Promise(async (resolve, reject)=>{
+      if (!this._conversation) {
+        this._conversation = await this.im.createSingleConversation('2')
+      }
+      resolve(this._conversation)
+    })
   }
 
   ionViewWillLeave() {
@@ -85,7 +99,7 @@ export class Chat {
   /**
    * @name sendMsg
    */
-  sendMsg() {
+  async sendMsg() {
     if (!this.editorMsg.trim()) return;
 
     // Mock message
@@ -100,6 +114,9 @@ export class Chat {
       message: this.editorMsg,
       status: 'pending'
     };
+
+    let conversation = await this.getConversation()
+    let message = this.im.sendTextMessage(conversation, this.editorMsg)
 
     this.pushNewMsg(newMsg);
     this.editorMsg = '';

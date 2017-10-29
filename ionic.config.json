@@ -4,5 +4,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/fund",
+      "proxyUrl": "http://fundgz.1234567.com.cn/js/"
+    }
+  ]
 }

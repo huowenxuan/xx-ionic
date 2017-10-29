@@ -9,7 +9,7 @@ import {IM} from "../../utils/IM";
   selector: 'page-chat',
   templateUrl: 'chat.html',
 })
-export class Chat {
+export class ChatPage {
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: TextInput;
   msgList: ChatMessage[] = [];

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Chat } from './chat';
+import { ChatPage } from './chat';
 import {ChatService} from "../../providers/chat-service";
 import {RelativeTime} from "../../pipes/relative-time";
 import {EmojiPickerComponentModule} from "../../components/emoji-picker/emoji-picker.module";
@@ -8,15 +8,15 @@ import {EmojiProvider} from "../../providers/emoji";
 
 @NgModule({
   declarations: [
-    Chat,
+    ChatPage,
     RelativeTime
   ],
   imports: [
     EmojiPickerComponentModule,
-    IonicPageModule.forChild(Chat),
+    IonicPageModule.forChild(ChatPage),
   ],
   exports: [
-    Chat
+    ChatPage
   ],
   providers:[
     ChatService,

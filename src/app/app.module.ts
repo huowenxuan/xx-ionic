@@ -4,23 +4,22 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from "@angular/http";
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import {TabMoneyPage} from "../pages/tab-money/tab-money";
+import {TabChatPage} from "../pages/tab-chat/tab-chat";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {EmojiProvider} from "../providers/emoji";
+import { MoneyService } from '../providers/money-service/money-service';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
+    TabMoneyPage,
+    TabChatPage
   ],
   imports: [
     BrowserModule,
@@ -33,17 +32,16 @@ import {EmojiProvider} from "../providers/emoji";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
-
+    TabMoneyPage,
+    TabChatPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    EmojiProvider
+    EmojiProvider,
+    MoneyService
   ]
 })
 export class AppModule {}

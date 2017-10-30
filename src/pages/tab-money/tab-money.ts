@@ -9,7 +9,6 @@ import {MoneyService} from "../../providers/money-service/money-service";
   providers: [MoneyService]
 })
 export class TabMoneyPage {
-  fund: Object
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: MoneyService) {
   }

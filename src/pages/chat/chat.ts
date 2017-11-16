@@ -106,14 +106,20 @@ export class ChatPage {
 
     this.im.sendTextMessage(this.conversation, this.editorMsg)
       .then((lcMessage) => {
-
+        // let index = this.getMsgIndexById(id);
+        // if (index !== -1) {
+        //   this.msgList[index].status = 'success';
+        // }
+      })
+      .catch(()=>{
+        // let index = this.getMsgIndexById(id);
+        // if (index !== -1) {
+        //   this.msgList[index].status = 'fail';
+        // }
       })
 
 
-    // let index = this.getMsgIndexById(id);
-    // if (index !== -1) {
-    //   this.msgList[index].status = 'success';
-    // }
+
   }
 
   /**

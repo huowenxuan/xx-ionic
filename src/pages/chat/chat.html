@@ -18,18 +18,17 @@
 
     <div *ngFor="let msg of msgList"
          class="message"
-         [class.left]=" msg.userId !== user.id "
-         [class.right]=" msg.userId === user.id ">
+         [class.left]=" msg.from !== user.id "
+         [class.right]=" msg.from === user.id ">
       <img class="user-img" [src]="msg.userAvatar" alt="" src="">
       <ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner>
       <div class="msg-detail">
         <div class="msg-info">
-          <p>
-            {{msg.userName}}&nbsp;&nbsp;&nbsp;{{msg.time | relativeTime}}</p>
+          <p>{{msg.from}}&nbsp;&nbsp;&nbsp;{{msg.timestamp | relativeTime}}</p>
         </div>
         <div class="msg-content">
           <span class="triangle"></span>
-          <p class="line-breaker ">{{msg.message}}</p>
+          <p class="line-breaker ">{{msg.text}}</p>
         </div>
       </div>
     </div>

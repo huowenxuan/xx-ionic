@@ -8,8 +8,8 @@ import { TabChatPage } from "../tab-chat/tab-chat";
 })
 export class TabsPage {
 
-  tab1Root = TabMoneyPage;
-  tab2Root = TabChatPage;
+  tab1Root = TabChatPage;
+  tab2Root = TabMoneyPage;
 
   constructor() {
 

@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
-import { Events, Content, TextInput } from 'ionic-angular';
-import { ChatService, ChatMessage, UserInfo } from "../../providers/chat-service";
+import {Component, ViewChild} from '@angular/core';
+import {IonicPage, NavParams} from 'ionic-angular';
+import {Events, Content, TextInput} from 'ionic-angular';
+import {ChatService, TextMessage, Message, UserInfo} from "../../providers/chat-service";
 import {IM} from "../../utils/IM";
 
 @IonicPage()
@@ -12,13 +12,13 @@ import {IM} from "../../utils/IM";
 export class ChatPage {
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: TextInput;
-  msgList: ChatMessage[] = [];
+  msgList: Message[] = [];
   user: UserInfo;
   toUser: UserInfo;
   editorMsg = '';
   showEmojiPicker = false;
   im: IM
-  _conversation
+  conversation
 
   constructor(public navParams: NavParams,
               public chatService: ChatService,
@@ -35,16 +35,12 @@ export class ChatPage {
       });
 
     this.im = IM.shareIM()
-    this.getConversation()
+    this.initConversation()
   }
 
-  getConversation(): Promise<any> {
-    return new Promise(async (resolve, reject)=>{
-      if (!this._conversation) {
-        this._conversation = await this.im.createSingleConversation('2')
-      }
-      resolve(this._conversation)
-    })
+  async initConversation() {
+    this.conversation = await this.im.createSingleConversation('2')
+    console.log('init conversation done')
   }
 
   ionViewWillLeave() {
@@ -53,13 +49,11 @@ export class ChatPage {
   }
 
   ionViewDidEnter() {
-    //get message list
     this.getMsg()
       .then(() => {
         this.scrollToBottom();
       });
 
-    // Subscribe to received  new message events
     this.events.subscribe('chat:received', msg => {
       this.pushNewMsg(msg);
     })
@@ -80,12 +74,7 @@ export class ChatPage {
     this.scrollToBottom();
   }
 
-  /**
-   * @name getMsg
-   * @returns {Promise<ChatMessage[]>}
-   */
   getMsg() {
-    // Get mock message list
     return this.chatService
       .getMsgList()
       .then(res => {
@@ -96,62 +85,48 @@ export class ChatPage {
       })
   }
 
-  /**
-   * @name sendMsg
-   */
   async sendMsg() {
     if (!this.editorMsg.trim()) return;
 
-    // Mock message
-    const id = Date.now().toString();
-    let newMsg: ChatMessage = {
-      messageId: Date.now().toString(),
-      userId: this.user.id,
-      userName: this.user.name,
-      userAvatar: this.user.avatar,
-      toUserId: this.toUser.id,
-      time: Date.now(),
-      message: this.editorMsg,
+    let newMsg: TextMessage = {
+      id: null,
+      _id: Date.now().toString(),
+      from: this.user.id,
+      timestamp: Date.now(),
+      text: this.editorMsg,
+      conversationId: this.conversation.id,
       status: 'pending'
     };
 
-    let conversation = await this.getConversation()
-    let message = this.im.sendTextMessage(conversation, this.editorMsg)
-
     this.pushNewMsg(newMsg);
     this.editorMsg = '';
-
     if (!this.showEmojiPicker) {
       this.messageInput.setFocus();
     }
 
-    this.chatService.sendMsg(newMsg)
-      .then(() => {
-        let index = this.getMsgIndexById(id);
-        if (index !== -1) {
-          this.msgList[index].status = 'success';
-        }
+    this.im.sendTextMessage(this.conversation, this.editorMsg)
+      .then((lcMessage) => {
+
       })
+
+
+    // let index = this.getMsgIndexById(id);
+    // if (index !== -1) {
+    //   this.msgList[index].status = 'success';
+    // }
   }
 
   /**
    * @name pushNewMsg
    * @param msg
    */
-  pushNewMsg(msg: ChatMessage) {
-    const userId = this.user.id,
-      toUserId = this.toUser.id;
-    // Verify user relationships
-    if (msg.userId === userId && msg.toUserId === toUserId) {
-      this.msgList.push(msg);
-    } else if (msg.toUserId === userId && msg.userId === toUserId) {
-      this.msgList.push(msg);
-    }
+  pushNewMsg(msg: Message) {
+    this.msgList.push(msg);
     this.scrollToBottom();
   }
 
   getMsgIndexById(id: string) {
-    return this.msgList.findIndex(e => e.messageId === id)
+    return this.msgList.findIndex(e => e.id === id)
   }
 
   scrollToBottom() {

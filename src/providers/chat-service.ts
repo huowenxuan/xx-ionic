@@ -61,7 +61,6 @@ export class ChatService {
 
   getMsgList(): Promise<Message[]> {
     return Promise.resolve([] as Message[]);
-    // const msgListUrl = './assets/mock/msg-list.json';
     // return this.http.get(msgListUrl)
     //   .toPromise()
     //   .then(response => response.json().array as ChatMessage[])
@@ -72,7 +71,7 @@ export class ChatService {
     const userInfo: UserInfo = {
       id: '1',
       name: 'Luff',
-      avatar: './assets/img/avatar.gif'
+      avatar: 'assets/img/avatar.gif'
     };
     return new Promise(resolve => resolve(userInfo));
   }

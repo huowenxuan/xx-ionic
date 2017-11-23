@@ -47,15 +47,13 @@ export class IM {
   public login(userId) {3
     this.userId = userId
 
-    this.receiveMessage((conversation, message)=>{
-      console.warn(message.text)
-    })
+    this.receiveMsg(null)
   }
 
-  public async receiveMessage(callback) {
+  public async receiveMsg(callback) {
     let client  = await this.getClient()
     client.on('message', (message, conversation) => {
-      callback(conversation, message)
+      callback && callback(conversation, message)
     })
   }
 
@@ -67,7 +65,7 @@ export class IM {
     })
   }
 
-  public sendTextMessage(conversation, text) {
+  public sendTextMsg(conversation, text) {
     return conversation.send(new TextMessage(text))
   }
 }

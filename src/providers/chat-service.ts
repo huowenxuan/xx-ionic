@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Events } from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
+import {IM} from "../utils/IM";
 
 export class Message {
   id: string; // lc id
-  _id: string; // 自定义id
+  tmp_id: string; // 自定义缓存id
   timestamp: Date;
   from: string;
   status: string; // 是否发送成功
@@ -23,15 +24,39 @@ export class UserInfo {
 
 @Injectable()
 export class ChatService {
+  im: IM
+  _conversation
 
   constructor(public http: Http,
               public events: Events) {
+    this.im = IM.shareIM()
+
+    this.getConversation()
+    this.receiveMsg()
   }
 
-  mockNewMsg(msg) {
-    // setTimeout(() => {
-    //   this.events.publish('chat:received', mockMsg, Date.now())
-    // }, Math.random() * 1800)
+  async getConversation(): Promise<any> {
+    if (!this._conversation) {
+      try {
+        this._conversation = await this.im.createSingleConversation('2')
+      } catch (e) {
+        setTimeout(()=>this.getConversation(), 1000)
+      }
+    }
+    return this._conversation
+  }
+
+  async receiveMsg() {
+    this.im.receiveMsg(async (conversation, message)=>{
+      if ( conversation.id === (await this.getConversation()).id) {
+        this.events.publish('chat:received', message)
+      }
+    })
+  }
+
+  async sendTextMsg(text) {
+    let conversation = await this.getConversation()
+    return await this.im.sendTextMsg(conversation, text)
   }
 
   getMsgList(): Promise<Message[]> {

@@ -17,30 +17,20 @@ export class ChatPage {
   toUser: UserInfo;
   editorMsg = '';
   showEmojiPicker = false;
-  im: IM
-  conversation
+  _conversation
 
   constructor(public navParams: NavParams,
               public chatService: ChatService,
               public events: Events,) {
-    // Get the navParams toUserId parameter
     this.toUser = {
       id: navParams.get('toUserId'),
       name: navParams.get('toUserName')
     };
-    // Get mock user information
     this.chatService.getUserInfo()
       .then((res) => {
         this.user = res
       });
 
-    this.im = IM.shareIM()
-    this.initConversation()
-  }
-
-  async initConversation() {
-    this.conversation = await this.im.createSingleConversation('2')
-    console.log('init conversation done')
   }
 
   ionViewWillLeave() {
@@ -55,7 +45,15 @@ export class ChatPage {
       });
 
     this.events.subscribe('chat:received', msg => {
-      this.pushNewMsg(msg);
+      if (msg.from !== this.user.id) {
+        let newMsg = new TextMessage()
+        newMsg.id = msg.id;
+        newMsg.timestamp = new Date(msg.timestamp)
+        newMsg.from = msg.from
+        newMsg.text = msg._lctext
+        newMsg.status = 'ready'
+        this.pushNewMsg(newMsg);
+      }
     })
   }
 
@@ -88,37 +86,31 @@ export class ChatPage {
   async sendMsg() {
     if (!this.editorMsg.trim()) return;
 
-    let newMsg: TextMessage = {
+    let newTmpMsg: TextMessage = {
       id: null,
-      _id: Date.now().toString(),
+      tmp_id: Date.now(),
       from: this.user.id,
       timestamp: Date.now(),
       text: this.editorMsg,
-      conversationId: this.conversation.id,
+      conversationId: null,
       status: 'pending'
     };
 
-    this.pushNewMsg(newMsg);
     this.editorMsg = '';
+    this.pushNewMsg(newTmpMsg);
     if (!this.showEmojiPicker) {
       this.messageInput.setFocus();
     }
 
-    this.im.sendTextMessage(this.conversation, this.editorMsg)
-      .then((lcMessage) => {
-        // let index = this.getMsgIndexById(id);
-        // if (index !== -1) {
-        //   this.msgList[index].status = 'success';
-        // }
-      })
-      .catch(()=>{
-        // let index = this.getMsgIndexById(id);
-        // if (index !== -1) {
-        //   this.msgList[index].status = 'fail';
-        // }
-      })
-
-
+    let lcMessage = await this.chatService.sendTextMsg(newTmpMsg.text)
+    this.msgList.forEach(async (msg) => {
+      if (msg.tmp_id === newTmpMsg.tmp_id) {
+        console.log('已发送：' + newTmpMsg.text)
+        msg.id = lcMessage.id;
+        msg.status = 'ready'
+        msg.conversationId = lcMessage.cid
+      }
+    })
 
   }
 
@@ -129,10 +121,6 @@ export class ChatPage {
   pushNewMsg(msg: Message) {
     this.msgList.push(msg);
     this.scrollToBottom();
-  }
-
-  getMsgIndexById(id: string) {
-    return this.msgList.findIndex(e => e.id === id)
   }
 
   scrollToBottom() {

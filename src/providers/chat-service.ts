@@ -5,12 +5,12 @@ import 'rxjs/add/operator/toPromise';
 import {IM} from "../utils/IM";
 
 export class Message {
-  id: string; // lc id
-  tmp_id: string; // 自定义缓存id
-  timestamp: Date;
+  id?: string; // lc id
+  tmp_id?: string; // 自定义缓存id
+  timestamp?: Date;
   from: string;
   status: string; // 是否发送成功
-  conversationId: string; // conversationId
+  conversationId?: string; // conversationId
 }
 export class TextMessage extends Message{
   text: string;

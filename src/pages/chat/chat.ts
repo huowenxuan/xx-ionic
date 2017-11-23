@@ -2,7 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavParams} from 'ionic-angular';
 import {Events, Content, TextInput} from 'ionic-angular';
 import {ChatService, TextMessage, Message, UserInfo} from "../../providers/chat-service";
-import {IM} from "../../utils/IM";
 
 @IonicPage()
 @Component({
@@ -88,11 +87,10 @@ export class ChatPage {
 
     let newTmpMsg: TextMessage = {
       id: null,
-      tmp_id: Date.now(),
+      tmp_id: new Date().toDateString(),
       from: this.user.id,
-      timestamp: Date.now(),
+      timestamp: new Date(),
       text: this.editorMsg,
-      conversationId: null,
       status: 'pending'
     };
 

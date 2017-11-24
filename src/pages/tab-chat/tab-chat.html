@@ -6,12 +6,16 @@
 
 <ion-content>
   <ion-list>
-    <ion-item navPush="ChatPage" [navParams]="toUser">
+    <ion-item
+      navPush="ChatPage"
+      [navParams]="toUser"
+      *ngFor="let conv of this.conversations"
+    >
       <ion-avatar item-left>
         <img src="assets/img/avatar.gif">
       </ion-avatar>
-      <h2>Hancock</h2>
-      <p>If at first you don’t succeed, call it version 1.0</p>
+      <h2>臭居居</h2>
+      <p>{{conv.lastMessage._lctext}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

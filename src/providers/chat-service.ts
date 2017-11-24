@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Events } from 'ionic-angular';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
+import {Events} from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
 import {IM} from "../utils/IM";
 
@@ -12,7 +12,8 @@ export class Message {
   status: string; // 是否发送成功
   conversationId?: string; // conversationId
 }
-export class TextMessage extends Message{
+
+export class TextMessage extends Message {
   text: string;
 }
 
@@ -25,46 +26,34 @@ export class UserInfo {
 @Injectable()
 export class ChatService {
   im: IM
-  _conversation
 
   constructor(public http: Http,
               public events: Events) {
     this.im = IM.shareIM()
 
-    this.getConversation()
-    this.receiveMsg()
+    this.getHistoryConversations(10)
   }
 
-  async getConversation(): Promise<any> {
-    if (!this._conversation) {
-      try {
-        this._conversation = await this.im.createSingleConversation('2')
-      } catch (e) {
-        setTimeout(()=>this.getConversation(), 1000)
-      }
-    }
-    return this._conversation
+  async getHistoryConversations(count) {
+    return await this.im.getHistoryConversations(count)
   }
 
-  async receiveMsg() {
-    this.im.receiveMsg(async (conversation, message)=>{
-      if ( conversation.id === (await this.getConversation()).id) {
-        this.events.publish('chat:received', message)
-      }
+  async createSingleConversation(toUserId): Promise<any> {
+    return await this.im.createSingleConversation(toUserId)
+  }
+
+  async receiveMsg(callback) {
+    this.im.receiveMsg(async (conversation, message) => {
+      callback && callback(conversation, message)
     })
   }
 
-  async sendTextMsg(text) {
-    let conversation = await this.getConversation()
+  async sendTextMsg(conversation, text) {
     return await this.im.sendTextMsg(conversation, text)
   }
 
-  getMsgList(): Promise<Message[]> {
-    return Promise.resolve([] as Message[]);
-    // return this.http.get(msgListUrl)
-    //   .toPromise()
-    //   .then(response => response.json().array as ChatMessage[])
-    //   .catch(err => Promise.reject(err || 'err'));
+  async getHistoryMsgs(conversation, count) {
+    return await this.im.getHistoryMsgs(conversation, 10)
   }
 
   getUserInfo(): Promise<UserInfo> {

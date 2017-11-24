@@ -33,27 +33,37 @@ export class ChatPage {
   }
 
   ionViewWillLeave() {
-    // unsubscribe
-    this.events.unsubscribe('chat:received');
   }
 
-  ionViewDidEnter() {
-    this.getMsg()
-      .then(() => {
-        this.scrollToBottom();
-      });
+  async ionViewDidEnter() {
+    let conversation = await this.getConversation()
+    this.msgList = await this.chatService.getHistoryMsgs(conversation, 10)
+    this.scrollToBottom();
 
-    this.events.subscribe('chat:received', msg => {
-      if (msg.from !== this.user.id) {
-        let newMsg = new TextMessage()
-        newMsg.id = msg.id;
-        newMsg.timestamp = new Date(msg.timestamp)
-        newMsg.from = msg.from
-        newMsg.text = msg._lctext
-        newMsg.status = 'ready'
-        this.pushNewMsg(newMsg);
+    this.chatService.receiveMsg(async (conversation, msg) => {
+      if ((await this.getConversation()).id === conversation.id) {
+        if (msg.from !== this.user.id) {
+          let newMsg = new TextMessage()
+          newMsg.id = msg.id;
+          newMsg.timestamp = new Date(msg.timestamp)
+          newMsg.from = msg.from
+          newMsg.text = msg._lctext
+          newMsg.status = 'ready'
+          this.pushNewMsg(newMsg);
+        }
       }
     })
+  }
+
+  async getConversation() {
+    if (!this._conversation) {
+      try {
+        this._conversation = await this.chatService.createSingleConversation('2')
+      } catch (e) {
+        setTimeout(() => this.getConversation(), 1000)
+      }
+    }
+    return this._conversation
   }
 
   onFocus() {
@@ -69,17 +79,6 @@ export class ChatPage {
     }
     this.content.resize();
     this.scrollToBottom();
-  }
-
-  getMsg() {
-    return this.chatService
-      .getMsgList()
-      .then(res => {
-        this.msgList = res;
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
 
   async sendMsg() {
@@ -100,7 +99,8 @@ export class ChatPage {
       this.messageInput.setFocus();
     }
 
-    let lcMessage = await this.chatService.sendTextMsg(newTmpMsg.text)
+    let conversation = await this.getConversation()
+    let lcMessage = await this.chatService.sendTextMsg(conversation, newTmpMsg.text)
     this.msgList.forEach(async (msg) => {
       if (msg.tmp_id === newTmpMsg.tmp_id) {
         console.log('已发送：' + newTmpMsg.text)

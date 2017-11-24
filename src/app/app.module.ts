@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 import {HttpModule} from "@angular/http";
-import { IonicStorageModule } from '@ionic/storage';
+import {IonicStorageModule} from '@ionic/storage';
 
 import {TabsPage} from '../pages/tabs/tabs';
 import {TabMoneyPage} from "../pages/tab-money/tab-money";
@@ -16,6 +16,7 @@ import {EmojiProvider} from "../providers/emoji";
 import {MoneyService} from '../providers/money-service/money-service';
 
 import {MoneyListRow} from "../components/money-list-row/money-list-row";
+import {ChatService} from "../providers/chat-service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     EmojiProvider,
-    MoneyService
+    MoneyService,
+    ChatService
   ]
 })
 export class AppModule {

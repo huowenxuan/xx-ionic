@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {AlertController} from 'ionic-angular';
+import {ChatService} from "../../providers/chat-service";
 
 @IonicPage()
 @Component({
@@ -10,15 +11,25 @@ import {AlertController} from 'ionic-angular';
 })
 export class TabChatPage {
   toUser: Object
+  conversations = []
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public storage: Storage,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public chatService: ChatService) {
     this.toUser = {
       toUserId: '2',
       toUserName: 'Hancock'
     }
+
+    this.getHistoryConversations()
+  }
+
+  async getHistoryConversations() {
+    this.conversations = await this.chatService.getHistoryConversations(10)
+    // id creator _updatedAt _lastMessageAt lastMessageAt lastMessage: Message members
+    console.log(this.conversations)
   }
 
   async ionViewDidLoad() {

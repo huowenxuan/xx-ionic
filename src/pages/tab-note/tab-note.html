@@ -1,0 +1,26 @@
+<!--
+  Generated template for the TabNotePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>笔记</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button (tap)="alertMsg()">
+    添加
+  </button>
+
+  <ion-list>
+    <ion-item *ngFor="let note of this.notes">
+      <ion-item navPush="ChatPage" [navParams]="">
+        <h2 item-left>臭居居</h2>
+        <p>{{note.content}}</p>
+      </ion-item>
+    </ion-item>
+  </ion-list>
+</ion-content>

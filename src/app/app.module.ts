@@ -8,6 +8,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {TabsPage} from '../pages/tabs/tabs';
 import {TabMoneyPage} from "../pages/tab-money/tab-money";
 import {TabChatPage} from "../pages/tab-chat/tab-chat";
+import {TabNotePage} from "../pages/tab-note/tab-note";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -24,6 +25,7 @@ import {ChatService} from "../providers/chat-service";
     TabsPage,
     TabMoneyPage,
     TabChatPage,
+    TabNotePage,
 
     // 组件必须声明
     MoneyListRow
@@ -42,7 +44,8 @@ import {ChatService} from "../providers/chat-service";
     MyApp,
     TabsPage,
     TabMoneyPage,
-    TabChatPage
+    TabChatPage,
+    TabNotePage
   ],
   providers: [
     StatusBar,

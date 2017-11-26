@@ -12,8 +12,8 @@ export class ChatPage {
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: TextInput;
   msgList: Message[] = [];
-  user: UserInfo;
-  toUser: UserInfo;
+  userId: string;
+  toUserId: string;
   editorMsg = '';
   showEmojiPicker = false;
   _conversation
@@ -21,15 +21,8 @@ export class ChatPage {
   constructor(public navParams: NavParams,
               public chatService: ChatService,
               public events: Events,) {
-    this.toUser = {
-      id: navParams.get('toUserId'),
-      name: navParams.get('toUserName')
-    };
-    this.chatService.getUserInfo()
-      .then((res) => {
-        this.user = res
-      });
-
+    this.toUserId = navParams.get('toUserId')
+    this.userId = this.navParams.get('userId')
   }
 
   ionViewWillLeave() {
@@ -42,7 +35,7 @@ export class ChatPage {
 
     this.chatService.receiveMsg(async (conversation, msg) => {
       if ((await this.getConversation()).id === conversation.id) {
-        if (msg.from !== this.user.id) {
+        if (msg.from !== this.userId) {
           let newMsg = new TextMessage()
           newMsg.id = msg.id;
           newMsg.timestamp = new Date(msg.timestamp)
@@ -58,7 +51,7 @@ export class ChatPage {
   async getConversation() {
     if (!this._conversation) {
       try {
-        this._conversation = await this.chatService.createSingleConversation('2')
+        this._conversation = await this.chatService.createSingleConversation(this.toUserId)
       } catch (e) {
         setTimeout(() => this.getConversation(), 1000)
       }
@@ -87,7 +80,7 @@ export class ChatPage {
     let newTmpMsg: TextMessage = {
       id: null,
       tmp_id: new Date().toDateString(),
-      from: this.user.id,
+      from: this.userId,
       timestamp: new Date(),
       text: this.editorMsg,
       status: 'pending'

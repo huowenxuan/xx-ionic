@@ -30,8 +30,10 @@ export class ChatService {
   constructor(public http: Http,
               public events: Events) {
     this.im = IM.shareIM()
+  }
 
-    this.getHistoryConversations(10)
+  async loginIM(userId) {
+    this.im.login(userId)
   }
 
   async getHistoryConversations(count) {
@@ -55,14 +57,4 @@ export class ChatService {
   async getHistoryMsgs(conversation, count) {
     return await this.im.getHistoryMsgs(conversation, 10)
   }
-
-  getUserInfo(): Promise<UserInfo> {
-    const userInfo: UserInfo = {
-      id: '1',
-      name: 'Luff',
-      avatar: 'assets/img/avatar.gif'
-    };
-    return new Promise(resolve => resolve(userInfo));
-  }
-
 }

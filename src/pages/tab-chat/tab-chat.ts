@@ -10,31 +10,18 @@ import {ChatService} from "../../providers/chat-service";
   templateUrl: 'tab-chat.html',
 })
 export class TabChatPage {
-  toUser: Object
   conversations = []
+  userId: string
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public storage: Storage,
               public alertCtrl: AlertController,
               public chatService: ChatService) {
-    this.toUser = {
-      toUserId: '2',
-      toUserName: 'Hancock'
-    }
-
-    this.getHistoryConversations()
-  }
-
-  async getHistoryConversations() {
-    this.conversations = await this.chatService.getHistoryConversations(10)
-    // id creator _updatedAt _lastMessageAt lastMessageAt lastMessage: Message members
-    console.log(this.conversations)
+    // this.logout()
   }
 
   async ionViewDidLoad() {
-    console.log('ionViewDidLoad TabChatPage');
-
     let userId = await this.storage.get("userId")
     if (userId) {
       this.login(userId)
@@ -57,8 +44,26 @@ export class TabChatPage {
     }).present()
   }
 
-  login(userId) {
+  async login(userId) {
+    this.userId = userId
+    this.chatService.loginIM(userId)
+    this.conversations = await this.chatService.getHistoryConversations(10)
+    // id creator _updatedAt _lastMessageAt lastMessageAt lastMessage: Message members
+  }
 
+  logout() {
+    this.storage.clear()
+  }
+
+  toChat(members) {
+    for(let member of members) {
+      if (member !== this.userId) {
+        return {
+          toUserId: member,
+          userId: this.userId
+        }
+      }
+    }
   }
 }
 

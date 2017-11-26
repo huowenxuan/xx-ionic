@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>{{toUser.name}}</ion-title>
+    <ion-title>{{'臭居居'}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,19 +14,19 @@
   <div class="message-wrap">
     <div *ngFor="let msg of msgList"
          class="message"
-         [class.left]=" msg.from !== user.id "
-         [class.right]=" msg.from === user.id "
+         [class.left]=" msg.from !== userId "
+         [class.right]=" msg.from === userId "
     >
       <img
         class="user-img"
-        [src]="msg.from === user.id ? user.avatar : toUser.avatar"
+        [src]="msg.from === userId ? 'assets/img/avatar.gif' : 'assets/img/avatar2.png'"
         alt=""
         src=""
       >
       <ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner>
       <div class="msg-detail">
         <div class="msg-info">
-          <p>{{msg.from === user.id ? user.name : toUser.name}}&nbsp;&nbsp;&nbsp;{{msg.timestamp | relativeTime}}</p>
+          <p>{{msg.from === userId ? '香居居' : '臭居居'}}&nbsp;&nbsp;&nbsp;{{msg.timestamp | relativeTime}}</p>
         </div>
         <div class="msg-content">
           <span class="triangle"></span>
@@ -34,9 +34,7 @@
         </div>
       </div>
     </div>
-
   </div>
-
 </ion-content>
 
 <ion-footer no-border [style.height]="showEmojiPicker ? '255px' : '55px'">

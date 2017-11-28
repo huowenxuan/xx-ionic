@@ -18,7 +18,7 @@
 
   <ion-list>
     <ion-item *ngFor="let note of this.notes">
-      <ion-item navPush="ChatPage" [navParams]="">
+      <ion-item navPush="NotePage" [navParams]="{note: note}">
         <h2 item-left>{{showTime(note.time)}}</h2>
         <p>{{note.text}}</p>
       </ion-item>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import LCStorage from "../../utils/LCStorage";
+import LCStorage, {Note} from "../../utils/LCStorage";
 import {Storage} from '@ionic/storage';
 
 @IonicPage()
@@ -11,11 +11,15 @@ import {Storage} from '@ionic/storage';
 export class NotePage {
   time = new Date()
   input = ''
+  note: Note
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage) {
+    let note = navParams.get('note')
+    if (note) {
+    }
   }
 
   ionViewDidLoad() {

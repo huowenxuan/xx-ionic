@@ -24,6 +24,10 @@ export default class LCStorage {
     });
   }
 
+  static updateNote(id, text) {
+
+  }
+
   static async getAllNote(userId) {
     let query = new AV.Query('Note');
     query.equalTo('userId', userId);

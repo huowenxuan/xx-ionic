@@ -1,15 +1,9 @@
 ﻿import {Realtime, TextMessage, IMClient} from 'leancloud-realtime'
-import AV from 'leancloud-storage'
 import {TypedMessagesPlugin, ImageMessage} from 'leancloud-realtime-plugin-typed-messages'
-
-const LCAppId = 'qSOnDMNzKdGGSipnT7OxO7Cb-gzGzoHsz'
-const LCAppKey = 'WakeTHDyS6A3QjCfGtQGor0g'
-const LCMasterKey = 'n4LgUleKqdD8RVrBl7dBsDvE'
+import {LCAppId} from "../const/config";
 
 let _instance: IM
 let _client
-
-// AV.init({appId: LCAppId, appKey: LCAppKey})
 
 export class IM {
   userId: String

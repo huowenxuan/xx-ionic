@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>note</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button (tap)="save()">
+    完成
+  </button>
+
+  <ion-item>
+    <ion-label floating>输入</ion-label>
+    <ion-textarea
+      [(ngModel)]="input"
+      rows="6"
+    >
+    </ion-textarea>
+  </ion-item>
+
+
+</ion-content>

@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Storage} from "@ionic/storage";
+import LCStorage from "../../utils/LCStorage";
+import * as moment from 'moment';
+import { Clipboard } from '@ionic-native/clipboard';
 
-/**
- * Generated class for the TabNotePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-tab-note',
   templateUrl: 'tab-note.html',
@@ -16,22 +12,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class TabNotePage {
   notes
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.notes = [
-      {
-        id: '',
-        userId: '1',
-        createAt: new Date(),
-        content: '哈哈哈哈'
-      }
-    ]
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public clipboard: Clipboard
+  ) {
+    this.notes = []
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TabNotePage');
+  async ionViewDidLoad() {
+    let userId = await this.storage.get("userId")
+    if (userId) {
+      this.notes = await LCStorage.getAllNote(userId)
+    } else {
+      console.log('未登录')
+    }
   }
 
-  alertMsg() {
-    alert('s')
+  showTime(createdAt) {
+    let m = moment(createdAt)
+    let year = m.month()
+    let month = m.month()
+    let day = m.date()
+    let hour = m.hour()
+    let minute = m.minute()
+    return `${hour}:${minute}`
   }
+
+  copy() {
+    this.clipboard.copy('sss')
+  }
+
 }

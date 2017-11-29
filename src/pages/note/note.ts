@@ -31,7 +31,7 @@ export class NotePage {
     let userId = await this.storage.get("userId")
     if (userId) {
       LCStorage.saveNote(userId, this.time, text)
-      // this.navCtrl.pop()
+      this.navCtrl.pop()
     } else {
       console.log('未登录')
     }

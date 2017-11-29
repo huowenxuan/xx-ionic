@@ -5,23 +5,56 @@
 </ion-header>
 
 <ion-content padding>
-  <button
-    ion-button
-    navPush="NotePage"
-  >
-    添加
-  </button>
-
-  <button ion-button (tap)="copy()">
-    复制
-  </button>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="四放刷新"
+      refreshingSpinner="circles"
+      refreshingText="刷新宗...">
+      >
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-list>
-    <ion-item *ngFor="let note of this.notes">
-      <ion-item navPush="NotePage" [navParams]="{note: note}">
-        <h2 item-left>{{showTime(note.time)}}</h2>
-        <p>{{note.text}}</p>
+    <ion-item-sliding *ngFor="let note of this.notes">
+
+      <ion-item>
+        <ion-card-content navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
+          <h4 item-left>{{showDate(note.attributes.time) + '&nbsp;&nbsp;' + showTime(note.attributes.time)}}</h4>
+          <p>{{note.attributes.text}}</p>
+        </ion-card-content>
       </ion-item>
-    </ion-item>
+
+      <ion-item-options cancelable="false">
+        <button ion-button color="danger" (click)="deleteNote(note)">
+          <ion-icon name="trash"></ion-icon>
+          三除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="家宰宗!">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab navPush="NotePage">
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <!--<ion-fab-list side="top">-->
+    <!--<button ion-fab>add</button>-->
+    <!--<button ion-fab>add</button>-->
+    <!--<button ion-fab>add</button>-->
+    <!--</ion-fab-list>-->
+  </ion-fab>
+
+  <!--<ion-fab bottom right>-->
+    <!--<button ion-fab (tap)="copy()">-->
+      <!--<ion-icon name="copy"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
 </ion-content>

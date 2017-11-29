@@ -28,20 +28,23 @@ export default class LCStorage {
 
   }
 
-  static async getAllNote(userId) {
+  static async getNotes(userId, skip=0, limit=10): Promise<any> {
     let query = new AV.Query('Note');
     query.equalTo('userId', userId);
+    query.addDescending('time');
+    query.skip(skip)
+    query.limit(limit)
 
     return new Promise((rej, res)=>{
       query.find().then(
         function (results) {
-          rej(results.map((item)=>item.attributes))
+          rej(results)
+          // rej(results.map((item)=>item.attributes))
         },
         function (error) {
           res(error)
         });
     })
-
   }
 
   static getANote(id) {
@@ -54,7 +57,15 @@ export default class LCStorage {
     );
   }
 
-  static deleteNote() {
+  static deleteNote(id) {
+    let note = AV.Object.createWithoutData('Note', id);
+    return new Promise((res, rej)=>{
+      note.destroy().then(function (success) {
+        res()
+      }, function (error) {
+        rej()
+      });
+    })
 
   }
 }

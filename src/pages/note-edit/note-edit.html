@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>新建</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()">
+        <ion-icon name="checkmark-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-textarea
+    placeholder="输入"
+    rows="25"
+    [(ngModel)]="input"
+  >
+  </ion-textarea>
+
+</ion-content>
+
+<ion-footer>
+  <ion-buttons>
+    <button ion-button (click)="command('#')">#</button>
+    <button ion-button (click)="command('`')">`</button>
+    <button ion-button (click)="command('*')">*</button>
+    <button ion-button (click)="command('[]()')">link</button>
+    <button ion-button (click)="command('>')">></button>
+    <button ion-button (click)="command('-')">-</button>
+  </ion-buttons>
+</ion-footer>

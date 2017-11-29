@@ -86,3 +86,9 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+}

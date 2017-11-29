@@ -1,18 +1,18 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="tint" [class.idark_content]="isIdark">
     <ion-title>笔记</ion-title>
+
+    <ion-buttons end >
+      <button ion-button icon-only navPush="NoteSearchPage">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-refresher (ionRefresh)="refresh($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="四放刷新"
-      refreshingSpinner="circles"
-      refreshingText="刷新宗...">
-      >
-    </ion-refresher-content>
+    <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-list>
@@ -26,23 +26,22 @@
       </ion-item>
 
       <ion-item-options cancelable="false">
+        <button ion-button color="primary" navPush="NoteEditPage">
+          <ion-icon name="create"></ion-icon>Edit
+        </button>
         <button ion-button color="danger" (click)="deleteNote(note)">
-          <ion-icon name="trash"></ion-icon>
-          三除
+          <ion-icon name="trash"></ion-icon>Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
 
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="家宰宗!">
-      </ion-infinite-scroll-content>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab navPush="NotePage">
+    <button ion-fab navPush="NoteEditPage">
       <ion-icon name="add"></ion-icon>
     </button>
     <!--<ion-fab-list side="top">-->

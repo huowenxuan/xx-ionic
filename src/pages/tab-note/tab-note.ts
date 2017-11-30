@@ -134,7 +134,7 @@ export class TabNotePage {
   toEdit(note) {
     this.navCtrl.push(NoteEditPage, {
       note,
-      onSuccess: ()=>this.reload(true)
+      onSuccess: ()=>this.reload()
     })
   }
 }

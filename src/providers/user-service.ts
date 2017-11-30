@@ -21,7 +21,8 @@ export class UserService {
   /**
    * 从本地读取userId，只需要打开app后执行一次，将userId保存到变量中
    */
-  public async storageGet() {
+  public async storageGet(): Promise<string> {
+    // 如果没有该字段，会返回null，不会报错
     this.userId = await this.storage.get("userId")
     if(this.userId) {
       this.loginSuccess()

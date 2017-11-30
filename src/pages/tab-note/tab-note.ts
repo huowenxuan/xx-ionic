@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import LCStorage from "../../utils/LCStorage";
 import * as moment from 'moment';
 import {Clipboard} from '@ionic-native/clipboard';
@@ -20,16 +20,25 @@ export class TabNotePage {
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
               public userService: UserService,
+              public loadingCtrl: LoadingController,
               public clipboard: Clipboard) {
   }
 
   async ionViewDidLoad() {
-    this.reload()
+    if (this.userService.userId) {
+      this.reload(true)
+    }
   }
 
-  async reload() {
+  async reload(loading?) {
     this.skip = 0
+
+    let loader = this.loadingCtrl.create({content: "Please wait...",})
+    if (loading) {
+      loader.present()
+    }
     this.notes = await LCStorage.getNotes(this.userService.userId, 0, this.limit)
+    loader.dismiss()
   }
 
   async refresh(refresher) {
@@ -125,7 +134,7 @@ export class TabNotePage {
   toEdit(note) {
     this.navCtrl.push(NoteEditPage, {
       note,
-      onSuccess: ()=>this.reload()
+      onSuccess: ()=>this.reload(true)
     })
   }
 }

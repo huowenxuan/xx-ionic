@@ -1,39 +1,50 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { TabMoneyPage } from "../tab-money/tab-money";
-import { TabChatPage } from "../tab-chat/tab-chat";
+import {TabMoneyPage} from "../tab-money/tab-money";
+import {TabChatPage} from "../tab-chat/tab-chat";
 import {TabNotePage} from "../tab-note/tab-note";
 import {UserService} from "../../providers/user-service";
 import {LoadingController, NavController} from "ionic-angular";
 import {LoginPage} from "../login/login";
 
+// ion-tabs外面不能套ion-content，会滚动
+// 也不能用ngIf控制它的显示，会导致切换的一瞬间因为没有渲染出来而变黑
+// 只能用代码控制
+let _userId = ''
+
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  private ready = false
 
   chat = TabChatPage;
   money = TabMoneyPage;
   note = TabNotePage
 
-  constructor(
-    public navCtrl: NavController,
-    public loadingCtrl: LoadingController,
-    public userService: UserService) {
+  constructor(public navCtrl: NavController,
+              public userService: UserService) {
     // this.userService.logout()
+    this.getLogin()
   }
 
   async ionViewDidLoad() {
-    let loader = this.loadingCtrl.create({content: "Please wait...",})
-    loader.present()
+  }
 
-    if (!await this.userService.storageGet()) {
+  async getLogin() {
+    let userId = await this.userService.storageGet()
+    if (!userId) {
       this.navCtrl.push(LoginPage)
-    } else {
-      this.ready = true
     }
 
-    loader.dismiss()
+    // 避免setRoot后再进来会重复执行，并且兼容退出后再登录
+    if (userId !== _userId) {
+      _userId = userId
+
+      if (userId) {
+        console.log('走了')
+        this.navCtrl.setRoot(TabsPage)
+      }
+    }
   }
+
 }

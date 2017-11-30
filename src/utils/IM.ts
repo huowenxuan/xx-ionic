@@ -1,6 +1,6 @@
 ﻿import {Realtime, TextMessage, IMClient} from 'leancloud-realtime'
 import {TypedMessagesPlugin, ImageMessage} from 'leancloud-realtime-plugin-typed-messages'
-import {LCAppId} from "../const/config";
+import {LCAppId} from "../app.config";
 
 let _instance: IM
 let _client

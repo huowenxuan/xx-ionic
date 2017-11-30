@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {Storage} from "@ionic/storage";
 import LCStorage from "../../utils/LCStorage";
 import * as moment from 'moment';
 import {Clipboard} from '@ionic-native/clipboard';
+import {UserService} from "../../providers/user-service";
+import {NoteEditPage} from "../note-edit/note-edit";
 
 @Component({
   selector: 'page-tab-note',
@@ -11,30 +12,24 @@ import {Clipboard} from '@ionic-native/clipboard';
 })
 export class TabNotePage {
   notes = []
-  userId
   skip = 0
   limit = 10
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public storage: Storage,
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
+              public userService: UserService,
               public clipboard: Clipboard) {
   }
 
   async ionViewDidLoad() {
-    this.userId = await this.storage.get("userId")
-    if (this.userId) {
-      this.reload()
-    } else {
-      console.log('未登录')
-    }
+    this.reload()
   }
 
   async reload() {
     this.skip = 0
-    this.notes = await LCStorage.getNotes(this.userId, 0, this.limit)
+    this.notes = await LCStorage.getNotes(this.userService.userId, 0, this.limit)
   }
 
   async refresh(refresher) {
@@ -44,7 +39,7 @@ export class TabNotePage {
 
   async loadMore(infiniteScroll) {
     this.skip += this.limit
-    let notes = await LCStorage.getNotes(this.userId, this.skip, this.limit)
+    let notes = await LCStorage.getNotes(this.userService.userId, this.skip, this.limit)
     if (notes) {
       this.notes.push(...notes)
     }
@@ -125,5 +120,12 @@ export class TabNotePage {
       ]
     });
     alert.present();
+  }
+
+  toEdit(note) {
+    this.navCtrl.push(NoteEditPage, {
+      note,
+      onSuccess: ()=>this.reload()
+    })
   }
 }

@@ -1,5 +1,5 @@
 import AV from 'leancloud-storage'
-import {LCAppKey, LCAppId} from "../const/config";
+import {LCAppKey, LCAppId} from "../app.config";
 
 AV.init({appId: LCAppId, appKey: LCAppKey})
 
@@ -10,18 +10,21 @@ AV.Object.register(Note);
 
 export default class LCStorage {
 
-  static saveNote(userId, time, text) {
+  static async createNote(userId, time, text) {
     // 新建一个 Note 对象
     let note = new Note();
     note.set('userId', userId);
     note.set('time', time); // 创建的时间，createdAt被LC占用了
     note.set('text', text);
-    note.save().then(function (note) {
-      console.log('保存note成功: ' + note.id);
-    }, function (error) {
-      // 异常处理
-      console.error('保存note失败: ' + error.message);
-    });
+    return new Promise((res, rej)=>{
+      note.save().then(function (note) {
+        res(note.id)
+      }, function (error) {
+        // 异常处理
+        console.error('保存note失败: ' + error.message);
+        rej(error)
+      });
+    })
   }
 
   static updateNote(id, text) {

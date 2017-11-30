@@ -10,16 +10,19 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { Clipboard } from '@ionic-native/clipboard';
 
-// tab container
+// container
 import {TabsPage} from '../pages/tabs/tabs';
 import {TabMoneyPage} from "../pages/tab-money/tab-money";
 import {TabChatPage} from "../pages/tab-chat/tab-chat";
 import {TabNotePage} from "../pages/tab-note/tab-note";
+import {LoginPage} from "../pages/login/login";
+import {NoteEditPage} from "../pages/note-edit/note-edit";
 
 // service/provider
 import {EmojiProvider} from "../providers/emoji";
-import {MoneyService} from '../providers/money-service/money-service';
+import {MoneyService} from '../providers/money-service';
 import {ChatService} from "../providers/chat-service";
+import {UserService} from "../providers/user-service";
 
 // components
 import {MoneyListRow} from "../components/money-list-row/money-list-row";
@@ -31,6 +34,9 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     TabMoneyPage,
     TabChatPage,
     TabNotePage,
+    // 除了tab外的其他container也必须声明，否则无法通过类push，只能通过类名的字符串push
+    LoginPage,
+    NoteEditPage,
 
     // 组件必须声明
     MoneyListRow
@@ -50,7 +56,9 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     TabsPage,
     TabMoneyPage,
     TabChatPage,
-    TabNotePage
+    TabNotePage,
+    LoginPage,
+    NoteEditPage
   ],
   providers: [
     StatusBar,
@@ -60,7 +68,8 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     EmojiProvider,
     MoneyService,
-    ChatService
+    ChatService,
+    UserService
   ]
 })
 export class AppModule {

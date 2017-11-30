@@ -26,7 +26,7 @@
       </ion-item>
 
       <ion-item-options cancelable="false">
-        <button ion-button color="primary" navPush="NoteEditPage">
+        <button ion-button color="primary" (click)="toEdit(note)">
           <ion-icon name="create"></ion-icon>Edit
         </button>
         <button ion-button color="danger" (click)="deleteNote(note)">
@@ -41,7 +41,7 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab navPush="NoteEditPage">
+    <button ion-fab (click)="toEdit()">
       <ion-icon name="add"></ion-icon>
     </button>
     <!--<ion-fab-list side="top">-->

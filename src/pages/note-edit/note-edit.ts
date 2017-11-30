@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastCmp, ToastController} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams, ToastCmp, ToastController} from 'ionic-angular';
 import LCStorage, {Note} from "../../utils/LCStorage";
-import {Storage} from '@ionic/storage';
+import {UserService} from "../../providers/user-service";
 
 @IonicPage()
 @Component({
@@ -16,31 +16,46 @@ export class NoteEditPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public toastCtrl: ToastController,
-    public storage: Storage) {
+    public loadingCtrl: LoadingController,
+    public userService: UserService,
+    public toastCtrl: ToastController) {
     let note = navParams.get('note')
     if (note) {
     }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NotePage');
   }
 
   async save() {
     let text = this.input
-    let userId = await this.storage.get("userId")
-    if (!userId) {
-      console.log('未登录')
-      return
-    }
-
     if (!text) {
       return
     }
 
-    LCStorage.saveNote(userId, this.time, text)
-    this.navCtrl.pop()
+    let onSuccess = this.navParams.get('onSuccess')
+    let loader = this.loadingCtrl.create({content: "Please wait...",})
+    loader.present()
+
+    LCStorage.createNote(this.userService.userId, this.time, text)
+      .then((noteId)=>{
+        loader.dismiss()
+        onSuccess && onSuccess(noteId)
+        this.toastCtrl.create({
+          message: '保存成功',
+          duration: 2000,
+          position: 'bottom'
+        }).present()
+        this.navCtrl.pop()
+      })
+      .catch(()=>{
+        loader.dismiss()
+        this.toastCtrl.create({
+          message: '保存失败',
+          duration: 2000,
+          position: 'bottom'
+        }).present()
+      })
   }
 
   command(cmd) {

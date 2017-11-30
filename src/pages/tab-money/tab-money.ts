@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {MoneyService} from "../../providers/money-service/money-service";
+import {MoneyService} from "../../providers/money-service";
 
 @IonicPage()
 @Component({

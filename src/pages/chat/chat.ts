@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavParams} from 'ionic-angular';
 import {Events, Content, TextInput} from 'ionic-angular';
 import {ChatService, TextMessage, Message, UserInfo} from "../../providers/chat-service";
+import {UserService} from "../../providers/user-service";
 
 @IonicPage()
 @Component({
@@ -12,7 +13,6 @@ export class ChatPage {
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: TextInput;
   msgList: Message[] = [];
-  userId: string;
   toUserId: string;
   editorMsg = '';
   showEmojiPicker = false;
@@ -20,9 +20,9 @@ export class ChatPage {
 
   constructor(public navParams: NavParams,
               public chatService: ChatService,
-              public events: Events,) {
+              public userService: UserService,
+              public events: Events) {
     this.toUserId = navParams.get('toUserId')
-    this.userId = this.navParams.get('userId')
   }
 
   ionViewWillLeave() {
@@ -35,7 +35,7 @@ export class ChatPage {
 
     this.chatService.receiveMsg(async (conversation, msg) => {
       if ((await this.getConversation()).id === conversation.id) {
-        if (msg.from !== this.userId) {
+        if (msg.from !== this.userService.userId) {
           let newMsg = new TextMessage()
           newMsg.id = msg.id;
           newMsg.timestamp = new Date(msg.timestamp)
@@ -80,7 +80,7 @@ export class ChatPage {
     let newTmpMsg: TextMessage = {
       id: null,
       tmp_id: new Date().toDateString(),
-      from: this.userId,
+      from: this.userService.userId,
       timestamp: new Date(),
       text: this.editorMsg,
       status: 'pending'

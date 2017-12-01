@@ -46,6 +46,7 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     HttpModule,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages: true,
+      backButtonText: '返回',
       tabsLayout: 'ion-left',
     }),
     IonicStorageModule.forRoot()

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import * as showdown from 'showdown'
+import {Clipboard} from "@ionic-native/clipboard";
 
 /**
  * Generated class for the MarkdownPage page.
@@ -9,21 +10,44 @@ import * as showdown from 'showdown'
  * Ionic pages and navigation.
  */
 
+enum ChangeStatus {
+  Converted,
+  Origin
+}
 @IonicPage()
 @Component({
   selector: 'page-markdown',
   templateUrl: 'markdown.html',
 })
 export class MarkdownPage {
-  html = ''
+  convertedHtml: string // 转换后的英文
+  originText: string // 转换前的文字
+  isConverted: boolean // 是否转换
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    let markdown = navParams.get('markdown')
+  constructor(public navCtrl: NavController,
+              public clipboard: Clipboard,
+              public navParams: NavParams) {
+    this.originText = navParams.get('markdown')
     let converter = new showdown.Converter()
-    this.html = converter.makeHtml(markdown);
+    this.convertedHtml = converter.makeHtml(this.originText);
+    this.isConverted = true
+
+    // 输出供web端复制
+    console.log(this.originText)
   }
 
   ionViewDidLoad() {
   }
 
+  copy() {
+    if (this.isConverted === true) {
+      this.clipboard.copy(this.convertedHtml)
+    } else {
+      this.clipboard.copy(this.originText)
+    }
+  }
+
+  change() {
+    this.isConverted = !this.isConverted
+  }
 }

@@ -41,7 +41,6 @@ export class TabsPage {
       _userId = userId
 
       if (userId) {
-        console.log('走了')
         this.navCtrl.setRoot(TabsPage)
       }
     }

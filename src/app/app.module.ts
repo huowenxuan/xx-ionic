@@ -1,4 +1,4 @@
-import {NgModule, ErrorHandler} from '@angular/core';
+import {NgModule, ErrorHandler, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
@@ -8,7 +8,8 @@ import {IonicStorageModule} from '@ionic/storage';
 // common third-party
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import { Clipboard } from '@ionic-native/clipboard';
+import {Clipboard} from '@ionic-native/clipboard';
+import {CalendarModule} from "ion2-calendar";
 
 // container
 import {TabsPage} from '../pages/tabs/tabs';
@@ -17,6 +18,7 @@ import {TabChatPage} from "../pages/tab-chat/tab-chat";
 import {TabNotePage} from "../pages/tab-note/tab-note";
 import {LoginPage} from "../pages/login/login";
 import {NoteEditPage} from "../pages/note-edit/note-edit";
+import {MarkdownPageModule} from "../pages/markdown/markdown.module";
 
 // service/provider
 import {EmojiProvider} from "../providers/emoji";
@@ -24,8 +26,8 @@ import {MoneyService} from '../providers/money-service';
 import {ChatService} from "../providers/chat-service";
 import {UserService} from "../providers/user-service";
 
-// components
-import {MoneyListRow} from "../components/money-list-row/money-list-row";
+// component
+import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
 
 @NgModule({
   declarations: [
@@ -34,12 +36,9 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     TabMoneyPage,
     TabChatPage,
     TabNotePage,
-    // 除了tab外的其他container也必须声明，否则无法通过类push，只能通过类名的字符串push
+
     LoginPage,
     NoteEditPage,
-
-    // 组件必须声明
-    MoneyListRow
   ],
   imports: [
     BrowserModule,
@@ -49,7 +48,14 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
       backButtonText: '返回',
       tabsLayout: 'ion-left',
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+
+    // container
+    MarkdownPageModule,
+
+    // 组件声明
+    CalendarModule,
+    MoneyListRowModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,9 +65,10 @@ import {MoneyListRow} from "../components/money-list-row/money-list-row";
     TabChatPage,
     TabNotePage,
     LoginPage,
-    NoteEditPage
+    NoteEditPage,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: "zh-CN" },
     StatusBar,
     SplashScreen,
     Clipboard,

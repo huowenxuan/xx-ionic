@@ -2,7 +2,7 @@
   <ion-navbar color="tint" [class.idark_content]="isIdark">
     <ion-title>笔记</ion-title>
 
-    <ion-buttons end >
+    <ion-buttons end>
       <button ion-button icon-only navPush="NoteSearchPage">
         <ion-icon name="search"></ion-icon>
       </button>
@@ -27,10 +27,12 @@
 
       <ion-item-options cancelable="false">
         <button ion-button color="primary" (click)="toEdit(note)">
-          <ion-icon name="create"></ion-icon>Edit
+          <ion-icon name="create"></ion-icon>
+          Edit
         </button>
         <button ion-button color="danger" (click)="deleteNote(note)">
-          <ion-icon name="trash"></ion-icon>Delete
+          <ion-icon name="trash"></ion-icon>
+          Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -41,19 +43,21 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab (click)="toEdit()">
+    <button ion-fab>
       <ion-icon name="add"></ion-icon>
     </button>
-    <!--<ion-fab-list side="top">-->
-    <!--<button ion-fab>add</button>-->
-    <!--<button ion-fab>add</button>-->
-    <!--<button ion-fab>add</button>-->
-    <!--</ion-fab-list>-->
+
+    <ion-fab-list side="top">
+      <button ion-fab (click)="toEdit()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab-list>
+
+    <ion-fab-list side="left">
+      <button ion-fab (click)="toDaysMarkdown()">
+        <ion-icon name="copy"></ion-icon>
+      </button>
+    </ion-fab-list>
   </ion-fab>
 
-  <!--<ion-fab bottom right>-->
-    <!--<button ion-fab (tap)="copy()">-->
-      <!--<ion-icon name="copy"></ion-icon>-->
-    <!--</button>-->
-  <!--</ion-fab>-->
 </ion-content>

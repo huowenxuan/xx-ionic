@@ -8,11 +8,21 @@
 
   <ion-navbar>
     <ion-title>markdown</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="change()">
+        <ion-icon name="repeat"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="copy()">
+        <ion-icon name="copy"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <p [innerHTML]="html"></p>
+  <p [innerHTML]="convertedHtml" *ngIf="isConverted"></p>
+  <p *ngIf="!isConverted">{{originText}}</p>
 </ion-content>

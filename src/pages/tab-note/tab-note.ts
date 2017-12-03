@@ -102,7 +102,7 @@ export class TabNotePage {
     if (!this.isThisYear(date)) {
       time = `${year}/${time}`
     }
-    return time
+    return time + '  '
   }
 
   deleteNote(note) {

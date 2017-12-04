@@ -90,7 +90,7 @@ export class TabNotePage {
     if (this.isSameDay(date, Date.now())) {
       return ''
     }
-    let weekCns = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+    let weekCns = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
     let m = moment(date)
     let year = m.year()
@@ -98,7 +98,7 @@ export class TabNotePage {
     let day = m.date()
     let weekday = m.weekday()
 
-    let time = `${month}/${day} ${weekCns[weekday - 1]}`
+    let time = `${month}/${day} ${weekCns[weekday]}`
     if (!this.isThisYear(date)) {
       time = `${year}/${time}`
     }
@@ -163,7 +163,8 @@ export class TabNotePage {
       position: 'bottom'
     }).present()
     myCalendar.onDidDismiss(date => {
-      console.log(date)
+      if (!date) return
+      // console.log(date)
       let from = date.from.dateObj
       let to = date.to.dateObj
       LCStorage.getNotesRange(this.userService.userId, from, to)
@@ -175,16 +176,35 @@ export class TabNotePage {
 
   createDaysMarkdown(notes) {
     let markdown = ''
-    let lastShowDate
+    let lastShowDate = null
+
+    let sortedNotes =[]
+    let todayNotes = []
     notes.forEach(({attributes: note}: any, index)=>{
       note.time = new Date(note.time)
       if (!this.isSameDay(note.time, lastShowDate)) {
         lastShowDate = note.time
-        markdown += `## ${note.time.getMonth()+1}.${note.time.getDate()} \n`
+        todayNotes.reverse()
+        sortedNotes.push(...todayNotes)
+        todayNotes = [note]
+      } else {
+        todayNotes.push(note)
+      }
+    })
+    todayNotes.reverse()
+    sortedNotes.push(...todayNotes)
+
+    lastShowDate = null
+    sortedNotes.forEach((note: any, index)=>{
+      note.time = new Date(note.time)
+      if (!this.isSameDay(note.time, lastShowDate)) {
+        markdown += '------\n\n'
+        lastShowDate = note.time
+        markdown += `## ${note.time.getMonth()+1}.${note.time.getDate()} \n\n`
       }
 
       markdown += `### -${note.time.getHours()}.${note.time.getMinutes()} \n`
-      markdown += note.text + '\n ----- \n'
+      markdown += note.text + '\n\n'
     })
 
     this.navCtrl.push(MarkdownPage, {markdown: markdown})

@@ -10,10 +10,6 @@ import {Clipboard} from "@ionic-native/clipboard";
  * Ionic pages and navigation.
  */
 
-enum ChangeStatus {
-  Converted,
-  Origin
-}
 @IonicPage()
 @Component({
   selector: 'page-markdown',
@@ -40,14 +36,15 @@ export class MarkdownPage {
   }
 
   copy() {
-    if (this.isConverted === true) {
-      this.clipboard.copy(this.convertedHtml)
-    } else {
-      this.clipboard.copy(this.originText)
-    }
+    this.clipboard.copy(this.originText)
   }
 
   change() {
     this.isConverted = !this.isConverted
+  }
+
+  // 转化换行符，让html显示换行
+  getOriginTextHtml() {
+    return this.originText.replace(/(\r\n)|(\n)/g,'<br>');
   }
 }

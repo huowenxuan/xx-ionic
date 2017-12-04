@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams, ToastCmp, ToastController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import LCStorage, {Note} from "../../utils/LCStorage";
 import {UserService} from "../../providers/user-service";
+import {ControllersService} from "../../providers/controllers-service";
 
 @IonicPage()
 @Component({
@@ -9,53 +10,61 @@ import {UserService} from "../../providers/user-service";
   templateUrl: 'note-edit.html',
 })
 export class NoteEditPage {
+  title = '新建'
   time = new Date()
   input = ''
-  note: Note
+  oldNote: Note
+  timePicker
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public loadingCtrl: LoadingController,
-    public userService: UserService,
-    public toastCtrl: ToastController) {
-    let note = navParams.get('note')
-    if (note) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public userService: UserService,
+              public ctrls: ControllersService) {
+    this.oldNote = this.navParams.get('note')
+    if (this.oldNote) {
+      this.title = '编辑'
+      this.input = this.oldNote.attributes.text
+      this.time = this.oldNote.attributes.time
     }
+
+    this.timePicker = this.dateToISO(this.time)
   }
 
   ionViewDidLoad() {
+
+  }
+
+  isoToDate(isoString: string): Date {
+    return new Date(new Date(isoString).getTime() - 8*3600*1000)
+  }
+
+  dateToISO(date: Date): string {
+    return new Date(date.getTime() + 8*3600*1000).toISOString()
   }
 
   async save() {
-    let text = this.input
-    if (!text) {
-      return
-    }
+    this.time = this.isoToDate(this.timePicker)
+    if (!this.input) return
 
     let onSuccess = this.navParams.get('onSuccess')
-    let loader = this.loadingCtrl.create({content: "Please wait...",})
+    let loader = this.ctrls.loading()
     loader.present()
 
-    LCStorage.createNote(this.userService.userId, this.time, text)
-      .then((noteId)=>{
-        loader.dismiss()
-        onSuccess && onSuccess(noteId)
-        this.toastCtrl.create({
-          message: '保存成功',
-          duration: 2000,
-          position: 'bottom'
-        }).present()
-        this.navCtrl.pop()
-      })
-      .catch(()=>{
-        loader.dismiss()
-        this.toastCtrl.create({
-          message: '保存失败',
-          duration: 2000,
-          position: 'bottom'
-        }).present()
-      })
+    try {
+      let noteId
+      if (this.oldNote) {
+        noteId = await LCStorage.updateNote(this.oldNote.id, this.input, this.time)
+      } else {
+        noteId = await LCStorage.createNote(this.userService.userId, this.time, this.input)
+      }
+      loader.dismiss()
+      onSuccess && onSuccess(noteId)
+      this.ctrls.toast('保存成功').present()
+      this.navCtrl.pop()
+    } catch (e) {
+      loader.dismiss()
+      this.ctrls.toast('保存失败').present()
+    }
   }
 
   command(cmd) {

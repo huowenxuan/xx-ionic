@@ -1,8 +1,6 @@
 # 嘿嘿嘿嘿
 
 ## Next
-* 编辑note
-* 创建、编辑note支持修改日期，使用ion-datetime
 * iOS状态栏白色
 
 ## 已知bug

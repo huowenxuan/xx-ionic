@@ -25,6 +25,7 @@ import {EmojiProvider} from "../providers/emoji";
 import {MoneyService} from '../providers/money-service';
 import {ChatService} from "../providers/chat-service";
 import {UserService} from "../providers/user-service";
+import {ControllersService} from "../providers/controllers-service";
 
 // component
 import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
@@ -74,10 +75,11 @@ import {MoneyListRowModule} from "../components/money-list-row/money-list-row.mo
     Clipboard,
 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ControllersService,
     EmojiProvider,
     MoneyService,
     ChatService,
-    UserService
+    UserService,
   ]
 })
 export class AppModule {

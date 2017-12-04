@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>新建</ion-title>
+    <ion-title>{{title}}</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="save()">
@@ -12,13 +12,17 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>选择时间</ion-label>
+    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="timePicker"></ion-datetime>
+  </ion-item>
+
   <ion-textarea
     placeholder="输入"
     rows="25"
     [(ngModel)]="input"
   >
   </ion-textarea>
-
 </ion-content>
 
 <ion-footer>

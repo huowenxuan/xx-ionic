@@ -16,19 +16,22 @@ export default class LCStorage {
     note.set('userId', userId);
     note.set('time', time); // 创建的时间，createdAt被LC占用了
     note.set('text', text);
-    return new Promise((res, rej) => {
-      note.save().then(function (note) {
-        res(note.id)
-      }, function (error) {
-        // 异常处理
-        console.error('保存note失败: ' + error.message);
-        rej(error)
-      });
+    return new Promise((resolve, reject) => {
+      note.save().then(
+        (res) => resolve(res.id),
+        (error) => reject(error))
     })
   }
 
-  static updateNote(id, text) {
-
+  static updateNote(id, text, time) {
+    let note = AV.Object.createWithoutData('Note', id)
+    note.set('text', text)
+    time &&  note.set('time', time)
+    return new Promise((resolve, reject) => {
+      note.save().then(
+        (res) => resolve(res.id),
+        (error) => reject(error))
+    })
   }
 
   static async getNotes(userId, skip = 0, limit = 10): Promise<any> {
@@ -38,10 +41,10 @@ export default class LCStorage {
     query.skip(skip)
     query.limit(limit)
 
-    return new Promise((rej, res) => {
+    return new Promise((resolve, reject) => {
       query.find().then(
-        (results) => rej(results),
-        (error) => res(error))
+        (results) => resolve(results),
+        (error) => reject(error))
     })
   }
 
@@ -59,30 +62,28 @@ export default class LCStorage {
     query.greaterThanOrEqualTo('time', from)
     query.lessThanOrEqualTo('time', to)
 
-    return new Promise((rej, res) => {
+    return new Promise((resolve, reject) => {
       query.find().then(
-        (results) => rej(results),
-        (error) => res(error))
+        (results) => resolve(results),
+        (error) => reject(error))
     })
   }
 
   static getANote(id) {
     let query = new AV.Query('Note');
-    return new Promise((rej, res) => {
+    return new Promise((resolve, reject) => {
       query.get(id).then(
-        (results) => rej(results),
-        (error) => res(error))
+        (results) => resolve(results),
+        (error) => reject(error))
     })
   }
 
   static deleteNote(id) {
     let note = AV.Object.createWithoutData('Note', id);
-    return new Promise((res, rej) => {
-      note.destroy().then(function (success) {
-        res()
-      }, function (error) {
-        rej()
-      });
+    return new Promise((resolve, reject) => {
+      note.destroy().then(
+        (res) => resolve(),
+        (error) => reject(error))
     })
 
   }

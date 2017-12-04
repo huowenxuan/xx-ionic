@@ -2,11 +2,9 @@ import {Component} from '@angular/core';
 import {
   AlertController,
   IonicPage,
-  LoadingController,
   ModalController,
   NavController,
   NavParams,
-  ToastController
 } from 'ionic-angular';
 import LCStorage from "../../utils/LCStorage";
 import * as moment from 'moment';
@@ -16,6 +14,7 @@ import {NoteEditPage} from "../note-edit/note-edit";
 import {CalendarModal, CalendarModalOptions, DayConfig} from "ion2-calendar";
 import {MarkdownPage} from "../markdown/markdown";
 import {timestamp} from "rxjs/operator/timestamp";
+import {ControllersService} from "../../providers/controllers-service";
 
 @Component({
   selector: 'page-tab-note',
@@ -30,9 +29,8 @@ export class TabNotePage {
               public modalCtrl: ModalController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
-              public toastCtrl: ToastController,
-              public userService: UserService,
-              public loadingCtrl: LoadingController) {
+              public ctrls: ControllersService,
+              public userService: UserService,) {
   }
 
   async ionViewDidLoad() {
@@ -44,7 +42,7 @@ export class TabNotePage {
   async reload(loading?) {
     this.skip = 0
 
-    let loader = this.loadingCtrl.create({content: "Please wait...",})
+    let loader = this.ctrls.loading()
     if (loading) {
       loader.present()
     }
@@ -106,25 +104,20 @@ export class TabNotePage {
   }
 
   deleteNote(note) {
+    let doDelete = () => {
+       LCStorage.deleteNote(note.id)
+        .then(() => {
+          this.ctrls.toast('删除成功').present()
+          this.reload()
+        })
+    }
+
     let alert = this.alertCtrl.create({
       title: '确定删除？',
       message: '',
       buttons: [
         {text: '取消', role: 'cancel'},
-        {
-          text: '删除', handler: () => {
-          LCStorage.deleteNote(note.id)
-            .then(() => {
-              this.toastCtrl.create({
-                message: '删除成功',
-                duration: 2000,
-                position: 'bottom'
-              }).present()
-
-              this.reload()
-            })
-        }
-        }
+        {text: '删除', handler: () => doDelete()}
       ]
     });
     alert.present();
@@ -157,18 +150,13 @@ export class TabNotePage {
     });
 
     myCalendar.present();
-    this.toastCtrl.create({
-      message: '如果只选择一天，点击两下即可',
-      duration: 2000,
-      position: 'bottom'
-    }).present()
+    this.ctrls.toast('如果只选择一天，点击两下即可').present()
     myCalendar.onDidDismiss(date => {
       if (!date) return
-      // console.log(date)
       let from = date.from.dateObj
       let to = date.to.dateObj
       LCStorage.getNotesRange(this.userService.userId, from, to)
-        .then((notes)=>{
+        .then((notes) => {
           this.createDaysMarkdown(notes)
         })
     })
@@ -178,9 +166,9 @@ export class TabNotePage {
     let markdown = ''
     let lastShowDate = null
 
-    let sortedNotes =[]
+    let sortedNotes = []
     let todayNotes = []
-    notes.forEach(({attributes: note}: any, index)=>{
+    notes.forEach(({attributes: note}: any, index) => {
       note.time = new Date(note.time)
       if (!this.isSameDay(note.time, lastShowDate)) {
         lastShowDate = note.time
@@ -195,12 +183,12 @@ export class TabNotePage {
     sortedNotes.push(...todayNotes)
 
     lastShowDate = null
-    sortedNotes.forEach((note: any, index)=>{
+    sortedNotes.forEach((note: any, index) => {
       note.time = new Date(note.time)
       if (!this.isSameDay(note.time, lastShowDate)) {
         markdown += '------\n\n'
         lastShowDate = note.time
-        markdown += `## ${note.time.getMonth()+1}.${note.time.getDate()} \n\n`
+        markdown += `## ${note.time.getMonth() + 1}.${note.time.getDate()} \n\n`
       }
 
       markdown += `### -${note.time.getHours()}.${note.time.getMinutes()} \n`

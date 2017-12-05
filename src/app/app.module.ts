@@ -29,6 +29,7 @@ import {ControllersService} from "../providers/controllers-service";
 
 // component
 import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import {MoneyListRowModule} from "../components/money-list-row/money-list-row.mo
     StatusBar,
     SplashScreen,
     Clipboard,
+    Keyboard,
 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ControllersService,

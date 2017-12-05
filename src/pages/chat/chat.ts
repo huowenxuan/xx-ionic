@@ -1,8 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, EventEmitter, NgZone, ViewChild} from '@angular/core';
 import {IonicPage, NavParams} from 'ionic-angular';
 import {Events, Content, TextInput} from 'ionic-angular';
 import {ChatService, TextMessage, Message, UserInfo} from "../../providers/chat-service";
 import {UserService} from "../../providers/user-service";
+import {ChatInputComponent} from "../../components/ChatInput/chat-input";
 
 @IonicPage()
 @Component({
@@ -10,18 +11,17 @@ import {UserService} from "../../providers/user-service";
   templateUrl: 'chat.html',
 })
 export class ChatPage {
-  @ViewChild(Content) content: Content;
-  @ViewChild('chat_input') messageInput: TextInput;
+  @ViewChild('content') content: any;
+  @ViewChild(ChatInputComponent) input: any;
   msgList: Message[] = [];
   toUserId: string;
-  editorMsg = '';
   showEmojiPicker = false;
   _conversation
 
-  constructor(public navParams: NavParams,
+  constructor(public _zone: NgZone,
+              public navParams: NavParams,
               public chatService: ChatService,
-              public userService: UserService,
-              public events: Events) {
+              public userService: UserService) {
     this.toUserId = navParams.get('toUserId')
   }
 
@@ -29,7 +29,18 @@ export class ChatPage {
   }
 
   async ionViewDidEnter() {
+    this.initConversation()
+  }
+
+  async initConversation() {
+    this.scrollToBottom();
+
     let conversation = await this.getConversation()
+    if (!conversation) {
+      setTimeout(() => this.initConversation(), 2000)
+      return
+    }
+
     this.msgList = await this.chatService.getHistoryMsgs(conversation, 10)
     this.scrollToBottom();
 
@@ -59,37 +70,30 @@ export class ChatPage {
     return this._conversation
   }
 
-  onFocus() {
-    this.showEmojiPicker = false;
-    this.content.resize();
-    this.scrollToBottom();
-  }
-
   switchEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
     if (!this.showEmojiPicker) {
-      this.messageInput.setFocus();
+      this.input.setFocus();
     }
-    this.content.resize();
     this.scrollToBottom();
   }
 
   async sendMsg() {
-    if (!this.editorMsg.trim()) return;
+    if (!this.input.getInput().trim()) return;
 
     let newTmpMsg: TextMessage = {
       id: null,
       tmp_id: new Date().toDateString(),
       from: this.userService.userId,
       timestamp: new Date(),
-      text: this.editorMsg,
+      text: this.input.getInput(),
       status: 'pending'
     };
 
-    this.editorMsg = '';
+    this.input.clearInput()
     this.pushNewMsg(newTmpMsg);
     if (!this.showEmojiPicker) {
-      this.messageInput.setFocus();
+      this.input.setFocus();
     }
 
     let conversation = await this.getConversation()
@@ -115,10 +119,7 @@ export class ChatPage {
   }
 
   scrollToBottom() {
-    setTimeout(() => {
-      if (this.content.scrollToBottom) {
-        this.content.scrollToBottom();
-      }
-    }, 400)
+    // 保证滚到footer上面
+    this._zone.run(() => setTimeout(() => this.content.scrollToBottom(300)));
   }
 }

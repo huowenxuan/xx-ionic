@@ -3,6 +3,10 @@ chat-input {
     margin: 6px 5px !important;
     padding: 0;
   }
+  // TODO 管用吗
+  .input-cover {
+    position: static;
+  }
   ion-textarea {
     border-bottom: 1px solid #387ef5;
   }

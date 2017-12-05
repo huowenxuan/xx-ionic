@@ -30,6 +30,7 @@ import {ControllersService} from "../providers/controllers-service";
 // component
 import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
 import {Keyboard} from "@ionic-native/keyboard";
+import {NoteEditModule} from "../pages/note-edit/note-edit.module";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,6 @@ import {Keyboard} from "@ionic-native/keyboard";
     TabNotePage,
 
     LoginPage,
-    NoteEditPage,
   ],
   imports: [
     BrowserModule,
@@ -49,11 +49,16 @@ import {Keyboard} from "@ionic-native/keyboard";
       tabsHideOnSubPages: true,
       backButtonText: '返回',
       tabsLayout: 'ion-left',
+
+      // scrollPadding: false,
+      // scrollAssist: true,
+      // autoFocusAssist: false
     }),
     IonicStorageModule.forRoot(),
 
     // container
     MarkdownPageModule,
+    NoteEditModule,
 
     // 组件声明
     CalendarModule,
@@ -67,7 +72,6 @@ import {Keyboard} from "@ionic-native/keyboard";
     TabChatPage,
     TabNotePage,
     LoginPage,
-    NoteEditPage,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },

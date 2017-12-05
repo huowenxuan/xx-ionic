@@ -11,21 +11,23 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <ion-item>
     <ion-label>选择时间</ion-label>
     <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="timePicker"></ion-datetime>
   </ion-item>
 
-  <ion-textarea
+  <textarea
+    padding
+    style="width: 100%;height: 100%;"
     placeholder="输入"
     rows="25"
     [(ngModel)]="input"
   >
-  </ion-textarea>
+  </textarea>
 </ion-content>
 
-<ion-footer no-border>
+<ion-footer [keyboardAttach]="content" no-border>
   <ion-buttons>
     <button ion-button (click)="command('#')">#</button>
     <button ion-button (click)="command('`')">`</button>

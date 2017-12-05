@@ -80,6 +80,8 @@ export class KeyboardAttachDirective implements OnInit, OnDestroy {
   private setElementPosition(pixels: number) {
     this.elementRef.nativeElement.style.paddingBottom = pixels + 'px';
     this.content.resize();
-    this.content.scrollToBottom(300);
+    setTimeout(()=>{
+      this.content.scrollToBottom(300);
+    }, 100)
   }
 }

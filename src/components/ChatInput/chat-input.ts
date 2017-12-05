@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, Output, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {ControlValueAccessor} from "@angular/forms";
 
 @Component({
@@ -9,7 +9,7 @@ import {ControlValueAccessor} from "@angular/forms";
 export class ChatInputComponent implements AfterViewInit {
   @ViewChild('ionTxtArea') ionTxtArea: any;
   public txtArea: any;
-  public content: string;
+  public content: string
   public lineHeight: number;
   public placeholder: string;
   public maxHeight: number;
@@ -38,6 +38,10 @@ export class ChatInputComponent implements AfterViewInit {
     }
   }
 
+  public append(text) {
+    this.content += text
+  }
+
   public getInput() {
     return this.content
   }
@@ -50,4 +54,5 @@ export class ChatInputComponent implements AfterViewInit {
   public setFocus() {
     this.ionTxtArea.setFocus()
   }
+
 }

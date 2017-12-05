@@ -4,6 +4,7 @@ import {Events, Content, TextInput} from 'ionic-angular';
 import {ChatService, TextMessage, Message, UserInfo} from "../../providers/chat-service";
 import {UserService} from "../../providers/user-service";
 import {ChatInputComponent} from "../../components/ChatInput/chat-input";
+import {EmojiPickerComponent} from "../../components/emoji-picker/emoji-picker";
 
 @IonicPage()
 @Component({
@@ -12,14 +13,14 @@ import {ChatInputComponent} from "../../components/ChatInput/chat-input";
 })
 export class ChatPage {
   @ViewChild('content') content: any;
-  @ViewChild(ChatInputComponent) input: any;
+  @ViewChild(ChatInputComponent) input: ChatInputComponent;
+  @ViewChild(EmojiPickerComponent) emojiPicker: EmojiPickerComponent
   msgList: Message[] = [];
   toUserId: string;
   showEmojiPicker = false;
   _conversation
 
-  constructor(public _zone: NgZone,
-              public navParams: NavParams,
+  constructor(public navParams: NavParams,
               public chatService: ChatService,
               public userService: UserService) {
     this.toUserId = navParams.get('toUserId')
@@ -30,6 +31,9 @@ export class ChatPage {
 
   async ionViewDidEnter() {
     this.initConversation()
+    this.emojiPicker.onSelected((emoji)=>{
+      this.input.append(emoji)
+    })
   }
 
   async initConversation() {
@@ -37,7 +41,6 @@ export class ChatPage {
 
     let conversation = await this.getConversation()
     if (!conversation) {
-      setTimeout(() => this.initConversation(), 2000)
       return
     }
 
@@ -64,17 +67,20 @@ export class ChatPage {
       try {
         this._conversation = await this.chatService.createSingleConversation(this.toUserId)
       } catch (e) {
-        setTimeout(() => this.getConversation(), 1000)
+        return null
       }
     }
     return this._conversation
   }
 
+  hideEmojiPicker() {
+    if (this.showEmojiPicker) {
+      this.switchEmojiPicker()
+    }
+  }
+
   switchEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
-    if (!this.showEmojiPicker) {
-      this.input.setFocus();
-    }
     this.scrollToBottom();
   }
 
@@ -120,6 +126,10 @@ export class ChatPage {
 
   scrollToBottom() {
     // 保证滚到footer上面
-    this._zone.run(() => setTimeout(() => this.content.scrollToBottom(300)));
+    this.content.resize()
+    // 等待resize完成后再滚动
+    setTimeout(()=>{
+      this.content.scrollToBottom(300)
+    }, 100)
   }
 }

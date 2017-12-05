@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import LCStorage, {Note} from "../../utils/LCStorage";
 import {UserService} from "../../providers/user-service";
@@ -10,6 +10,7 @@ import {ControllersService} from "../../providers/controllers-service";
   templateUrl: 'note-edit.html',
 })
 export class NoteEditPage {
+  @ViewChild('content') content: any;
   title = '新建'
   time = new Date()
   input = ''

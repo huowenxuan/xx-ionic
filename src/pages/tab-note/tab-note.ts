@@ -188,7 +188,7 @@ export class TabNotePage {
       if (!this.isSameDay(note.time, lastShowDate)) {
         markdown += '------\n\n'
         lastShowDate = note.time
-        markdown += `## ${note.time.getMonth() + 1}.${note.time.getDate()} \n\n`
+        markdown += `## ${note.time.getMonth() + 1}.${note.time.getDate()} \n`
       }
 
       markdown += `### -${note.time.getHours()}.${note.time.getMinutes()} \n`

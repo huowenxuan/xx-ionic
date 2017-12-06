@@ -12,10 +12,13 @@ import {ControllersService} from "../../providers/controllers-service";
 export class NoteEditPage {
   @ViewChild('content') content: any;
   title = '新建'
-  time = new Date()
+  start: Date = new Date() // start必须有初始值，否则无法转换为本地时间
+  end = new Date()
   input = ''
   oldNote: Note
-  timePicker
+  startPicker
+  endPicker
+  startEnable = false // 控制是否添加start
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,10 +28,14 @@ export class NoteEditPage {
     if (this.oldNote) {
       this.title = '编辑'
       this.input = this.oldNote.attributes.text
-      this.time = this.oldNote.attributes.time
+      this.end = this.oldNote.attributes.end
+      this.start = this.oldNote.attributes.start || this.end
+
+      this.startEnable = !!this.oldNote.attributes.start
     }
 
-    this.timePicker = this.dateToISO(this.time)
+    this.startPicker = this.dateToISO(this.start)
+    this.endPicker = this.dateToISO(this.end)
   }
 
   ionViewDidLoad() {
@@ -36,15 +43,19 @@ export class NoteEditPage {
   }
 
   isoToDate(isoString: string): Date {
+    if (!isoString) return null
     return new Date(new Date(isoString).getTime() - 8*3600*1000)
   }
 
   dateToISO(date: Date): string {
+    if (!date) return null
     return new Date(date.getTime() + 8*3600*1000).toISOString()
   }
 
   async save() {
-    this.time = this.isoToDate(this.timePicker)
+    this.start = this.isoToDate(this.startPicker)
+    this.end = this.isoToDate(this.endPicker)
+
     if (!this.input) return
 
     let onSuccess = this.navParams.get('onSuccess')
@@ -53,10 +64,15 @@ export class NoteEditPage {
 
     try {
       let noteId
+      let start = this.start
+      if (!this.startEnable) {
+        start = null
+      }
+
       if (this.oldNote) {
-        noteId = await LCStorage.updateNote(this.oldNote.id, this.input, this.time)
+        noteId = await LCStorage.updateNote(this.oldNote.id, this.input, start, this.end)
       } else {
-        noteId = await LCStorage.createNote(this.userService.userId, this.time, this.input)
+        noteId = await LCStorage.createNote(this.userService.userId, start, this.end, this.input)
       }
       loader.dismiss()
       onSuccess && onSuccess(noteId)
@@ -64,6 +80,7 @@ export class NoteEditPage {
       this.navCtrl.pop()
     } catch (e) {
       loader.dismiss()
+      console.log(e)
       this.ctrls.toast('保存失败').present()
     }
   }

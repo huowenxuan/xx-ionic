@@ -20,7 +20,7 @@
 
       <ion-item>
         <ion-card-content navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
-          <h4 item-left>{{showDate(note.attributes.time) + showTime(note.attributes.time)}}</h4>
+          <h4 item-left>{{showTime(note.attributes.start, note.attributes.end)}}</h4>
           <p>{{note.attributes.text}}</p>
         </ion-card-content>
       </ion-item>

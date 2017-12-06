@@ -13,8 +13,18 @@
 
 <ion-content #content>
   <ion-item>
-    <ion-label>选择时间</ion-label>
-    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="timePicker"></ion-datetime>
+    <ion-label>开始时间（不写则代表从上个结束时间维持）</ion-label>
+    <ion-checkbox [(ngModel)]="startEnable"></ion-checkbox>
+  </ion-item>
+
+  <ion-item *ngIf="startEnable">
+    <ion-label>开始时间</ion-label>
+    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="startPicker"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>结束时间</ion-label>
+    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="endPicker"></ion-datetime>
   </ion-item>
 
   <textarea

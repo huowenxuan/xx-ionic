@@ -13,7 +13,6 @@ import {UserService} from "../../providers/user-service";
 import {NoteEditPage} from "../note-edit/note-edit";
 import {CalendarModal, CalendarModalOptions, DayConfig} from "ion2-calendar";
 import {MarkdownPage} from "../markdown/markdown";
-import {timestamp} from "rxjs/operator/timestamp";
 import {ControllersService} from "../../providers/controllers-service";
 
 @Component({
@@ -77,30 +76,43 @@ export class TabNotePage {
     return m1.date() === m2.date() && m1.month() === m2.month()
   }
 
-  showTime(createdAt) {
+  getTime(createdAt) {
+    if (!createdAt) return ''
     let m = moment(createdAt)
     let hour = m.hour()
     let min = m.minute()
     return `${hour}:${min}`
   }
 
-  showDate(date) {
-    if (this.isSameDay(date, Date.now())) {
-      return ''
-    }
-    let weekCns = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+  getDate(date) {
+    if (!date) return ''
+    if (this.isSameDay(date, Date.now())) return ''
 
+    let weekCns = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
     let m = moment(date)
     let year = m.year()
     let month = m.month() + 1
     let day = m.date()
     let weekday = m.weekday()
 
-    let time = `${month}/${day} ${weekCns[weekday]}`
+    let end = `${month}/${day} ${weekCns[weekday]}`
     if (!this.isThisYear(date)) {
-      time = `${year}/${time}`
+      end = `${year}/${end}`
     }
-    return time + '  '
+    return end + '  '
+  }
+
+  showTime(start, end) {
+    let endDate = this.getDate(end)
+    let startTime = this.getTime(start)
+    let endTime = this.getTime(end)
+
+    let time = endTime
+    if (startTime) {
+      time = `${startTime} - ${endTime}`
+    }
+
+    return `${endDate}${time}`
   }
 
   deleteNote(note) {
@@ -169,9 +181,9 @@ export class TabNotePage {
     let sortedNotes = []
     let todayNotes = []
     notes.forEach(({attributes: note}: any, index) => {
-      note.time = new Date(note.time)
-      if (!this.isSameDay(note.time, lastShowDate)) {
-        lastShowDate = note.time
+      note.end = new Date(note.end)
+      if (!this.isSameDay(note.end, lastShowDate)) {
+        lastShowDate = note.end
         todayNotes.reverse()
         sortedNotes.push(...todayNotes)
         todayNotes = [note]
@@ -184,14 +196,16 @@ export class TabNotePage {
 
     lastShowDate = null
     sortedNotes.forEach((note: any, index) => {
-      note.time = new Date(note.time)
-      if (!this.isSameDay(note.time, lastShowDate)) {
+      note.end = new Date(note.end)
+      if (!this.isSameDay(note.end, lastShowDate)) {
         markdown += '------\n\n'
-        lastShowDate = note.time
-        markdown += `## ${note.time.getMonth() + 1}.${note.time.getDate()} \n`
+        lastShowDate = note.end
+        markdown += `## ${note.end.getMonth() + 1}.${note.end.getDate()} \n`
       }
 
-      markdown += `### -${note.time.getHours()}.${note.time.getMinutes()} \n`
+      let showStart = note.start ? `${note.start.getHours()}.${note.start.getMinutes()}`: ''
+      let showEnd = `${note.end.getHours()}.${note.end.getMinutes()}`
+      markdown += `### ${showStart}-${showEnd} \n`
       markdown += note.text + '\n\n'
     })
 

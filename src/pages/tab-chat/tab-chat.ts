@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AlertController} from 'ionic-angular';
 import {ChatService} from "../../providers/chat-service";
 import {UserService} from "../../providers/user-service";
+import {ChatPage} from "../chat/chat";
 
 @IonicPage()
 @Component({
@@ -23,14 +24,12 @@ export class TabChatPage {
   }
 
   toChat(members) {
-    for(let member of members) {
-      if (member !== this.userService.userId) {
-        return {
-          toUserId: member,
-          userId: this.userService.userId
-        }
-      }
-    }
+    let params = {}
+    for (let member of members)
+      if (member !== this.userService.userId)
+        params = {toUserId: member, userId: this.userService.userId}
+
+    this.navCtrl.push(ChatPage, params)
   }
 }
 

@@ -7,7 +7,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let conv of this.conversations">
-      <ion-item navPush="ChatPage" [navParams]="toChat(conv.members)">
+      <ion-item (click)="toChat(conv.members)">
         <ion-avatar item-left>
           <img src="assets/img/avatar.gif">
         </ion-avatar>

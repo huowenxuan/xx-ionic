@@ -30,7 +30,11 @@ import {ControllersService} from "../providers/controllers-service";
 // component
 import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
 import {Keyboard} from "@ionic-native/keyboard";
-import {NoteEditModule} from "../pages/note-edit/note-edit.module";
+import {ChatPage} from "../pages/chat/chat";
+import {KeyboardAttachDirective} from "../directives/keyboard-attach.directive";
+import {RelativeTime} from "../pipes/relative-time";
+import {ChatInputModule} from "../components/ChatInput/chat-input.module";
+import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picker.module";
 
 @NgModule({
   declarations: [
@@ -41,6 +45,11 @@ import {NoteEditModule} from "../pages/note-edit/note-edit.module";
     TabNotePage,
 
     LoginPage,
+    ChatPage,
+    NoteEditPage,
+
+    KeyboardAttachDirective,
+    RelativeTime
   ],
   imports: [
     BrowserModule,
@@ -58,11 +67,12 @@ import {NoteEditModule} from "../pages/note-edit/note-edit.module";
 
     // container
     MarkdownPageModule,
-    NoteEditModule,
 
     // 组件声明
     CalendarModule,
-    MoneyListRowModule
+    MoneyListRowModule,
+    ChatInputModule,
+    EmojiPickerComponentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -72,6 +82,8 @@ import {NoteEditModule} from "../pages/note-edit/note-edit.module";
     TabChatPage,
     TabNotePage,
     LoginPage,
+    ChatPage,
+    NoteEditPage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },

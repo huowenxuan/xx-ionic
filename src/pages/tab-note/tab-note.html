@@ -1,10 +1,12 @@
 <ion-header>
   <ion-navbar color="tint" [class.idark_content]="isIdark">
-    <ion-title>笔记</ion-title>
+    <ion-title>
+      笔记
+    </ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only navPush="NoteSearchPage">
-        <ion-icon name="search"></ion-icon>
+        <ion-icon name="search" color="button-content"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -18,10 +20,12 @@
   <ion-list>
     <ion-item-sliding *ngFor="let note of this.notes">
 
-      <ion-item>
+      <ion-item color="background">
         <ion-card-content navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
-          <h4 item-left>{{showTime(note.attributes.start, note.attributes.end)}}</h4>
-          <p>{{note.attributes.text}}</p>
+          <h4 item-left>
+            {{showTime(note.attributes.start, note.attributes.end)}}
+          </h4>
+          <p class="pp">{{note.attributes.text}}</p>
         </ion-card-content>
       </ion-item>
 
@@ -43,7 +47,7 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab>
+    <button ion-fab color="tint">
       <ion-icon name="add"></ion-icon>
     </button>
 

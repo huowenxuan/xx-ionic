@@ -2,4 +2,12 @@ page-tab-note {
   ion-item-options > button {
     width: 90px;
   }
+
+  h4 {
+    color: color($colors, text-title)
+  }
+
+  .pp {
+    color: color($colors, text-normal);
+  }
 }

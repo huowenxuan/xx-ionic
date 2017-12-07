@@ -4,10 +4,21 @@ page-tab-note {
   }
 
   h4 {
-    color: color($colors, text-title)
+    color: color($colors, text-title);
+    font-size: large;
   }
 
   .pp {
     color: color($colors, text-normal);
+    font-size: small;
+
+    white-space:pre; // 多行
+    text-overflow:ellipsis; // 超出的宽度显示省略号
+    overflow:hidden; // 不超出父元素
+
+    // 限制最大行数
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
   }
 }

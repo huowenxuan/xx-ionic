@@ -20,7 +20,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let note of this.notes">
 
-      <ion-item color="background">
+      <ion-item class="row row-wrap" color="background">
         <ion-card-content navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
           <h4 item-left>
             {{showTime(note.attributes.start, note.attributes.end)}}

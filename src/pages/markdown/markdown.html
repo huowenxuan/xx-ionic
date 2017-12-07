@@ -21,5 +21,5 @@
 
 <ion-content padding>
   <p [innerHTML]="convertedHtml" *ngIf="isConverted"></p>
-  <p *ngIf="!isConverted" [innerHTML]="getOriginTextHtml()"></p>
+  <p *ngIf="!isConverted" class="originText">{{originText}}</p>
 </ion-content>

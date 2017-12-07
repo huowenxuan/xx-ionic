@@ -42,9 +42,4 @@ export class MarkdownPage {
   change() {
     this.isConverted = !this.isConverted
   }
-
-  // 转化换行符，让html显示换行
-  getOriginTextHtml() {
-    return this.originText.replace(/(\r\n)|(\n)/g,'<br>');
-  }
 }

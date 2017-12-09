@@ -4,7 +4,7 @@ import {
   IonicPage,
   ModalController,
   NavController,
-  NavParams,
+  NavParams, Platform,
 } from 'ionic-angular';
 import LCStorage from "../../utils/LCStorage";
 import * as moment from 'moment';

@@ -13,12 +13,12 @@ export class MyApp {
   rootPage: any = TabsPage;
 
   constructor(platform: Platform,
-              statusBar: StatusBar,
+              private statusBar: StatusBar,
               public keyboard: Keyboard,
               splashScreen: SplashScreen) {
     platform.ready().then(() => {
       splashScreen.hide();
-      statusBar.styleBlackOpaque()
+      this.statusBar.styleLightContent()
       keyboard.disableScroll(true)
     });
   }

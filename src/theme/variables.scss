@@ -19,6 +19,8 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
+@import "theme.pink";
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -35,18 +37,6 @@ $colors: (
   danger: #f53d3d,
   light: #f4f4f4,
   dark: #222,
-
-  content-background: #E5E1DF,
-  tint-background: (
-    base: #A4C7C2,
-    contrast: white
-  ),
-  tint-button: (
-    base: #A4C7C2,
-    contrast: white
-  ),
-  text-title: #7C7877,
-  text-normal: #A0939A,
 );
 
 $eveylast: (
@@ -169,6 +159,7 @@ $pick: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
+
 @import "ionic.theme.default";
 //@import "ionic.theme.dark";
 
@@ -195,4 +186,3 @@ $pick: (
 ion-header ion-title {
   margin-top: 6px;
 }
-

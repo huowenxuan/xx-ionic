@@ -1,12 +1,12 @@
 <ion-header no-border>
-  <ion-navbar color="tint-background">
+  <ion-navbar>
     <ion-title>
       笔记
     </ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only navPush="NoteSearchPage">
-        <ion-icon name="search" color="button-content"></ion-icon>
+        <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -17,10 +17,17 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+
   <ion-list>
     <ion-item-sliding *ngFor="let note of this.notes">
 
-      <ion-item color="content-background">
+      <ion-item>
         <ion-card-content navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
           <h4>{{showTime(note.attributes.start, note.attributes.end)}}</h4>
           <p class="pp">{{note.attributes.text}}</p>
@@ -28,11 +35,11 @@
       </ion-item>
 
       <ion-item-options cancelable="false">
-        <button ion-button color="tint-button" (click)="toEdit(note)">
+        <button ion-button (click)="toEdit(note)">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button color="danger" (click)="deleteNote(note)">
+        <button ion-button class="danger" (click)="deleteNote(note)">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
@@ -45,18 +52,18 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab color="tint-button">
+    <button ion-fab>
       <ion-icon name="add"></ion-icon>
     </button>
 
     <ion-fab-list side="top">
-      <button ion-fab color="tint-button" (click)="toEdit()">
+      <button ion-fab (click)="toEdit()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab-list>
 
     <ion-fab-list side="left">
-      <button ion-fab color="tint-button" (click)="toDaysMarkdown()">
+      <button ion-fab (click)="toDaysMarkdown()">
         <ion-icon name="calendar"></ion-icon>
       </button>
     </ion-fab-list>

@@ -4,12 +4,14 @@ page-tab-note {
   }
 
   h4 {
-    color: color($colors, text-title);
     font-size: large;
   }
 
+  .danger {
+    background-color: color($colors, danger);
+  }
+
   .pp {
-    color: color($colors, text-normal);
     font-size: small;
 
     white-space:pre; // 多行

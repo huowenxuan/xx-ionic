@@ -1,0 +1,68 @@
+$pick: (
+  background: #F9F3DF,
+  tint-background: #F5D0C7,
+  tint-button: (
+    base: #F3C6C2,
+    contrast: white
+  ),
+  text-title: #E99492,
+  text-normal: #847C71,
+);
+$background: #F9F3DF;
+$tint-background: #F5D0C7;
+$tint-button: #F3C6C2;
+$tint-contrast: white;
+$text-title: #E99492;
+$text-normal: #847C71;
+
+.theme-pink {
+  ion-content {
+    background-color: $background;
+    color: $tint-contrast;
+  }
+
+  .toolbar-title {
+    color: #fff;
+  }
+
+  .header {
+    .toolbar-background {
+      background-color: $tint-background;
+    }
+
+    button {
+      background-color: $tint-background;
+    }
+  }
+
+  ion-tabs .tabbar {
+    background-color: $tint-background;
+  }
+
+  ion-tabs {
+    .tab-button {
+      color: #fff !important;
+      .icon {
+        color: #fff !important;
+      }
+    }
+  }
+
+  button {
+    background-color: $tint-button;
+    color: $tint-contrast;
+  }
+
+  ion-list .item {
+    background-color: $background;
+    color: #fff;
+  }
+
+  h1, h2, h3, h4 {
+    color: $text-title;
+  }
+
+  p {
+    color: $text-normal !important;
+  }
+}

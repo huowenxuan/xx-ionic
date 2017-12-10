@@ -14,6 +14,7 @@ import {NoteEditPage} from "../note-edit/note-edit";
 import {CalendarModal, CalendarModalOptions, DayConfig} from "ion2-calendar";
 import {MarkdownPage} from "../markdown/markdown";
 import {ControllersService} from "../../providers/controllers-service";
+import {SettingsProvider} from "../../providers/settings";
 
 @Component({
   selector: 'page-tab-note',
@@ -24,12 +25,20 @@ export class TabNotePage {
   skip = 0
   limit = 10
 
+  selectedTheme: String;
+
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
+              public settings: SettingsProvider,
               public ctrls: ControllersService,
               public userService: UserService,) {
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
+  }
+
+  public toggleAppTheme(theme) {
+    this.settings.setActiveTheme(theme);
   }
 
   async ionViewDidLoad() {
@@ -117,7 +126,7 @@ export class TabNotePage {
 
   deleteNote(note) {
     let doDelete = () => {
-       LCStorage.deleteNote(note.id)
+      LCStorage.deleteNote(note.id)
         .then(() => {
           this.ctrls.toast('删除成功').present()
           this.reload()
@@ -203,7 +212,7 @@ export class TabNotePage {
         markdown += `## ${note.end.getMonth() + 1}.${note.end.getDate()} \n`
       }
 
-      let showStart = note.start ? `${note.start.getHours()}.${note.start.getMinutes()}`: ''
+      let showStart = note.start ? `${note.start.getHours()}.${note.start.getMinutes()}` : ''
       let showEnd = `${note.end.getHours()}.${note.end.getMinutes()}`
       markdown += `### ${showStart}-${showEnd} \n`
       markdown += note.text + '\n\n'

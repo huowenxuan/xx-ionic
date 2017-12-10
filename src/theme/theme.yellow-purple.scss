@@ -1,11 +1,11 @@
-$background: #3D3D3D;
-$tint-background: #2D2D2D;
-$tint-button: #2D2D2D;
-$tint-contrast: #D5D5D5;
-$text-title: #E4E4E4;
-$text-normal: #BABABA;
+$background: #FFFCF1;
+$tint-background: #FDDD83;
+$tint-button: #FDDA6C;
+$tint-contrast: white;
+$text-title: #6A60A9;
+$text-normal: #BAA0EA;
 
-.theme-dark {
+.theme-yellow-purple {
   ion-content {
     background-color: $background;
     color: $tint-contrast;

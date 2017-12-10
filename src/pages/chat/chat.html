@@ -22,10 +22,10 @@
         <div class="msg-info">
           <p>{{msg.from === userService.userId ? '香居居' : '臭居居'}}&nbsp;&nbsp;&nbsp;{{msg.timestamp | relativeTime}}</p>
         </div>
-        <div class="msg-content">
+        <button class="msg-content">
           <span class="triangle"></span>
           <p class="line-breaker ">{{msg.text}}</p>
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
 <ion-footer [keyboardAttach]="content" no-border>
   <ion-toolbar>
     <ion-buttons left>
-      <button color="primary" ion-button clear icon-only left (click)="switchEmojiPicker()">
+      <button class="footer-button" ion-button clear icon-only left (click)="switchEmojiPicker()">
         <ion-icon name="md-happy"></ion-icon>
       </button>
     </ion-buttons>
@@ -48,7 +48,7 @@
     </chat-input>
 
     <ion-buttons right>
-      <button color="primary" ion-button icon-only right (click)="sendMsg()">
+      <button class="footer-button" ion-button icon-only right (click)="sendMsg()">
         <ion-icon name="md-send"></ion-icon>
       </button>
     </ion-buttons>

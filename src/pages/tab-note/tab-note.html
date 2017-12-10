@@ -17,12 +17,14 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
-  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
-  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
-  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
-  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
-  <button ion-button (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-pink')">pink</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-eveylast')">eveylast</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-fay')">fay</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-dark')">dark</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-grey-green')">grey-green</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-yellow-purple')">yellow-purple</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-basic')">basic</button>
+  <button ion-button color="btn-selected" (click)="toggleAppTheme('theme-warm')">warm</button>
 
   <ion-list>
     <ion-item-sliding *ngFor="let note of this.notes">
@@ -35,11 +37,11 @@
       </ion-item>
 
       <ion-item-options cancelable="false">
-        <button ion-button (click)="toEdit(note)">
+        <button ion-button color="btn-selected" (click)="toEdit(note)">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button class="danger" (click)="deleteNote(note)">
+        <button ion-button color="btn-selected" class="danger" (click)="deleteNote(note)">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
@@ -52,18 +54,18 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab>
+    <button ion-fab color="btn-selected">
       <ion-icon name="add"></ion-icon>
     </button>
 
     <ion-fab-list side="top">
-      <button ion-fab (click)="toEdit()">
+      <button ion-fab color="btn-selected" (click)="toEdit()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab-list>
 
     <ion-fab-list side="left">
-      <button ion-fab (click)="toDaysMarkdown()">
+      <button ion-fab color="btn-selected" (click)="toDaysMarkdown()">
         <ion-icon name="calendar"></ion-icon>
       </button>
     </ion-fab-list>

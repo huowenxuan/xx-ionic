@@ -25,8 +25,6 @@ export class TabNotePage {
   skip = 0
   limit = 10
 
-  selectedTheme: String;
-
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public navParams: NavParams,
@@ -34,7 +32,6 @@ export class TabNotePage {
               public settings: SettingsProvider,
               public ctrls: ControllersService,
               public userService: UserService,) {
-    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
   }
 
   public toggleAppTheme(theme) {

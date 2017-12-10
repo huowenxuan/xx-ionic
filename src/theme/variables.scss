@@ -20,6 +20,13 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 @import "theme.pink";
+@import "theme.eveylast";
+@import "theme.fay";
+@import "theme.dark";
+@import "theme.grey-green";
+@import "theme.yellow-purple";
+@import "theme.basic";
+@import "theme.warm";
 
 // Named Color Variables
 // --------------------------------------------------
@@ -37,109 +44,11 @@ $colors: (
   danger: #f53d3d,
   light: #f4f4f4,
   dark: #222,
+
+  // ion-button按下的颜色，如果不设置，是根据primary走
+  btn-selected: #FBFBFB,
 );
 
-$eveylast: (
-  content-background: #E5E1DF,
-  tint-background: (
-    base: #B0CDC8,
-    contrast: white
-  ),
-  tint-button: (
-    base: #A4C7C2,
-    contrast: white
-  ),
-  text-title: #7C7877,
-  text-normal: #A0939A,
-);
-
-$fay: (
-  background: #E5E7ED,
-  tint-background: #6B778D,
-  tint-button: (
-    base: #4C5C76,
-    contrast: white
-  ),
-  text-title: #4D8570,
-  text-normal: #70839D,
-);
-
-$grey-green: (
-  background: #E5F1F1,
-  tint-background: #AACCC9,
-  tint-button: (
-    base: #9CC3C0,
-    contrast: white
-  ),
-  text-title: #75AAAD,
-  text-normal: #80AF83,
-);
-
-$yellow-purple: (
-  background: #FFFCF1,
-  tint-background: #FFFCF1,
-  tint-button: (
-    base: #FDDA6C,
-    contrast: white
-  ),
-  text-title: #6A60A9,
-  text-normal: #BAA0EA,
-);
-
-$暖色: (
-  background: #FAF6EA,
-  tint-background: #CECBCD,
-  tint-button: (
-    base: #C7C5C0,
-    contrast: white
-  ),
-  text-title: #22232D,
-  text-normal: #7B7B7B,
-);
-
-$基本: (
-  background: #F9F9F9,
-  tint-background: #CECECE,
-  tint-button: (
-    base: #CACACA,
-    contrast: white
-  ),
-  text-title: #22232D,
-  text-normal: #888888,
-);
-
-// 灰色
-$dark: (
-  background: #3D3D3D,
-  // 主题色背景
-  tint-background: (
-    // 组件的背景颜色
-    base: #2D2D2D,
-    // 组件的文本颜色、内部颜色
-    contrast: #D5D5D5
-  ),
-  // 主题色按钮
-  tint-button: (
-    base: #2D2D2D,
-    contrast: #D5D5D5
-  ),
-  // 标题文字颜色
-  text-title: #E4E4E4,
-  // 一般文字的颜色
-  text-normal: #BABABA,
-);
-
-// 粉色
-$pick: (
-  background: #F9F3DF,
-  tint-background: #F5D0C7,
-  tint-button: (
-    base: #F3C6C2,
-    contrast: white
-  ),
-  text-title: #E99492,
-  text-normal: #847C71,
-);
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

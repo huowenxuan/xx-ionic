@@ -12,12 +12,12 @@ import {SettingsProvider} from "../providers/settings";
 })
 export class MyApp {
   rootPage: any = TabsPage;
-  selectedTheme: String = 'theme-pink'
+  selectedTheme: String
 
   constructor(platform: Platform,
               private statusBar: StatusBar,
               public keyboard: Keyboard,
-              private settings: SettingsProvider,
+              public settings: SettingsProvider,
               splashScreen: SplashScreen) {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 

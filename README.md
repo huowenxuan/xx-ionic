@@ -8,4 +8,17 @@
 
 ## 已知bug
 
+## 运行
 
+```
+// ionic
+npm run serve 
+// 或
+ionic serve
+```
+
+```
+// electron
+ionic serve // 确保正确打包到www/index.html中
+electron .
+```

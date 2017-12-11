@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
-import {Storage} from "@ionic/storage";
-import {IM} from "../utils/IM";
 import 'rxjs/add/operator/map';
 import {Loading, LoadingController, Toast, ToastController} from "ionic-angular";
 

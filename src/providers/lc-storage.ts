@@ -1,3 +1,7 @@
+import { Injectable } from '@angular/core';
+import {Http} from '@angular/http';
+import {Storage} from "@ionic/storage";
+import 'rxjs/add/operator/map';
 import AV from 'leancloud-storage'
 import {LCAppKey, LCAppId} from "../app.config";
 
@@ -9,12 +13,14 @@ export class Note extends AV.Object {
   end: Date  // 日程结束时间
   text: string
 }
-
 AV.Object.register(Note);
 
-export default class LCStorage {
+@Injectable()
+export class LCStorageProvider {
+  constructor() {
+  }
 
-  static async createNote(userId: string, start:Date, end: Date, text:string) {
+  async createNote(userId: string, start:Date, end: Date, text:string) {
     // 新建一个 Note 对象
     let note = new Note();
     note.set('userId', userId);
@@ -28,7 +34,7 @@ export default class LCStorage {
     })
   }
 
-  static updateNote(id, text, start, end) {
+  updateNote(id, text, start, end) {
     let note = AV.Object.createWithoutData('Note', id)
     note.set('text', text)
     note.set('start', start)
@@ -40,7 +46,7 @@ export default class LCStorage {
     })
   }
 
-  static async getNotes(userId, skip = 0, limit = 10): Promise<any> {
+  async getNotes(userId, skip = 0, limit = 10): Promise<any> {
     let query = new AV.Query('Note');
     query.equalTo('userId', userId);
     query.addDescending('end');
@@ -57,7 +63,7 @@ export default class LCStorage {
   /**
    * 获取某一日期范围内的note
    */
-  static getNotesRange(userId, from: Date, to: Date) {
+  getNotesRange(userId, from: Date, to: Date) {
     // 从第一天第0秒，到最后一天的最后一秒
     from.setHours(0);from.setMinutes(0);from.setSeconds(0)
     to.setHours(23);to.setMinutes(59);to.setSeconds(59)
@@ -75,7 +81,7 @@ export default class LCStorage {
     })
   }
 
-  static getANote(id) {
+  getANote(id) {
     let query = new AV.Query('Note');
     return new Promise((resolve, reject) => {
       query.get(id).then(
@@ -84,7 +90,7 @@ export default class LCStorage {
     })
   }
 
-  static deleteNote(id) {
+  deleteNote(id) {
     let note = AV.Object.createWithoutData('Note', id);
     return new Promise((resolve, reject) => {
       note.destroy().then(

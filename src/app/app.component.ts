@@ -6,7 +6,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {TabsPage} from '../pages/tabs/tabs';
 import {Keyboard} from "@ionic-native/keyboard";
 import {SettingsProvider} from "../providers/settings";
-import {Storage} from "@ionic/storage";
 
 @Component({
   templateUrl: 'app.html'
@@ -16,13 +15,13 @@ export class MyApp {
   menuPage: any
 
   selectedTheme: String
-  themes = ['pink', 'eveylast', 'fay', 'dark', 'grey-green', 'yellow-purple', 'basic', 'warm']
+  themes = ['theme-pink', 'theme-eveylast', 'theme-fay', 'theme-dark', 'theme-grey-green', 'theme-yellow-purple', 'theme-basic', 'theme-warm']
+  _randomThemeToggle
 
   constructor(platform: Platform,
               private statusBar: StatusBar,
               public keyboard: Keyboard,
               public settings: SettingsProvider,
-              public storage: Storage,
               splashScreen: SplashScreen) {
     this.initTheme()
 
@@ -33,21 +32,28 @@ export class MyApp {
     });
   }
 
-  initTheme() {
-    this.storage.get("theme")
-      .then((theme) => {
-        if (theme) {
-          this.selectedTheme = theme
-          this.settings.setActiveTheme(theme)
-        }
-      })
-    this.settings.getActiveTheme().subscribe(val => {
-      this.selectedTheme = val
-      this.storage.set("theme", val)
-    });
+  set randomThemeToggle(toggle) {
+    this._randomThemeToggle = toggle
+    this.settings.setThemeRandom(toggle)
+  }
+
+  get randomThemeToggle() {
+    return this._randomThemeToggle
+  }
+
+  async initTheme() {
+    let theme = await this.settings.getTheme()
+    this.selectedTheme = theme || this.themes[0]
+
+    this.randomThemeToggle  = await this.settings.getThemeRandom()
+    if (this.randomThemeToggle) {
+      let randomIdx = Math.floor(Math.random() * this.themes.length)
+      this.settings.setTheme(this.themes[randomIdx])
+    }
   }
 
   public toggleAppTheme(theme) {
-    this.settings.setActiveTheme('theme-' + theme);
+    this.selectedTheme = theme
+    this.settings.setTheme(theme);
   }
 }

@@ -6,7 +6,6 @@ import {
   NavController,
   NavParams, Platform,
 } from 'ionic-angular';
-import LCStorage from "../../utils/LCStorage";
 import * as moment from 'moment';
 import {Clipboard} from '@ionic-native/clipboard';
 import {UserService} from "../../providers/user-service";
@@ -15,6 +14,7 @@ import {CalendarModal, CalendarModalOptions, DayConfig} from "ion2-calendar";
 import {MarkdownPage} from "../markdown/markdown";
 import {ControllersService} from "../../providers/controllers-service";
 import {SettingsProvider} from "../../providers/settings";
+import {LCStorageProvider} from "../../providers/lc-storage";
 
 @Component({
   selector: 'page-tab-note',
@@ -30,6 +30,7 @@ export class TabNotePage {
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public menu: MenuController,
+              public lcStorage: LCStorageProvider,
               public ctrls: ControllersService,
               public userService: UserService,) {
   }
@@ -47,7 +48,7 @@ export class TabNotePage {
     if (loading) {
       loader.present()
     }
-    this.notes = await LCStorage.getNotes(this.userService.userId, 0, this.limit)
+    this.notes = await this.lcStorage.getNotes(this.userService.userId, 0, this.limit)
     loader.dismiss()
   }
 
@@ -58,7 +59,7 @@ export class TabNotePage {
 
   async loadMore(infiniteScroll) {
     this.skip += this.limit
-    let notes = await LCStorage.getNotes(this.userService.userId, this.skip, this.limit)
+    let notes = await this.lcStorage.getNotes(this.userService.userId, this.skip, this.limit)
     if (notes) {
       this.notes.push(...notes)
     }
@@ -119,7 +120,7 @@ export class TabNotePage {
 
   deleteNote(note) {
     let doDelete = () => {
-      LCStorage.deleteNote(note.id)
+      this.lcStorage.deleteNote(note.id)
         .then(() => {
           this.ctrls.toast('删除成功').present()
           this.reload()
@@ -169,8 +170,11 @@ export class TabNotePage {
       if (!date) return
       let from = date.from.dateObj
       let to = date.to.dateObj
-      LCStorage.getNotesRange(this.userService.userId, from, to)
+      let loading = this.ctrls.loading()
+      loading.present()
+      this.lcStorage.getNotesRange(this.userService.userId, from, to)
         .then((notes) => {
+          loading.dismiss()
           this.createDaysMarkdown(notes)
         })
     })

@@ -1,6 +1,13 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
-export default class {
-  static formatDate(date: Date): string {
+@Injectable()
+export class UtilsProvider {
+  constructor() {
+  }
+
+  formatDate(date: Date): string {
     date = new Date(date);
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
@@ -28,4 +35,5 @@ export default class {
       return month + '月' + day + '日';
     }
   }
+
 }

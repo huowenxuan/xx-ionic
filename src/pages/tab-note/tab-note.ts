@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {
   AlertController,
-  IonicPage,
+  IonicPage, MenuController,
   ModalController,
   NavController,
   NavParams, Platform,
@@ -29,13 +29,9 @@ export class TabNotePage {
               public modalCtrl: ModalController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
-              public settings: SettingsProvider,
+              public menu: MenuController,
               public ctrls: ControllersService,
               public userService: UserService,) {
-  }
-
-  public toggleAppTheme(theme) {
-    this.settings.setActiveTheme(theme);
   }
 
   async ionViewDidLoad() {

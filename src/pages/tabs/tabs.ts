@@ -10,7 +10,7 @@ import {LoginPage} from "../login/login";
 // ion-tabs外面不能套ion-content，会滚动
 // 也不能用ngIf控制它的显示，会导致切换的一瞬间因为没有渲染出来而变黑
 // 只能用代码控制
-let _userId = ''
+let _userId = null
 
 @Component({
   templateUrl: 'tabs.html'

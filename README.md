@@ -7,6 +7,7 @@
 * 修改字体
 
 ## 已知bug
+* windows的icon
 
 ## 运行
 ### ionic

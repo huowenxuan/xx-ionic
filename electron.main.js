@@ -8,7 +8,7 @@ const {
   Menu, ipcMain, ipcRenderer
 } = electron;
 
-let isDevelopment = true;
+let isDevelopment = false;
 
 if (isDevelopment) {
   // 代码修改时，自动更新页面

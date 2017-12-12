@@ -1,10 +1,69 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
+import {Platform} from "ionic-angular";
+import {ControllersService} from "./controllers-service";
+import {Clipboard} from "@ionic-native/clipboard";
 
 @Injectable()
 export class UtilsProvider {
-  constructor() {
+  constructor( public platform: Platform,
+                public ctrls: ControllersService,
+                public clipboard: Clipboard,) {
+  }
+
+  copy(text: string) {
+    // TODO: 在手机上测试是什么平台
+    this.ctrls.toast(this.platform.is('cordova') ? 'true' : 'false').present()
+
+    return new Promise((resolve, reject)=>{
+      if(this.platform.is('cordova')) {
+        return this.clipboard.copy(text)
+      } else {
+        this.copyForBrowser(text) ? resolve() : reject()
+      }
+    })
+  }
+
+  private copyForBrowser(input) {
+    const el = document.createElement('textarea');
+
+    el.value = input;
+
+    // Prevent keyboard from showing on mobile
+    el.setAttribute('readonly', '');
+
+    // el.style.contain = 'strict';
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    el.style.fontSize = '12pt'; // Prevent zooming on iOS
+
+    const selection = document.getSelection();
+    let originalRange
+    if (selection.rangeCount > 0) {
+      originalRange = selection.getRangeAt(0);
+    }
+
+    document.body.appendChild(el);
+    el.select();
+
+    // Explicit selection workaround for iOS
+    el.selectionStart = 0;
+    el.selectionEnd = input.length;
+
+    let success = false;
+    try {
+      success = document.execCommand('copy');
+    } catch (err) {}
+
+    document.body.removeChild(el);
+
+    if (originalRange) {
+      selection.removeAllRanges();
+      selection.addRange(originalRange);
+    }
+
+    return success;
   }
 
   formatDate(date: Date): string {

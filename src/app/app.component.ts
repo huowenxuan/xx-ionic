@@ -33,6 +33,13 @@ export class MyApp {
   }
 
   set randomThemeToggle(toggle) {
+    if (toggle) {
+      let randomIdx = Math.floor(Math.random() * this.themes.length)
+      this.settings.setTheme(this.themes[randomIdx])
+    } else {
+      this.settings.setTheme(this.selectedTheme)
+    }
+
     this._randomThemeToggle = toggle
     this.settings.setThemeRandom(toggle)
   }
@@ -44,12 +51,7 @@ export class MyApp {
   async initTheme() {
     let theme = await this.settings.getTheme()
     this.selectedTheme = theme || this.themes[0]
-
     this.randomThemeToggle  = await this.settings.getThemeRandom()
-    if (this.randomThemeToggle) {
-      let randomIdx = Math.floor(Math.random() * this.themes.length)
-      this.settings.setTheme(this.themes[randomIdx])
-    }
   }
 
   public toggleAppTheme(theme) {

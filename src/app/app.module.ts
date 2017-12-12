@@ -27,6 +27,8 @@ import {ChatService} from "../providers/chat-service";
 import {UserService} from "../providers/user-service";
 import {ControllersService} from "../providers/controllers-service";
 import {SettingsProvider} from "../providers/settings";
+import {LCStorageProvider} from "../providers/lc-storage";
+import {UtilsProvider} from "../providers/utils";
 
 // component
 import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
@@ -108,7 +110,9 @@ import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picke
     MoneyService,
     ChatService,
     UserService,
-    SettingsProvider
+    SettingsProvider,
+    LCStorageProvider,
+    UtilsProvider
   ]
 })
 export class AppModule {

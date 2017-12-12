@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
+import {Storage} from "@ionic/storage";
 
 @Injectable()
 export class SettingsProvider {
 
-  private theme: BehaviorSubject<String>;
-
-  constructor() {
-    this.theme = new BehaviorSubject('theme-pink');
+  constructor(public storage: Storage) {
   }
 
-  setActiveTheme(val) {
-    this.theme.next(val);
+  setTheme(theme) {
+    this.storage.set('setting.theme', theme)
   }
 
-  getActiveTheme(): Observable<String> {
-    return this.theme.asObservable();
+  getTheme(){
+    return this.storage.get('setting.theme')
   }
 
+  setThemeRandom(isRandom: boolean) {
+    return this.storage.set("setting.randomTheme", isRandom)
+  }
+
+  getThemeRandom() {
+    return this.storage.get('setting.randomTheme')
+  }
 }

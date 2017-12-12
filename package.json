@@ -16,7 +16,7 @@
     "android": "ionic cordova run android --devices",
     "ios-reload": "ionic cordova run ios --devices --livereload",
     "android-reload": "ionic cordova run android --devices --livereload",
-    "ele": "electron-packager . 来杯小柠檬 --all --out /Users/huowenxuan/Desktop --version 0.0.1 --electronVersion 1.6.11  --overwrite --icon=./src/assets/icon/favicon.ico"
+    "ele": "electron-packager . 来杯小柠檬 --platform=mas --arch=x64 --ignore=node_modules --out /Users/huowenxuan/Desktop --version=0.0.1 --electronVersion=1.6.11 --icon=./src/assets/icon/eleicon.icns --overwrite"
   },
   "dependencies": {
     "@angular/common": "4.4.3",

@@ -5,7 +5,7 @@ const electron = require('electron');
 const {
   app, // 控制应用生命周期的模块
   BrowserWindow, // 创建原生浏览器窗口的模块
-  Menu, ipcMain, ipcRenderer
+  Menu, ipcMain, ipcRenderer,
 } = electron;
 
 let isDevelopment = false;
@@ -18,6 +18,29 @@ if (isDevelopment) {
 }
 
 var mainWindow = null;
+
+let template = [
+  {
+    label: "Application",
+    submenu: [
+      { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
+      { type: "separator" },
+      { label: "Quit", accelerator: "Command+Q", click: function() { app.quit() }}
+    ]
+  },
+  {
+    label: "Edit",
+    submenu: [
+      { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+      { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+      { type: "separator" },
+      { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+      { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+      { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+      { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+    ]
+  }
+];
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -33,6 +56,7 @@ function createMainWindow() {
 
   // 读取入口html
   mainWindow.loadURL(`file://${__dirname}/www/index.html`);
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   // 关闭窗口
   mainWindow.on('closed', () => {
@@ -47,3 +71,4 @@ app.on('ready', ()=>createMainWindow());
 app.on('window-all-closed', () => {
   app.quit();
 });
+

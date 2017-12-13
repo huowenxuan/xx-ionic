@@ -13,16 +13,12 @@ export class UtilsProvider {
   }
 
   copy(text: string) {
-    // TODO: 在手机上测试是什么平台
-    this.ctrls.toast(this.platform.is('cordova') ? 'true' : 'false').present()
-
-    return new Promise((resolve, reject)=>{
-      if(this.platform.is('cordova')) {
-        return this.clipboard.copy(text)
-      } else {
-        this.copyForBrowser(text) ? resolve() : reject()
-      }
-    })
+    if(this.platform.is('cordova')) {
+      return this.clipboard.copy(text)
+    } else {
+      return new Promise((resolve, reject)=>
+        this.copyForBrowser(text) ? resolve() : reject())
+    }
   }
 
   private copyForBrowser(input) {

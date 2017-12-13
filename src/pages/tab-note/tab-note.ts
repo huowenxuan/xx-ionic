@@ -15,6 +15,7 @@ import {MarkdownPage} from "../markdown/markdown";
 import {ControllersService} from "../../providers/controllers-service";
 import {SettingsProvider} from "../../providers/settings";
 import {LCStorageProvider} from "../../providers/lc-storage";
+import { CalendarComponentOptions } from 'ion2-calendar'
 
 @Component({
   selector: 'page-tab-note',
@@ -24,7 +25,11 @@ export class TabNotePage {
   notes = []
   skip = 0
   limit = 10
-
+  dateMulti: string[];
+  type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
+  optionsMulti: CalendarComponentOptions = {
+    pickMode: 'multi'
+  };
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public navParams: NavParams,

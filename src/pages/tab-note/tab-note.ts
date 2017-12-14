@@ -15,7 +15,7 @@ import {MarkdownPage} from "../markdown/markdown";
 import {ControllersService} from "../../providers/controllers-service";
 import {SettingsProvider} from "../../providers/settings";
 import {LCStorageProvider} from "../../providers/lc-storage";
-import { CalendarComponentOptions } from 'ion2-calendar'
+import {CalendarComponentOptions} from 'ion2-calendar'
 
 @Component({
   selector: 'page-tab-note',
@@ -25,11 +25,14 @@ export class TabNotePage {
   notes = []
   skip = 0
   limit = 10
-  dateMulti: string[];
+
+  calendar
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
-  optionsMulti: CalendarComponentOptions = {
-    pickMode: 'multi'
-  };
+  calendarOptions: CalendarComponentOptions
+  onCalendarChange = async ($event) => {
+    this.notes = await this.lcStorage.getNotesRange(this.userService.userId, $event.toDate(), $event.toDate())
+  }
+
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public navParams: NavParams,
@@ -38,6 +41,12 @@ export class TabNotePage {
               public lcStorage: LCStorageProvider,
               public ctrls: ControllersService,
               public userService: UserService,) {
+
+    this.calendarOptions = {
+      from: moment().subtract(10000, 'days').toDate(),
+      to: new Date(),
+      pickMode: 'single'
+    };
   }
 
   async ionViewDidLoad() {

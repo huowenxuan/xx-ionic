@@ -20,10 +20,10 @@
 
 <ion-content>
   <ion-calendar
-    class=""
-    [(ngModel)]="dateMulti"
-    [options]="optionsMulti"
+    [(ngModel)]="calendar"
+    [options]="calendarOptions"
     [type]="type"
+    (onChange)="onCalendarChange($event)"
     [format]="'YYYY-MM-DD'">
   </ion-calendar>
 

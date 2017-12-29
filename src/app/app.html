@@ -1,6 +1,7 @@
 <!-- 不能带主体class，切换主题后menu会隐藏，而不是消失 -->
 <!-- type: overlay, reveal, push -->
-<ion-menu [content]="menuPage" type="overlay" side="left">
+<!-- 禁止手势，在push后的页面会把pop手势拦截，反而自己弹出了 -->
+<ion-menu swipeEnabled="false" [content]="menuPage" type="overlay" side="left">
   <ion-content>
     <ion-list>
       <ion-item *ngFor="let theme of themes" (click)="toggleAppTheme(theme)">

@@ -46,6 +46,6 @@ export class TabNotePage {
   }
 
   async ionViewDidLoad() {
-    this.superTabsCtrl.enableTabsSwipe(false)
+    setTimeout(()=>this.superTabsCtrl.enableTabsSwipe(false), 1000)
   }
 }

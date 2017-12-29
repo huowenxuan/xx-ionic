@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {Platform} from "ionic-angular";
 import {ControllersService} from "./controllers-service";
 import {Clipboard} from "@ionic-native/clipboard";
+import * as moment from "moment";
 
 @Injectable()
 export class UtilsProvider {
@@ -91,4 +92,16 @@ export class UtilsProvider {
     }
   }
 
+  isThisYear(date) {
+    return moment(date).year() === moment().year()
+  }
+
+  isSameDay(d1, d2) {
+    if (!d1 || !d2) return false
+
+    let m1 = moment(d1)
+    let m2 = moment(d2)
+    if (m1.year() != m2.year()) return false
+    return m1.date() === m2.date() && m1.month() === m2.month()
+  }
 }

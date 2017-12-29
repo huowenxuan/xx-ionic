@@ -44,7 +44,6 @@ $colors: (
   danger: #f53d3d,
   light: #f4f4f4,
   dark: #222,
-
   // ion-button按下的颜色，如果不设置，是根据primary走
   btn-selected: #FBFBFB,
 );
@@ -68,7 +67,6 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-
 @import "ionic.theme.default";
 //@import "ionic.theme.dark";
 
@@ -85,16 +83,12 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 
+@import "super-tabs";
 
 * {
   margin: 0;
   padding: 0;
   border: 0 none;
-}
-
-// 为iOS增加上间距
-ion-header ion-title {
-  margin-top: 6px;
 }
 
 // 导航栏按钮加间距
@@ -105,4 +99,19 @@ ion-navbar .bar-button-ios {
 // content底部减少间距
 .scroll-content {
   margin-bottom: 0 !important;
+}
+
+// 导航栏高度
+ion-header, ion-navbar {
+  min-height: 64px !important;
+}
+
+// super tab 高度
+super-tabs-toolbar {
+  super-tab-button {
+    height: 40px !important;
+  }
+  .title {
+    line-height: 40px !important;
+  }
 }

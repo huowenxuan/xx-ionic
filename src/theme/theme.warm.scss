@@ -85,4 +85,17 @@ $text-normal: #7B7B7B;
       }
     }
   }
+
+  super-tabs-toolbar {
+    super-tab-button {
+      background-color: $tint-background;
+    }
+    .title {
+      color: $tint-contrast;
+    }
+    .indicator {
+      background-color: $tint-contrast;
+    }
+  }
 }
+

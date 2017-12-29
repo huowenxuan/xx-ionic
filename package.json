@@ -47,6 +47,7 @@
     "ion2-calendar": "^2.1.4",
     "ionic-angular": "^3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",
+    "ionic2-super-tabs": "^4.1.5",
     "ionicons": "3.0.0",
     "leancloud-realtime": "^3.5.7",
     "leancloud-realtime-plugin-typed-messages": "^2.0.0",

@@ -3,7 +3,7 @@ import {IonicPage, NavParams} from 'ionic-angular';
 import {Events, Content, TextInput} from 'ionic-angular';
 import {ChatService, TextMessage, Message, UserInfo} from "../../providers/chat-service";
 import {UserService} from "../../providers/user-service";
-import {ChatInputComponent} from "../../components/ChatInput/chat-input";
+import {ChatInputComponent} from "../../components/chat-input/chat-input";
 import {EmojiPickerComponent} from "../../components/emoji-picker/emoji-picker";
 
 @IonicPage()

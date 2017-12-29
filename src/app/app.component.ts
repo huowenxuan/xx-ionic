@@ -24,10 +24,10 @@ export class MyApp {
               public keyboard: Keyboard,
               public settings: SettingsProvider,
               splashScreen: SplashScreen) {
+    this.initTheme()
     FastClick.attach(document.body)
 
     platform.ready().then(() => {
-      this.initTheme()
       splashScreen.hide();
       this.statusBar.styleLightContent()
       keyboard.disableScroll(true)

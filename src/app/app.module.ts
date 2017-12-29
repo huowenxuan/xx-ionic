@@ -10,6 +10,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {Clipboard} from '@ionic-native/clipboard';
 import {CalendarModule} from "ion2-calendar";
+import { SuperTabsModule } from 'ionic2-super-tabs';
 
 // container
 import {TabsPage} from '../pages/tabs/tabs';
@@ -36,8 +37,10 @@ import {Keyboard} from "@ionic-native/keyboard";
 import {ChatPage} from "../pages/chat/chat";
 import {KeyboardAttachDirective} from "../directives/keyboard-attach.directive";
 import {RelativeTime} from "../pipes/relative-time";
-import {ChatInputModule} from "../components/ChatInput/chat-input.module";
+import {ChatInputModule} from "../components/chat-input/chat-input.module";
 import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picker.module";
+import {NoteHourTabModule} from "../components/note-hour-tab/note-hour-tab.module";
+import {NoteDayTabModule} from "../components/note-day-tab/note-day-tab.module";
 
 @NgModule({
   declarations: [
@@ -58,6 +61,7 @@ import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picke
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
+      mode: 'md',
       tabsHideOnSubPages: true,
       backButtonText: '返回',
       tabsLayout: 'ion-left',
@@ -76,6 +80,7 @@ import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picke
       // autoFocusAssist: false
     }),
     IonicStorageModule.forRoot(),
+    SuperTabsModule.forRoot(),
 
     // container
     MarkdownPageModule,
@@ -84,7 +89,9 @@ import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picke
     CalendarModule,
     MoneyListRowModule,
     ChatInputModule,
-    EmojiPickerComponentModule
+    EmojiPickerComponentModule,
+    NoteHourTabModule,
+    NoteDayTabModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

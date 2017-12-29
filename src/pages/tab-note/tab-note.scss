@@ -29,6 +29,10 @@ page-tab-note {
     background-color: color($colors, danger);
   }
 
+  .segment {
+    height: 44px;
+  }
+
   .pp {
     margin-top: 5px;
     font-size: small;
@@ -41,5 +45,19 @@ page-tab-note {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     display: -webkit-box;
+  }
+
+  $segment-height: 42px;
+  ion-segment {
+    height: $segment-height !important;
+    min-height: 0 !important;
+    ion-segment-button {
+      min-height: 0 !important;
+      height: $segment-height !important;
+    }
+    ion-segment-button.segment-button {
+      height: $segment-height !important;
+      min-height: 0 !important;
+    }
   }
 }

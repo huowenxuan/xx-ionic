@@ -85,4 +85,16 @@ $text-normal: #80AF83;
       }
     }
   }
+
+  super-tabs-toolbar {
+    super-tab-button {
+      background-color: $tint-background;
+    }
+    .title {
+      color: $tint-contrast;
+    }
+    .indicator {
+      background-color: $tint-contrast;
+    }
+  }
 }

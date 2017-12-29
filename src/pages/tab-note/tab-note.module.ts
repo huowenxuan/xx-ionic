@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { TabNotePage } from './tab-note';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {TabNotePage} from './tab-note';
 
 @NgModule({
   declarations: [
@@ -10,4 +10,5 @@ import { TabNotePage } from './tab-note';
     IonicPageModule.forChild(TabNotePage),
   ],
 })
-export class TabNotePageModule {}
+export class TabNotePageModule {
+}

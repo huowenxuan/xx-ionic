@@ -92,6 +92,17 @@ $colors: (
   border: 0 none;
 }
 
+// 为iOS增加上间距
 ion-header ion-title {
   margin-top: 6px;
+}
+
+// 导航栏按钮加间距
+ion-navbar .bar-button-ios {
+  margin: 0 7px 0 7px !important;
+}
+
+// content底部减少间距
+.scroll-content {
+  margin-bottom: 0 !important;
 }

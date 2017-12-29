@@ -59,7 +59,7 @@ import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picke
     HttpModule,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages: true,
-      backButtonText: '<_<',
+      backButtonText: '返回',
       tabsLayout: 'ion-left',
       iconMode: "md",
       // modalEnter: "modal-md-slide-in",

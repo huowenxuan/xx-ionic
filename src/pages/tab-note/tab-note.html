@@ -6,9 +6,7 @@
       </button>
     </ion-buttons>
 
-    <ion-title>
-      笔记
-    </ion-title>
+    <ion-title>笔记</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only navPush="NoteSearchPage">
@@ -33,12 +31,12 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let note of this.notes">
-
-      <ion-item>
-        <ion-card-content navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
-          <h4>{{showTime(note.attributes.start, note.attributes.end)}}</h4>
+      <ion-item class="note-row" no-lines>
+        <h1 class="date" item-left>{{showDate(note)}}</h1>
+        <div navPush="MarkdownPage" [navParams]="{markdown: note.attributes.text}">
+          <h2 class="time">{{showTime(note)}}</h2>
           <p class="pp">{{note.attributes.text}}</p>
-        </ion-card-content>
+        </div>
       </ion-item>
 
       <ion-item-options cancelable="false">

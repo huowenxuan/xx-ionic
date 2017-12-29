@@ -103,8 +103,6 @@ export class TabNotePage {
 
   getDate(date) {
     if (!date) return ''
-    if (this.isSameDay(date, Date.now())) return ''
-
     let weekCns = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
     let m = moment(date)
     let year = m.year()
@@ -112,24 +110,42 @@ export class TabNotePage {
     let day = m.date()
     let weekday = m.weekday()
 
-    let end = `${month}/${day} ${weekCns[weekday]}`
-    if (!this.isThisYear(date)) {
-      end = `${year}/${end}`
-    }
-    return end + '  '
+    let end = `${month}/${day}\n${weekCns[weekday]}`
+    if (!this.isThisYear(date))
+      end = `${end} ${year}`
+    return end
   }
 
-  showTime(start, end) {
-    let endDate = this.getDate(end)
+  showDate(note) {
+    let shouldShow = true
+    let index = this.notes.indexOf(note)
+    if (index > -1) {
+      let currentEnd = this.notes[index].attributes.end
+      if (this.notes[index - 1]) {
+        let lastEnd = this.notes[index - 1].attributes.end
+        shouldShow = !this.isSameDay(currentEnd, lastEnd)
+      }
+    }
+
+    if (!shouldShow) {
+      return null
+    }
+
+    const {end} = note.attributes
+    return this.getDate(end)
+  }
+
+  showTime(note) {
+    const {start, end} = note.attributes
     let startTime = this.getTime(start)
     let endTime = this.getTime(end)
 
     let time = endTime
     if (startTime) {
-      time = `${startTime} - ${endTime}`
+      time = `${startTime}-${endTime}`
     }
 
-    return `${endDate}${time}`
+    return time
   }
 
   deleteNote(note) {

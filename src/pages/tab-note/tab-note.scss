@@ -7,19 +7,38 @@ page-tab-note {
     font-size: large;
   }
 
+  .date {
+    margin: 12px 0 0 0 !important;
+    width: 65px;
+    white-space: pre-line;
+    min-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .time {
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .note-row {
+    align-items: flex-start;
+  }
+
   .danger {
     background-color: color($colors, danger);
   }
 
   .pp {
+    margin-top: 5px;
     font-size: small;
 
-    white-space:pre; // 多行
-    text-overflow:ellipsis; // 超出的宽度显示省略号
-    overflow:hidden; // 不超出父元素
+    white-space: normal; // 多行
+    text-overflow: ellipsis; // 超出的宽度显示省略号
+    overflow: hidden; // 不超出父元素
 
     // 限制最大行数
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     display: -webkit-box;
   }

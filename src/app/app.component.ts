@@ -6,6 +6,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {TabsPage} from '../pages/tabs/tabs';
 import {Keyboard} from "@ionic-native/keyboard";
 import {SettingsProvider} from "../providers/settings";
+import * as FastClick from 'fastclick'
 
 @Component({
   templateUrl: 'app.html'
@@ -23,9 +24,10 @@ export class MyApp {
               public keyboard: Keyboard,
               public settings: SettingsProvider,
               splashScreen: SplashScreen) {
-    this.initTheme()
+    FastClick.attach(document.body)
 
     platform.ready().then(() => {
+      this.initTheme()
       splashScreen.hide();
       this.statusBar.styleLightContent()
       keyboard.disableScroll(true)

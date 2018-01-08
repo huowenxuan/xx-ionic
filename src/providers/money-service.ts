@@ -1,31 +1,20 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions, Headers, Response} from '@angular/http';
+import {Http} from '@angular/http';
+import {Storage} from "@ionic/storage";
 import 'rxjs/add/operator/map';
-import {Observable} from "rxjs/Observable";
+import * as AV from 'leancloud-storage'
+import {LCStorageProvider} from "./lc-storage";
+
+export class AccountBook extends AV.Object {
+  userId: string
+  time: Date
+  type: string
+  price: number
+}
 
 @Injectable()
 export class MoneyService {
-
-  constructor(public http: Http) {
+  constructor(public lcStorage: LCStorageProvider) {
+    AV.Object.register(AccountBook);
   }
-
-  private get(url) : Promise<any> {
-    let headers = new Headers({
-      "Accept": "application/json",
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-    })
-    let options = new RequestOptions({headers: headers})
-    return new Promise((resolve, reject)=>{
-      this.http.get(url, options)
-        .map((res)=>res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, err => {
-          reject(err);
-        })
-    })
-
-
-  }
-
 }

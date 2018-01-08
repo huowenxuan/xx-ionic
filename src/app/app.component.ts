@@ -25,7 +25,7 @@ export class MyApp {
               public settings: SettingsProvider,
               splashScreen: SplashScreen) {
     this.initTheme()
-    FastClick.attach(document.body)
+    // FastClick.attach(document.body)
 
     platform.ready().then(() => {
       splashScreen.hide();

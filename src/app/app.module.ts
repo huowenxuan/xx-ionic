@@ -41,6 +41,7 @@ import {ChatInputModule} from "../components/chat-input/chat-input.module";
 import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picker.module";
 import {NoteHourTabModule} from "../components/note-hour-tab/note-hour-tab.module";
 import {NoteDayTabModule} from "../components/note-day-tab/note-day-tab.module";
+import {NoteService} from "../providers/note-service";
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import {NoteDayTabModule} from "../components/note-day-tab/note-day-tab.module";
     UserService,
     SettingsProvider,
     LCStorageProvider,
-    UtilsProvider
+    UtilsProvider,
+    NoteService
   ]
 })
 export class AppModule {

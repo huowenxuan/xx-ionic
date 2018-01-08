@@ -6,8 +6,8 @@ import {MarkdownPage} from "../../pages/markdown/markdown";
 import {AlertController, MenuController, ModalController, NavController, NavParams} from "ionic-angular";
 import {UserService} from "../../providers/user-service";
 import {ControllersService} from "../../providers/controllers-service";
-import {LCStorageProvider} from "../../providers/lc-storage";
 import {UtilsProvider} from "../../providers/utils";
+import {NoteService} from "../../providers/note-service";
 
 @Component({
   selector: 'note-hour-tab',
@@ -22,7 +22,7 @@ export class NoteHourTab {
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   calendarOptions: CalendarComponentOptions
   onCalendarChange = async ($event) => {
-    this.notes = await this.lcStorage.getNotesRange(this.userService.userId, $event.toDate(), $event.toDate())
+    this.notes = await this.noteService.getNotesRange(this.userService.userId, $event.toDate(), $event.toDate())
   }
   rootNavCtrl: NavController
 
@@ -30,8 +30,7 @@ export class NoteHourTab {
               public modalCtrl: ModalController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
-              public menu: MenuController,
-              public lcStorage: LCStorageProvider,
+              public noteService: NoteService,
               public utils: UtilsProvider,
               public ctrls: ControllersService,
               public userService: UserService,) {
@@ -57,7 +56,7 @@ export class NoteHourTab {
     if (loading) {
       loader.present()
     }
-    this.notes = await this.lcStorage.getNotes(this.userService.userId, 0, this.limit)
+    this.notes = await this.noteService.getNotes(this.userService.userId, 0, this.limit)
     loader.dismiss()
   }
 
@@ -72,18 +71,24 @@ export class NoteHourTab {
 
   async loadMore(infiniteScroll) {
     this.skip += this.limit
-    let notes = await this.lcStorage.getNotes(this.userService.userId, this.skip, this.limit)
+    let notes = await this.noteService.getNotes(this.userService.userId, this.skip, this.limit)
     if (notes) {
       this.notes.push(...notes)
     }
     infiniteScroll.complete()
   }
 
-  getTime(createdAt) {
-    if (!createdAt) return ''
-    let m = moment(createdAt)
+  getTime(time, showDate) {
+    if (!time) return ''
+    let m = moment(time)
     let hour = m.hour()
     let min = m.minute()
+
+    if (showDate) {
+      let month = m.month() + 1
+      let date = m.date()
+      return `${month}/${date} ${hour}:${min}`
+    }
     return `${hour}:${min}`
   }
 
@@ -123,12 +128,13 @@ export class NoteHourTab {
 
   showTime(note) {
     const {start, end} = note.attributes
-    let startTime = this.getTime(start)
-    let endTime = this.getTime(end)
+    let showDate = start && end ? !this.utils.isSameDay(start, end) : false
+    let startTime = this.getTime(start, showDate)
+    let endTime = this.getTime(end, showDate)
 
     let time = endTime
     if (startTime) {
-      time = `${startTime}-${endTime}`
+      time = `${startTime} - ${endTime}`
     }
 
     return time
@@ -136,7 +142,7 @@ export class NoteHourTab {
 
   deleteNote(note) {
     let doDelete = () => {
-      this.lcStorage.deleteNote(note.id)
+      this.noteService.deleteNote(note.id)
         .then(() => {
           this.ctrls.toast('删除成功').present()
           this.reload()
@@ -188,7 +194,7 @@ export class NoteHourTab {
       let to = date.to.dateObj
       let loading = this.ctrls.loading()
       loading.present()
-      this.lcStorage.getNotesRange(this.userService.userId, from, to)
+      this.noteService.getNotesRange(this.userService.userId, from, to)
         .then((notes) => {
           loading.dismiss()
           this.createDaysMarkdown(notes)

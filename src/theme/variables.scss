@@ -85,12 +85,6 @@ $colors: (
 
 @import "super-tabs";
 
-* {
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-}
-
 // 导航栏按钮加间距
 ion-navbar .bar-button-ios {
   margin: 0 7px 0 7px !important;

@@ -19,12 +19,12 @@
 
   <ion-item *ngIf="startEnable">
     <ion-label>开始时间</ion-label>
-    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="startPicker"></ion-datetime>
+    <ion-datetime displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="startPicker"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label>结束时间</ion-label>
-    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="endPicker"></ion-datetime>
+    <ion-datetime displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="endPicker"></ion-datetime>
   </ion-item>
 
   <textarea

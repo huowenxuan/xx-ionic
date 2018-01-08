@@ -2,7 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service";
 import {ControllersService} from "../../providers/controllers-service";
-import {LCStorageProvider, Note} from "../../providers/lc-storage";
+import {LCStorageProvider} from "../../providers/lc-storage";
+import {NoteService, Note} from "../../providers/note-service";
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class NoteEditPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserService,
-              public lcStorage: LCStorageProvider,
+              public noteService: NoteService,
               public ctrls: ControllersService) {
     this.oldNote = this.navParams.get('note')
     if (this.oldNote) {
@@ -71,9 +72,9 @@ export class NoteEditPage {
       }
 
       if (this.oldNote) {
-        noteId = await this.lcStorage.updateNote(this.oldNote.id, this.input, start, this.end)
+        noteId = await this.noteService.updateNote(this.oldNote.id, this.input, start, this.end)
       } else {
-        noteId = await this.lcStorage.createNote(this.userService.userId, start, this.end, this.input)
+        noteId = await this.noteService.createNote(this.userService.userId, start, this.end, this.input)
       }
       loader.dismiss()
       onSuccess && onSuccess(noteId)

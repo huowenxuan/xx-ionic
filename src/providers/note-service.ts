@@ -15,7 +15,7 @@ export class Note extends AV.Object {
 @Injectable()
 export class NoteService {
   constructor(public lcStorage: LCStorageProvider) {
-    AV.Object.register(Note);
+    lcStorage.registerObject(Note)
   }
 
   async createNote(userId: string, start:Date, end: Date, text:string) {
@@ -45,7 +45,7 @@ export class NoteService {
   }
 
   async getNotes(userId, skip = 0, limit = 10): Promise<any> {
-    let query = new AV.Query('Note');
+    let query = new AV.Query(Note);
     query.equalTo('userId', userId);
     query.addDescending('end');
     query.skip(skip)
@@ -66,7 +66,7 @@ export class NoteService {
     from.setHours(0);from.setMinutes(0);from.setSeconds(0)
     to.setHours(23);to.setMinutes(59);to.setSeconds(59)
 
-    let query = new AV.Query('Note')
+    let query = new AV.Query(Note)
     query.equalTo('userId', userId)
     query.addDescending('end')
     query.greaterThanOrEqualTo('end', from)
@@ -80,7 +80,7 @@ export class NoteService {
   }
 
   getANote(id) {
-    let query = new AV.Query('Note');
+    let query = new AV.Query(Note);
     return new Promise((resolve, reject) => {
       query.get(id).then(
         (results) => resolve(results),
@@ -95,6 +95,5 @@ export class NoteService {
         (res) => resolve(),
         (error) => reject(error))
     })
-
   }
 }

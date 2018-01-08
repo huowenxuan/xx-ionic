@@ -11,4 +11,8 @@ export class LCStorageProvider {
   constructor() {
     AV.init({appId: LCAppId, appKey: LCAppKey})
   }
+
+  registerObject(Class) {
+    return AV.Object.register(Class)
+  }
 }

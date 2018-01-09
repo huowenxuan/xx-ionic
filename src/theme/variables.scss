@@ -28,6 +28,8 @@ $app-direction: ltr;
 @import "theme.basic";
 @import "theme.warm";
 
+@import '../components/ion-digit-keyboard/ion-digit-keyboard';
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -84,6 +86,14 @@ $colors: (
 @import "noto-sans";
 
 @import "super-tabs";
+
+.app {
+  font-family: "Kaiti SC";
+}
+
+* {
+  border: 0;
+}
 
 // 导航栏按钮加间距
 ion-navbar .bar-button-ios {

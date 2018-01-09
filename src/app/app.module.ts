@@ -42,6 +42,8 @@ import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picke
 import {NoteHourTabModule} from "../components/note-hour-tab/note-hour-tab.module";
 import {NoteDayTabModule} from "../components/note-day-tab/note-day-tab.module";
 import {NoteService} from "../providers/note-service";
+import {SpendEditPage} from "../pages/spend-edit/spend-edit";
+import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keyboard.module";
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import {NoteService} from "../providers/note-service";
     LoginPage,
     ChatPage,
     NoteEditPage,
+    SpendEditPage,
 
     KeyboardAttachDirective,
     RelativeTime
@@ -64,7 +67,7 @@ import {NoteService} from "../providers/note-service";
     IonicModule.forRoot(MyApp, {
       mode: 'md',
       tabsHideOnSubPages: true,
-      backButtonText: '返回',
+      backButtonText: '',
       tabsLayout: 'ion-left',
       iconMode: "md",
       // modalEnter: "modal-md-slide-in",
@@ -92,7 +95,9 @@ import {NoteService} from "../providers/note-service";
     ChatInputModule,
     EmojiPickerComponentModule,
     NoteHourTabModule,
-    NoteDayTabModule
+    NoteDayTabModule,
+
+    IonDigitKeyboard
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -103,7 +108,8 @@ import {NoteService} from "../providers/note-service";
     TabNotePage,
     LoginPage,
     ChatPage,
-    NoteEditPage
+    NoteEditPage,
+    SpendEditPage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },

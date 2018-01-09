@@ -104,4 +104,14 @@ export class UtilsProvider {
     if (m1.year() != m2.year()) return false
     return m1.date() === m2.date() && m1.month() === m2.month()
   }
+
+  isoToDate(isoString: string): Date {
+    if (!isoString) return null
+    return new Date(new Date(isoString).getTime() - 8*3600*1000)
+  }
+
+  dateToISO(date: Date): string {
+    if (!date) return null
+    return new Date(date.getTime() + 8*3600*1000).toISOString()
+  }
 }

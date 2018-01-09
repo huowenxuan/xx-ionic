@@ -24,6 +24,7 @@ let AllTypes = [
   {text: '话费', type: 'phone'},
   {text: '社交', type: 'social'},
   {text: '家人', type: 'family'},
+  {text: '衣物', type: 'clothes'}
 ]
 
 @Injectable()

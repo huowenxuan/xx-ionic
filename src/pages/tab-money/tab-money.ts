@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MoneyService} from "../../providers/money-service";
 import {CalendarComponentOptions} from "ion2-calendar";
+import {SpendEditPage} from "../spend-edit/spend-edit";
 
 @IonicPage()
 @Component({
@@ -10,10 +11,17 @@ import {CalendarComponentOptions} from "ion2-calendar";
   providers: [MoneyService]
 })
 export class TabMoneyPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams, public service: MoneyService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public service: MoneyService) {
   }
 
   ionViewDidLoad() {
+    this.navCtrl.push(SpendEditPage)
   }
 
+  toEditSpend() {
+    this.navCtrl.push(SpendEditPage)
+  }
 }

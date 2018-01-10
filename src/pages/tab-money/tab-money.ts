@@ -8,7 +8,6 @@ import {SpendEditPage} from "../spend-edit/spend-edit";
 @Component({
   selector: 'page-tab-money',
   templateUrl: 'tab-money.html',
-  providers: [MoneyService]
 })
 export class TabMoneyPage {
   constructor(

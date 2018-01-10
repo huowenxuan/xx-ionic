@@ -5,10 +5,11 @@ import {ControllersService} from "../../providers/controllers-service";
 import {LCStorageProvider} from "../../providers/lc-storage";
 import {NoteService, Note} from "../../providers/note-service";
 import {UtilsProvider} from "../../providers/utils";
-import {MoneyService, Spend, SpendType} from "../../providers/money-service";
+import {MoneyService, Spend} from "../../providers/money-service";
 import {IonDigitKeyboardOptions} from "../../components/ion-digit-keyboard";
+import * as _ from 'lodash'
 
-@IonicPage()
+@IonicPage() 
 @Component({
   selector: 'page-spend-edit',
   templateUrl: 'spend-edit.html',
@@ -16,9 +17,8 @@ import {IonDigitKeyboardOptions} from "../../components/ion-digit-keyboard";
 export class SpendEditPage {
   @ViewChild('content') content: any;
   title = '新建'
-  oldSpend: Note
   date = new Date()
-  monthPicker
+  _monthPicker
   footerHeight = 0
 
   keyboardThemes = ['light', 'dark', 'ionic', 'opaque-black', 'opaque-white', 'dusk', 'nepal', 'alihossein', 'messenger']
@@ -33,8 +33,8 @@ export class SpendEditPage {
     theme: this.keyboardThemes[7]
   };
 
-  inputPrice = ''
-  selectedIndex = 0
+  inputPrice
+  selectedIndex
   spendList: Array<any> = []
 
   constructor(public navCtrl: NavController,
@@ -44,26 +44,41 @@ export class SpendEditPage {
               public moneyService: MoneyService,
               public utils: UtilsProvider,
               public ctrls: ControllersService) {
-    this.oldSpend = this.navParams.get('spend')
-    if (this.oldSpend) {
-      this.title = '编辑'
-    }
     this.monthPicker = this.utils.dateToISO(this.date)
+  }
+
+  get monthPicker() {
+    return this._monthPicker
+  }
+
+  set monthPicker(newPicker) {
+    this._monthPicker = newPicker
+    this.onRefresh()
   }
 
   async ionViewDidLoad() {
     this.footerHeight = document.getElementById("footer").offsetHeight
-
-    let spendTypes = await this.moneyService.getAllSpendTypes()
-    this.spendList = spendTypes.map((item)=>item.attributes)
+    this.onRefresh()
   }
 
-  async save() {
-    this.date = this.utils.isoToDate(this.monthPicker)
-
-    let onSuccess = this.navParams.get('onSuccess')
-    // let loader = this.ctrls.loading()
-    // loader.present()
+  async onRefresh() {
+    this.selectedIndex = 0
+    this.inputPrice = ''
+    this.spendList = new Array(this.moneyService.spendTypes.length)    
+    let spends = await this.moneyService.getMonthSpend(this.userService.userId, this.getMonthDateClear())
+    // 排序，spend的顺序和type一致，放在对应的位置上
+    spends.forEach(item => {
+      let had = this.moneyService.spendTypes.some((type, index)=>{
+        let same = type.type === item.attributes.type
+        if (same) {
+          this.spendList[index] = item
+        }
+        return same
+      })
+      if(!had) {
+        // TODO 把没有的类别也要列出来
+      }
+    });
   }
 
   onKeyboardNumberClick(key) {
@@ -79,19 +94,66 @@ export class SpendEditPage {
     this.inputPrice = this.inputPrice.substring(0, length - 1)
   }
 
-  selectSpend(spend, index) {
+  selectSpend(index) {
     this.selectedIndex = index
-    this.inputPrice = this.spendList[this.selectedIndex].price || ''
+    this.ctrls.toast(this.moneyService.spendTypes[index].description, 'top').present()
+
+    let spend = this.spendList[index]
+    this.inputPrice = spend ? spend.attributes.price : ''
+  }
+ 
+  getMonthDateClear() {
+    let monthDate = this.utils.isoToDate(this.monthPicker)    
+    monthDate.setDate(1)
+    monthDate.setHours(0)
+    monthDate.setMinutes(0)
+    monthDate.setSeconds(0)
+    monthDate.setMilliseconds(0)
+    return monthDate
   }
 
-  saveInputPrice() {
-    if (!this.inputPrice) return
+  async saveInputPrice() {
+    let selectedSpend = this.spendList[this.selectedIndex]          
+    if (!this.inputPrice) {
+      // 删除
+      if (selectedSpend) {
+        try {
+          await this.moneyService.deleteSpend(selectedSpend.id)  
+          this.spendList[this.selectedIndex] = null    
+          this.ctrls.toast('删除成功').present()
+        } catch(e) {
+          this.ctrls.toast('删除失败').present()
+        }
+      }
+      return
+    }
     try {
       let number: any = parseFloat(this.inputPrice)
       if (isNaN(number)) throw ''
       number = number.toFixed(2)
-      this.spendList[this.selectedIndex].price = number
       this.inputPrice = number
+      
+      let newSpend, toastText
+      if (!selectedSpend) {
+        newSpend = await this.moneyService.createSpend(
+          this.userService.userId, 
+          number, 
+          this.getMonthDateClear(), 
+          this.moneyService.spendTypes[this.selectedIndex].type
+        )
+        toastText = '创建成功'
+      } else {
+        newSpend = await this.moneyService.updateSpend(
+          selectedSpend.id,
+          number, 
+          this.getMonthDateClear(), 
+          this.moneyService.spendTypes[this.selectedIndex].type
+        )
+        toastText = '更新成功'
+      }
+      this.spendList[this.selectedIndex] = newSpend
+      this.ctrls.toast(toastText).present()
+      
     } catch (e) {
       this.ctrls.toast('价格输入错误').present()
     }

@@ -9,11 +9,6 @@
         ></ion-datetime>
       </button>
     </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="save()">
-        <ion-icon name="checkmark-circle"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -21,11 +16,11 @@
   <div [style.padding-bottom]="footerHeight + 'px'">
     <ion-grid>
       <ion-row>
-        <ion-col col-2 *ngFor="let spend of spendList; let i = index;">
-          <button ion-fab (click)="selectSpend(spend, i)">
-            {{spend.price ? '·' : ''}}
+        <ion-col col-2 *ngFor="let spend of moneyService.spendTypes; let i = index;" >
+          <button ion-fab (click)="selectSpend(i)">
+            {{spendList[i] ? '·' : ''}}
             {{spend.text}}
-            {{spend.price ? '·' : ''}}
+            {{spendList[i] ? '·' : ''}}
           </button>
         </ion-col>
         <ion-col>
@@ -41,7 +36,7 @@
 <ion-footer id="footer" no-border>
   <ion-item no-lines>
     <span item-start>
-      {{spendList[selectedIndex] ? spendList[selectedIndex].text : ''}}   {{inputPrice}}
+      {{moneyService.spendTypes[selectedIndex] ? moneyService.spendTypes[selectedIndex].text : ''}}   {{inputPrice}}
     </span>
     <ion-icon (click)="saveInputPrice()" item-end name="md-checkmark-circle-outline"></ion-icon>
   </ion-item>

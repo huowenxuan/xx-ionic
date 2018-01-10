@@ -5,59 +5,36 @@ import 'rxjs/add/operator/map';
 import * as AV from 'leancloud-storage'
 import {LCStorageProvider} from "./lc-storage";
 
-export class SpendType extends AV.Object {
-  text: string
-  type: string
-}
-
 export class Spend extends AV.Object {
   userId: string
   time: Date
-  typeId: SpendType
-  price: number
+  type: string 
+  price: string
 }
-
-let AllTypes = [
-  {text: '居家', type: 'home'},
-  {text: '餐饮', type: 'food'},
-  {text: '交通', type: 'traffic'},
-  {text: '话费', type: 'phone'},
-  {text: '社交', type: 'social'},
-  {text: '家人', type: 'family'},
-  {text: '衣物', type: 'clothes'}
-]
 
 @Injectable()
 export class MoneyService {
+  spendTypes = [
+    {text: '居家', type: 'home', description: '家具，房租，生活用品'},
+    {text: '餐饮', type: 'food', description: '吃喝'},
+    {text: '交通', type: 'traffic', description: '共享单车，公交，火车，飞机'},
+    {text: '人情', type: 'social', description: '朋友，亲戚，家人，反正就是送（赔）别人的'},
+    {text: '服饰', type: 'clothes', description: '衣服鞋子'},
+    {text: '学习', type: 'study', description: '书籍，学习视频'},
+    {text: '运动', type: 'sport', description: '运动器材，健身房'},
+    {text: '娱乐', type: 'play', description: '电影，游戏，玩耍，给自己买的玩具'},
+    {text: '电子', type: 'electronic', description: '话费，数码产品，手机电脑及配件'}
+  ]
+
   constructor(public lcStorage: LCStorageProvider) {
-    lcStorage.registerObject(SpendType)
     lcStorage.registerObject(Spend)
-
-    this.autoAddTypes()
   }
+ 
+  getMonthSpend(userId, time): Promise<Array<any>> {
+    let query = new AV.Query(Spend);
+    query.equalTo('userId', userId);
+    query.equalTo('time', time)
 
-  async autoAddTypes() {
-    let types = await this.getAllSpendTypes()
-    AllTypes.forEach((item)=>{
-      if (!types.some(({attributes: attr})=>attr.text === item.text)) {
-        this.createSpendType(item.text, item.type)
-      }
-    })
-  }
-
-  createSpendType(text: string, type: string) {
-    let spendType = new SpendType();
-    spendType.set('text', text)
-    spendType.set('type', type)
-    return new Promise((resolve, reject) => {
-      spendType.save().then(
-        (res) => resolve(res.id),
-        (error) => reject(error))
-    })
-  }
-
-  getAllSpendTypes(): Promise<any> {
-    let query = new AV.Query(SpendType);
     return new Promise((resolve, reject) => {
       query.find().then(
         (results) => resolve(results),
@@ -65,15 +42,27 @@ export class MoneyService {
     })
   }
 
-  createSpend(userId, price, time, typeId) {
+  createSpend(userId, price, time, type) {
     let spend = new Spend()
     spend.set('userId', userId)
     spend.set('time', time)
     spend.set('price', price)
-    spend.set('typeId', typeId)
+    spend.set('type', type)
     return new Promise((resolve, reject) => {
       spend.save().then(
-        (res) => resolve(res.id),
+        (res) => resolve(res),
+        (error) => reject(error))
+    })
+  }
+
+  updateSpend(id, price, time, type) {
+    let spend = AV.Object.createWithoutData('Spend', id)
+    spend.set('time', time)
+    spend.set('price', price)
+    spend.set('type', type)
+    return new Promise((resolve, reject) => {
+      spend.save().then(
+        (res) => resolve(res),
         (error) => reject(error))
     })
   }

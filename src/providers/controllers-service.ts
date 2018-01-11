@@ -10,6 +10,9 @@ export class ControllersService {
     public toastCtrl: ToastController) {
   }
 
+  /**
+   * position: top, middle, bottom
+   */
   toast(message, position='bottom', duration=2000): Toast {
     return this.toastCtrl.create({message, position, duration})
   }

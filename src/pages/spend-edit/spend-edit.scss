@@ -1,2 +1,21 @@
 page-spend-edit {
+  h1, h2, h3, h4, h5 {
+    padding: 0;
+    margin: 0;
+  }
+
+  .row {
+    overflow-x: scroll;
+    flex-wrap: inherit !important;
+  }
+  .col {
+    padding: 0 !important;
+    margin: 0 10px;
+  }
+
+  .type-row {
+    display: table-caption;
+    line-height: 22px;
+    margin: 15px 0;
+  }
 }

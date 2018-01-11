@@ -87,9 +87,14 @@ $colors: (
 
 @import "super-tabs";
 
-.app {
-  font-family: "Kaiti SC";
+@font-face {
+  font-family: "Kai";
+  src: url("../assets/fonts/kaiti.ttf") format("truetype");
 }
+
+$font-family-md-base: "Kai";
+$font-family-ios-base: "Kai";
+$font-family-wp-base: "Kai";
 
 * {
   border: 0;

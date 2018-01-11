@@ -87,4 +87,6 @@
     <allow-navigation href="http://10.16.24.19:8100" />
     <plugin name="cordova-plugin-splashscreen" spec="4.0.3" />
     <engine name="ios" spec="~4.5.4" />
+    <allow-navigation href="http://10.16.2.135:8101" />
+    <allow-navigation href="http://10.16.2.135:8100" />
 </widget>

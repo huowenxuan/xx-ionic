@@ -9,6 +9,10 @@
         ></ion-datetime>
       </button>
     </ion-title>
+
+    <ion-buttons end>
+      <button><strong style="font-weight: bold; font-size: 16px; width: 48px">{{'￥' + total}}</strong></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -16,43 +20,44 @@
   <div [style.padding-bottom]="footerHeight + 'px'">
     <ion-grid>
       <ion-row>
-        <ion-col col-2 *ngFor="let spend of moneyService.spendTypes; let i = index;" >
-          <button ion-fab (click)="selectSpend(i)">
-            {{spendList[i] ? '·' : ''}}
-            {{spend.text}}
-            {{spendList[i] ? '·' : ''}}
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-fab (click)="toEditType()">
-            <span style="font-size: 18px">+</span>
-          </button>
+        <ion-col *ngFor="let spend of moneyService.spendTypes; let i = index;">
+          <div (click)="selectSpend(i)">
+            <h5 class="type-row" id="type-text">
+              <ion-icon [name]="'ios-'+spend.icon"></ion-icon>
+              {{spend.text}}
+              {{spendList[i] ? '👌' : ''}}
+            </h5>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
+
+    <div id="chart" style="width: 100%; height: 150px"></div>
   </div>
 </ion-content>
 
 <ion-footer id="footer" no-border>
-  <ion-item no-lines>
-    <span item-start>
-      {{moneyService.spendTypes[selectedIndex] ? moneyService.spendTypes[selectedIndex].text : ''}}   {{inputPrice}}
-    </span>
-    <ion-icon (click)="saveInputPrice()" item-end name="md-checkmark-circle-outline"></ion-icon>
-  </ion-item>
+  <div *ngIf="selectedIndex > -1">
+    <ion-item no-lines>
+      <span item-start>
+        {{moneyService.spendTypes[selectedIndex] ? moneyService.spendTypes[selectedIndex].text : ''}}   {{inputPrice}}
+      </span>
+      <ion-icon (click)="saveInputPrice()" item-end name="md-checkmark-circle-outline"></ion-icon>
+    </ion-item>
 
-  <ion-digit-keyboard
-    [align]="keyboardSettings.align"
-    [width]="keyboardSettings.width"
-    [visible]="keyboardSettings.visible"
-    [leftActionOptions]="keyboardSettings.leftActionOptions"
-    [rightActionOptions]="keyboardSettings.rightActionOptions"
-    [roundButtons]="keyboardSettings.roundButtons"
-    [showLetters]="keyboardSettings.showLetters"
-    [swipeToHide]="keyboardSettings.swipeToHide"
-    [theme]="keyboardSettings.theme"
-    (numberClick)="onKeyboardNumberClick($event)"
-    (leftActionClick)="onKeyboardDotClick($event)"
-    (rightActionClick)="onKeyboardDeleteClick($event)"
-  ></ion-digit-keyboard>
+    <ion-digit-keyboard
+      [align]="keyboardSettings.align"
+      [width]="keyboardSettings.width"
+      [visible]="keyboardSettings.visible"
+      [leftActionOptions]="keyboardSettings.leftActionOptions"
+      [rightActionOptions]="keyboardSettings.rightActionOptions"
+      [roundButtons]="keyboardSettings.roundButtons"
+      [showLetters]="keyboardSettings.showLetters"
+      [swipeToHide]="keyboardSettings.swipeToHide"
+      [theme]="keyboardSettings.theme"
+      (numberClick)="onKeyboardNumberClick($event)"
+      (leftActionClick)="onKeyboardDotClick($event)"
+      (rightActionClick)="onKeyboardDeleteClick($event)"
+    ></ion-digit-keyboard>
+  </div>
 </ion-footer>

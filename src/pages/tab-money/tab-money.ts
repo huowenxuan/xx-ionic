@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MoneyService} from "../../providers/money-service";
 import {CalendarComponentOptions} from "ion2-calendar";
 import {SpendEditPage} from "../spend-edit/spend-edit";
+import * as echarts from 'echarts'
+import {UserService} from "../../providers/user-service";
+import {UtilsProvider} from "../../providers/utils";
+import * as moment from 'moment'
 
 @IonicPage()
 @Component({
@@ -10,14 +14,71 @@ import {SpendEditPage} from "../spend-edit/spend-edit";
   templateUrl: 'tab-money.html',
 })
 export class TabMoneyPage {
+  lastYearChartData = []
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public service: MoneyService) {
+    public utils: UtilsProvider,
+    public userService: UserService,
+    public moneyService: MoneyService) {
   }
 
   ionViewDidLoad() {
-    this.navCtrl.push(SpendEditPage)
+    this.moneyService.getMonthAgoSpends(this.userService.userId, 12)
+      .then((spends)=>{
+        let data = []
+        spends.forEach((spend)=>{
+          let {time, price, type, text} = spend.attributes
+          let index = -1
+          data.forEach((item, i)=>{
+            if (this.utils.isSameDay(item.date, time)) {
+              index = i
+            }
+          })
+
+          if (index === -1) {
+            data.push({date: time, value: parseFloat(price)})
+          } else {
+            data[index].value += parseFloat(price)
+          }
+        })
+        this.lastYearChartData = data
+        setTimeout(()=>this.updateCharts(), 300)
+      })
+  }
+
+  ionViewDidEnter() {
+    this.updateCharts()
+  }
+
+  updateCharts() {
+    let chart = echarts.init(document.getElementById('chart'));
+    // 指定图表的配置项和数据
+    let option = {
+      title: {
+        text: '过去一年'
+      },
+      tooltip: {},
+      legend: {
+        data:['花费']
+      },
+      xAxis: {
+        data: this.lastYearChartData.map(item=>{
+          let m = moment(item.date)
+          return `${m.year()}/${m.month()+1}`
+        })
+      },
+      yAxis: {},
+      series: [{
+        name: '销量',
+        type: 'bar',
+        data: this.lastYearChartData.map(item=>item.value.toFixed(2))
+      }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    chart.setOption(option);
   }
 
   toEditSpend() {

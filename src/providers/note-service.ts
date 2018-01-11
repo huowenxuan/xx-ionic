@@ -68,8 +68,11 @@ export class NoteService {
 
     let query = new AV.Query(Note)
     query.equalTo('userId', userId)
+    // 降序
     query.addDescending('end')
+    // 超过
     query.greaterThanOrEqualTo('end', from)
+    // 小于
     query.lessThanOrEqualTo('end', to)
 
     return new Promise((resolve, reject) => {

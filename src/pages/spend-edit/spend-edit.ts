@@ -17,7 +17,6 @@ import * as echarts from 'echarts'
 })
 export class SpendEditPage {
   @ViewChild('content') content: any;
-  title = '新建'
   date = new Date()
   _monthPicker
   footerHeight = 0
@@ -37,7 +36,7 @@ export class SpendEditPage {
   inputPrice
   selectedIndex
   spendList: Array<any> = []
-  total = 0
+  total = '0'
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -67,7 +66,7 @@ export class SpendEditPage {
     this.selectedIndex = -1
     this.inputPrice = ''
     this.spendList = new Array(this.moneyService.spendTypes.length)
-    let spends = await this.moneyService.getMonthSpend(this.userService.userId, this.getMonthDateClear())
+    let spends = await this.moneyService.getMonthSpends(this.userService.userId, this.utils.monthDateClear(this.utils.isoToDate(this.monthPicker)))
     // 排序，spend的顺序和type一致，放在对应的位置上
     spends.forEach(item => {
       this.moneyService.spendTypes.some((type, index) => {
@@ -98,7 +97,7 @@ export class SpendEditPage {
         }
       }
     })
-    this.total = total
+    this.total = total.toFixed(2)
 
     // 获取到元素的css值
     let ele = document.getElementById("type-text");
@@ -178,16 +177,6 @@ export class SpendEditPage {
     this.resetFooterHeight()
   }
 
-  getMonthDateClear() {
-    let monthDate = this.utils.isoToDate(this.monthPicker)
-    monthDate.setDate(1)
-    monthDate.setHours(0)
-    monthDate.setMinutes(0)
-    monthDate.setSeconds(0)
-    monthDate.setMilliseconds(0)
-    return monthDate
-  }
-
   async saveInputPrice() {
     let selectedSpend = this.spendList[this.selectedIndex]
     if (!this.inputPrice) {
@@ -213,7 +202,7 @@ export class SpendEditPage {
           newSpend = await this.moneyService.createSpend(
             this.userService.userId,
             number,
-            this.getMonthDateClear(),
+            this.utils.monthDateClear(this.utils.isoToDate(this.monthPicker)),
             this.moneyService.spendTypes[this.selectedIndex].type
           )
           toastText = '创建成功'
@@ -221,7 +210,7 @@ export class SpendEditPage {
           newSpend = await this.moneyService.updateSpend(
             selectedSpend.id,
             number,
-            this.getMonthDateClear(),
+            this.utils.monthDateClear(this.utils.isoToDate(this.monthPicker)),
             this.moneyService.spendTypes[this.selectedIndex].type
           )
           toastText = '更新成功'
@@ -236,19 +225,5 @@ export class SpendEditPage {
     this.selectedIndex = -1
     this.resetFooterHeight()
     this.updateTotal()
-  }
-
-  toEditType() {
-    this.alertCtrl.create({
-      title: '编辑类别会丢失本页数据，去？',
-      message: '',
-      buttons: [
-        {text: '不去', role: 'cancel'},
-        {
-          text: '我去', handler: () => {
-          }
-        }
-      ]
-    }).present()
   }
 }

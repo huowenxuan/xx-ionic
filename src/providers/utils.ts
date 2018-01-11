@@ -114,4 +114,16 @@ export class UtilsProvider {
     if (!date) return null
     return new Date(date.getTime() + 8*3600*1000).toISOString()
   }
+
+  /**
+   * 保留年月，清空日、时、分、秒
+   */
+  monthDateClear(monthDate) {
+    monthDate.setDate(1)
+    monthDate.setHours(0)
+    monthDate.setMinutes(0)
+    monthDate.setSeconds(0)
+    monthDate.setMilliseconds(0)
+    return monthDate
+  }
 }

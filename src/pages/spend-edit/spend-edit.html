@@ -23,7 +23,7 @@
         <ion-col *ngFor="let spend of moneyService.spendTypes; let i = index;">
           <div (click)="selectSpend(i)">
             <h5 class="type-row" id="type-text">
-              <ion-icon [name]="'ios-'+spend.icon"></ion-icon>
+              <ion-icon [name]="'ios-'+spend.icon+'-outline'"></ion-icon>
               {{spend.text}}
               {{spendList[i] ? '👌' : ''}}
             </h5>

@@ -38,9 +38,9 @@ export class TabMoneyPage {
           })
 
           if (index === -1) {
-            data.push({date: time, value: parseFloat(price)})
+            data.push({date: time, price: parseFloat(price)})
           } else {
-            data[index].value += parseFloat(price)
+            data[index].price += parseFloat(price)
           }
         })
         this.lastYearChartData = data
@@ -53,27 +53,32 @@ export class TabMoneyPage {
   }
 
   updateCharts() {
+    let data = this.lastYearChartData
+    let total = 0
+    data.forEach(item=>total+=item.price)
+
     let chart = echarts.init(document.getElementById('chart'));
     // 指定图表的配置项和数据
     let option = {
       title: {
-        text: '过去一年'
+        text: `过去${data.length}个月：￥${total}`
       },
       tooltip: {},
       legend: {
         data:['花费']
       },
       xAxis: {
-        data: this.lastYearChartData.map(item=>{
+        data: data.map(item=>{
           let m = moment(item.date)
-          return `${m.year()}/${m.month()+1}`
+          // return `${m.year()}/${m.month()+1}`
+          return `${m.month()+1}月`
         })
       },
       yAxis: {},
       series: [{
         name: '销量',
         type: 'bar',
-        data: this.lastYearChartData.map(item=>item.value.toFixed(2))
+        data: data.map(item=>item.price.toFixed(2))
       }]
     };
 

@@ -45,7 +45,6 @@ export class SpendEditPage {
               public moneyService: MoneyService,
               public utils: UtilsProvider,
               public ctrls: ControllersService) {
-    this.monthPicker = this.utils.dateToISO(this.date)
   }
 
   get monthPicker() {
@@ -58,7 +57,7 @@ export class SpendEditPage {
   }
 
   async ionViewDidLoad() {
-    this.onRefresh()
+    this.monthPicker = this.utils.dateToISO(this.date)
   }
 
   async onRefresh() {
@@ -81,7 +80,7 @@ export class SpendEditPage {
   }
 
   updateTotal() {
-    if (!document.getElementById('chart')) return
+    if (!document.getElementById('spend-edit-chart')) return
 
     let data = []
     let total = 0
@@ -104,7 +103,7 @@ export class SpendEditPage {
     let style = window.getComputedStyle(ele);
     let textColor = style.getPropertyValue("color");
 
-    echarts.init(document.getElementById('chart')).setOption({
+    echarts.init(document.getElementById('spend-edit-chart')).setOption({
       backgroundColor: 'transparent',
       // 根据最大最小值会改变颜色，min和max一定要设置对，否则是黑色
       visualMap: {

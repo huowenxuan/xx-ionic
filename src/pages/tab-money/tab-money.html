@@ -5,12 +5,16 @@
 </ion-header>
 
 <ion-content>
-  <!--<money-list-row></money-list-row>-->
-  <div id="chart" style="width: 100%; height: 200px"></div>
+  <div style="margin: 10px 10px 0 10px !important;">
+    <!--<money-list-row></money-list-row>-->
+    <!-- width如果只是设置100%，上万就不显示第一位 -->
+    <div id="chart" style="width: 105%; height: 200px"></div>
+    <div id="tab-money-chart-types-rank" style="width: 105%; height: 200px"></div>
 
-  <ion-fab class="bottom-fab" bottom right>
-    <button ion-fab (click)="toEditSpend()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
+    <ion-fab class="bottom-fab" bottom right>
+      <button ion-fab (click)="toEditSpend()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
 </ion-content>

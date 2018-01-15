@@ -104,13 +104,15 @@ export class SpendEditPage {
 
     echarts.init(document.getElementById('spend-edit-chart')).setOption({
       backgroundColor: 'transparent',
+      roseType: false,
       // 根据最大最小值会改变颜色，min和max一定要设置对，否则是黑色
       visualMap: {
         show: false,
-        min: Math.min(...data.map((item)=>item.value)),
-        max: Math.max(...data.map((item)=>item.value)),
+        min: 0,
+        max: 1,
         inRange: {
-          colorLightness: [0, 1]
+          // 防止颜色显示纯白或者纯黑
+          colorLightness: [0.3, 0.7]
         }
       },
       series: [
@@ -118,8 +120,10 @@ export class SpendEditPage {
           name: '访问来源',
           type: 'pie',
           radius: '55%',
-          data: data,
-          roseType: 'angle',
+          // 用百分比能更好的设置min和max值
+          data: data.map((item)=>{return {name: item.name, value: item.value / total}}),
+          roseType: false, // true: 南丁格尔, false: 圆饼
+          minAngle: 30, // 最小区域角度，0-360，南丁格尔设置没用
           label: {
             normal: {
               textStyle: {
@@ -138,7 +142,7 @@ export class SpendEditPage {
             normal: {
               color: '#c23531',
               shadowBlur: 100,
-              shadowColor: 'blue'
+              shadowColor: 'red'
             }
           }
         }

@@ -29,10 +29,6 @@ page-tab-note {
     background-color: color($colors, danger);
   }
 
-  .segment {
-    height: 44px;
-  }
-
   .pp {
     margin-top: 5px;
     font-size: small;
@@ -47,17 +43,21 @@ page-tab-note {
     display: -webkit-box;
   }
 
-  $segment-height: 42px;
-  ion-segment {
-    height: $segment-height !important;
-    min-height: 0 !important;
-    ion-segment-button {
-      min-height: 0 !important;
-      height: $segment-height !important;
+  // 隐藏super tabs
+  super-tabs {
+    ion-toolbar {
+      position: absolute !important;
+      top: -100px;
     }
-    ion-segment-button.segment-button {
-      height: $segment-height !important;
-      min-height: 0 !important;
+  }
+
+  ion-segment {
+    width: 70% !important;
+    .segment-button {
+      height: 3.8rem !important;
+      color: white !important;
+      font-size: 20px !important;
+      border-bottom-color: transparent !important;
     }
   }
 }

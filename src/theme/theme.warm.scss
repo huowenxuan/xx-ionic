@@ -15,11 +15,16 @@ $text-normal: #7B7B7B;
     color: #fff;
   }
 
-  .header {
+  .toolbar {
     .toolbar-background {
       background-color: $tint-background;
     }
+    button {
+      background-color: $tint-background;
+    }
+  }
 
+  .header {
     button {
       background-color: $tint-background;
     }

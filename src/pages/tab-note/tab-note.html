@@ -1,4 +1,4 @@
-<ion-header no-border>
+<ion-header no-border style="position: absolute !important;">
   <ion-navbar no-border>
     <ion-buttons left>
       <button ion-button icon-only menuToggle>
@@ -6,7 +6,13 @@
       </button>
     </ion-buttons>
 
-    <ion-title>笔记</ion-title>
+    <ion-title>
+      <ion-segment [(ngModel)]="currentTabIndex">
+        <ion-segment-button value="0">时</ion-segment-button>
+        <ion-segment-button value="1">日</ion-segment-button>
+        <ion-segment-button value="2">月</ion-segment-button>
+      </ion-segment>
+    </ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only navPush="NoteSearchPage">
@@ -18,8 +24,8 @@
 
 <ion-content>
   <super-tabs>
-    <super-tab  [root]="tab1" title="时"></super-tab>
-    <super-tab [root]="tab2" title="日"></super-tab>
-    <super-tab [root]="tab3" title="月"></super-tab>
+    <super-tab [root]="tab1"></super-tab>
+    <super-tab [root]="tab2"></super-tab>
+    <super-tab [root]="tab3"></super-tab>
   </super-tabs>
 </ion-content>

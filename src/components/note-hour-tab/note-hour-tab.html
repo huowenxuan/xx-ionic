@@ -15,7 +15,7 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let note of this.notes">
-      <ion-item class="note-row" no-lines>
+      <ion-item class="note-row">
         <h1 class="date" item-left>{{showDate(note)}}</h1>
         <div (click)="toMarkdown(note)">
           <h2 class="time">{{showTime(note)}}</h2>

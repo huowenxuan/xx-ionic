@@ -68,6 +68,13 @@ export class TabMoneyPage {
     echarts.init(document.getElementById('chart')).setOption({
       title: {text: `过去${data.length}个月：￥${total}`},
       tooltip: {},
+      // grid: {
+      //   top: '0%',
+      //   left: '0%',
+      //   right: '0%',
+      //   bottom: '0%',
+      //   containLabel: true
+      // },
       legend: {data: ['花费']},
       xAxis: {
         data: data.map(item => {
@@ -78,7 +85,7 @@ export class TabMoneyPage {
       yAxis: {},
       series: [{
         name: '销量',
-        type: 'bar',
+        type: 'line',
         data: data.map(item => item.price.toFixed(2))
       }]
     })
@@ -96,7 +103,7 @@ export class TabMoneyPage {
       yAxis: {},
       series: [{
         name: '销量',
-        type: 'bar',
+        type: 'line',
         data: rankData.map(item => item.price.toFixed(2))
       }]
     })

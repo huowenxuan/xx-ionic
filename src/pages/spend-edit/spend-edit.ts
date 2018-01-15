@@ -80,8 +80,6 @@ export class SpendEditPage {
   }
 
   updateTotal() {
-    if (!document.getElementById('spend-edit-chart')) return
-
     let data = []
     let total = 0
     this.spendList.forEach((item)=>{
@@ -97,6 +95,7 @@ export class SpendEditPage {
       }
     })
     this.total = total.toFixed(2)
+    data = data.sort((v1, v2)=>v1.value-v2.value)
 
     // 获取到元素的css值
     let ele = document.getElementById("type-text");
@@ -145,6 +144,59 @@ export class SpendEditPage {
         }
       ]
     });
+
+    echarts.init(document.getElementById('spend-edit-chart2'), null, {renderer: 'svg'}).setOption({
+      legend: {
+        data:['对比']
+      },
+      tooltip: {
+        trigger: 'axis',
+        formatter: "{b} : <br/>￥{c}"
+      },
+      grid: {
+        top: '0%',
+        left: '0%',
+        right: '0%',
+        bottom: '0%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+        axisLabel: {
+          formatter: '￥{value}'
+        }
+      },
+      yAxis: {
+        type: 'category',
+        axisLine: {onZero: false},
+        axisLabel: {
+          formatter: '{value}'
+        },
+        boundaryGap: true,
+        data: data.map((item)=>item.name)
+      },
+
+      series: [
+        {
+          name: '高度(km)与气温(°C)变化关系',
+          type: 'bar',
+          smooth: true,
+          barCategoryGap: 25,
+          lineStyle: {
+            normal: {
+              width: 3,
+              shadowColor: 'blue',
+              shadowBlur: 10,
+              shadowOffsetY: 10
+            }
+          },
+          data: data.map((item)=>item.value)
+        }
+      ]
+    })
   }
 
   resetFooterHeight() {

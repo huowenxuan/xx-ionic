@@ -41,47 +41,29 @@ $app-direction: ltr;
 // 颜色 http://www.jianshu.com/p/27ee6ed3fe6b
 // 主题化 https://segmentfault.com/a/1190000008626945
 $colors: (
-  primary: #488aff,
+  //primary: #488aff,
+  primary: #222222,
   secondary: #32db64,
   danger: #f53d3d,
   light: #f4f4f4,
   dark: #222,
-  // ion-button按下的颜色，如果不设置，是根据primary走
-  btn-selected: #FBFBFB,
+
+  navbar: white,
+  tabbar: (
+    base: rgba(255, 255, 255, 1),
+    contrast: #222
+  ),
 );
 
-// App iOS Variables
-// --------------------------------------------------
-// iOS only Sass variables can go here
-
-// App Material Design Variables
-// --------------------------------------------------
-// Material Design only Sass variables can go here
-
-// App Windows Variables
-// --------------------------------------------------
-// Windows only Sass variables can go here
 
 // App Theme
-// --------------------------------------------------
-// Ionic apps can have different themes applied, which can
-// then be future customized. This import comes last
-// so that the above variables are used and Ionic's
-// default are overridden.
-
 @import "ionic.theme.default";
 //@import "ionic.theme.dark";
 
 // Ionicons
-// --------------------------------------------------
-// The premium icon font for Ionic. For more info, please see:
-// http://ionicframework.com/docs/ionicons/
-
 @import "ionic.ionicons";
 
 // Fonts
-// --------------------------------------------------
-
 @import "roboto";
 @import "noto-sans";
 
@@ -96,8 +78,20 @@ $font-family-md-base: "Kai";
 $font-family-ios-base: "Kai";
 $font-family-wp-base: "Kai";
 
+$refresher-border-color: transparent;
+
 * {
   border: 0;
+}
+
+// tab
+.tabbar {
+  height: 48px !important;
+  border: 0 !important;
+}
+
+ion-content, super-tabs, super-tab, ion-item-sliding, ion-item {
+  background: #F6F7F9 !important;
 }
 
 // 导航栏按钮加间距

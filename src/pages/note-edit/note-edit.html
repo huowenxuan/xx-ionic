@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar>
+<ion-header no-border>
+  <ion-navbar color="navbar">
     <ion-title>{{title}}</ion-title>
 
     <ion-buttons end>
@@ -12,17 +12,17 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-item float>
+  <ion-item float no-lines>
     <ion-label>开始时间（不写则代表从上个结束时间持续）</ion-label>
     <ion-checkbox [(ngModel)]="startEnable"></ion-checkbox>
   </ion-item>
 
-  <ion-item *ngIf="startEnable">
+  <ion-item *ngIf="startEnable" no-lines>
     <ion-label>开始时间</ion-label>
     <ion-datetime displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="startPicker"></ion-datetime>
   </ion-item>
 
-  <ion-item>
+  <ion-item no-lines>
     <ion-label>结束时间</ion-label>
     <ion-datetime displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="endPicker"></ion-datetime>
   </ion-item>

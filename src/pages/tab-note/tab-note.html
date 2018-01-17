@@ -1,13 +1,14 @@
 <ion-header no-border style="position: absolute !important;">
-  <ion-navbar no-border>
+  <ion-navbar color="navbar">
     <ion-buttons left>
       <button ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
 
-    <ion-title>
-      <ion-segment [(ngModel)]="currentTabIndex">
+    <!-- padding-bottom兼容iOS，padding-top再次兼容web -->
+    <ion-title style="padding-top:22px; padding-bottom: 22px">
+      <ion-segment mode="md" [(ngModel)]="currentTabIndex">
         <ion-segment-button value="0">时</ion-segment-button>
         <ion-segment-button value="1">日</ion-segment-button>
         <ion-segment-button value="2">月</ion-segment-button>

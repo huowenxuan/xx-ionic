@@ -24,11 +24,11 @@
       </ion-item>
 
       <ion-item-options cancelable="false">
-        <button ion-button color="btn-selected" (click)="toEdit(note)">
+        <button ion-button (click)="toEdit(note)">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button color="btn-selected" class="danger" (click)="deleteNote(note)">
+        <button ion-button class="danger" (click)="deleteNote(note)">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
@@ -41,19 +41,19 @@
   </ion-list>
 
   <ion-fab class="bottom-fab" bottom right>
-    <button ion-fab color="btn-selected">
+    <button ion-fab>
       <ion-icon name="add"></ion-icon>
     </button>
 
     <ion-fab-list side="top">
-      <button ion-fab color="btn-selected" (click)="toEdit()">
+      <button ion-fab (click)="toEdit()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab-list>
 
     <ion-fab-list side="left">
-      <button ion-fab color="btn-selected" (click)="toDaysMarkdown()">
-        <ion-icon name="calendar"></ion-icon>
+      <button ion-fab (click)="toDaysMarkdown()">
+        <ion-icon name="ios-calendar-outline"></ion-icon>
       </button>
     </ion-fab-list>
   </ion-fab>

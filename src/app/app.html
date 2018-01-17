@@ -7,6 +7,9 @@
       <ion-item *ngFor="let theme of themes" (click)="toggleAppTheme(theme)">
           <h4>{{theme.replace('theme-', '')}}</h4>
       </ion-item>
+      <ion-item (click)="toggleAppTheme(null)">
+        <h4>无</h4>
+      </ion-item>
     </ion-list>
 
     <ion-item>
@@ -17,4 +20,5 @@
 </ion-menu>
 
 <!-- 修改主题的关键 -->
+<!--[class]="selectedTheme"-->
 <ion-nav [root]="rootPage" #menuPage [class]="selectedTheme"></ion-nav>

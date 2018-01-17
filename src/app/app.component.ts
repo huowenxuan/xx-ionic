@@ -29,7 +29,7 @@ export class MyApp {
 
     platform.ready().then(() => {
       splashScreen.hide();
-      this.statusBar.styleLightContent()
+      this.statusBar.styleDefault() // styleLightContent
       keyboard.disableScroll(true)
     });
   }
@@ -51,8 +51,7 @@ export class MyApp {
   }
 
   async initTheme() {
-    let theme = await this.settings.getTheme()
-    this.selectedTheme = theme || this.themes[0]
+    this.selectedTheme = await this.settings.getTheme()
     this.randomThemeToggle  = await this.settings.getThemeRandom()
   }
 

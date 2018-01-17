@@ -152,6 +152,7 @@ export class NoteHourTab {
     let alert = this.alertCtrl.create({
       title: '确定删除？',
       message: '',
+      mode: 'md',
       buttons: [
         {text: '取消', role: 'cancel'},
         {text: '删除', handler: () => doDelete()}

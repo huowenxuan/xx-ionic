@@ -40,7 +40,6 @@ export class SpendEditPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public alertCtrl: AlertController,
               public userService: UserService,
               public moneyService: MoneyService,
               public utils: UtilsProvider,

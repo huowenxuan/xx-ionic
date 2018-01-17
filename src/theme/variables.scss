@@ -39,7 +39,6 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 // 颜色 http://www.jianshu.com/p/27ee6ed3fe6b
-// 主题化 https://segmentfault.com/a/1190000008626945
 $colors: (
   //primary: #488aff,
   primary: #222222,
@@ -88,10 +87,16 @@ $refresher-border-color: transparent;
 .tabbar {
   height: 48px !important;
   border: 0 !important;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 ion-content, super-tabs, super-tab, ion-item-sliding, ion-item {
   background: #F6F7F9 !important;
+}
+
+// header阴影
+ion-header {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 // 导航栏按钮加间距

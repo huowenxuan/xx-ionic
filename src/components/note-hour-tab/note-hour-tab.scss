@@ -2,4 +2,68 @@ note-hour-tab {
   .bottom-fab {
     bottom: 70px;
   }
+
+  ion-card {
+    margin: 12px 12px 12px 12px !important;
+    border-radius: 7px !important;
+    width: calc(100% - 24px) !important;
+    font-size: 1.4rem;
+    background: transparent !important;
+    -webkit-box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  ion-item {
+    background-color: white !important;
+  }
+
+  ion-item-options > button {
+    width: 90px;
+  }
+
+  h4 {
+    font-size: large;
+  }
+
+  .date {
+    margin: 12px 0 0 0 !important;
+    width: 45px;
+    white-space: pre-line;
+    min-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .left-line {
+    width: 1px;
+    align-self: stretch;
+    border-left: 1px solid #EFF3F8
+  }
+
+  .time {
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .note-row {
+    align-items: flex-start;
+  }
+
+  .danger {
+    background-color: color($colors, danger);
+  }
+
+  .pp {
+    margin-top: 5px;
+    font-size: small;
+
+    white-space: normal; // 多行
+    text-overflow: ellipsis; // 超出的宽度显示省略号
+    overflow: hidden; // 不超出父元素
+
+    // 限制最大行数
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
 }

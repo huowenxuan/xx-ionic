@@ -66,4 +66,11 @@ note-hour-tab {
     -webkit-box-orient: vertical;
     display: -webkit-box;
   }
+
+  // 去掉button ion-item右箭头
+  .item-inner {
+    padding-right: 0 !important;
+    background-image: none !important;
+  }
+
 }

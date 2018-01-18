@@ -17,15 +17,15 @@
     <div *ngFor="let note of this.notes">
       <ion-card>
         <ion-item-sliding>
-          <ion-item class="note-row">
+          <button ion-item class="note-row" (click)="toMarkdown(note)">
             <h1 class="date" item-left>{{showDate(note)}}</h1>
             <div class="left-line" item-left></div>
 
-            <div (click)="toMarkdown(note)">
+            <div>
               <h2 class="time">{{showTime(note)}}</h2>
               <p class="pp">{{note.attributes.text}}</p>
             </div>
-          </ion-item>
+          </button>
           <ion-item-options cancelable="false">
             <button ion-button (click)="toEdit(note)">
               <ion-icon name="create"></ion-icon>

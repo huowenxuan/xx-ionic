@@ -106,23 +106,19 @@ ion-navbar {
   // header阴影
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
 
-  //ion-title {
-  //  margin-top: 6px !important;
-  //}
-
   // 导航栏按钮加间距
   .bar-button-ios {
     margin: 0 7px 0 7px !important;
   }
 }
 
-// super tab 高度
-super-tabs-toolbar {
-  super-tab-button {
-    height: 40px !important;
-  }
-  .title {
-    line-height: 40px !important;
-  }
-}
-
+//// super tab 高度
+//super-tabs-toolbar {
+//  super-tab-button {
+//    height: 40px !important;
+//  }
+//  .title {
+//    line-height: 40px !important;
+//  }
+//}
+//

@@ -14,11 +14,6 @@ import * as moment from 'moment'
   templateUrl: 'spend.html',
 })
 export class SpendPage {
-  // tab1: any = NoteHourTab;
-  // tab2: any = NoteDayTab;
-  // tab3: any = NoteDayTab;
-  _currentTabIndex = '0'
-
   lastYearChartData = []
   typesRankChartData = this.moneyService.spendTypes.map((item) => {
     return {text: item.text, price: 0, type: item.type}

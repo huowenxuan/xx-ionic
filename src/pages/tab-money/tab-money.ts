@@ -30,17 +30,17 @@ export class TabMoneyPage {
   }
 
   set currentTabIndex(index: string) {
-    this._currentTabIndex = index
-    this.superTabsCtrl.slideTo(parseInt(index))
+    if (index !== this._currentTabIndex) {
+      this._currentTabIndex = index
+      this.superTabsCtrl.slideTo(parseInt(index))
+    }
   }
 
   get currentTabIndex() {
     return this._currentTabIndex
   }
 
-  changeTabs(tab) {
-
+  onTabSelect(tab) {
+    this.currentTabIndex = tab.index.toString()
   }
-
-
 }

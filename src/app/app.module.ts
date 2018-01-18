@@ -39,11 +39,11 @@ import {KeyboardAttachDirective} from "../directives/keyboard-attach.directive";
 import {RelativeTime} from "../pipes/relative-time";
 import {ChatInputModule} from "../components/chat-input/chat-input.module";
 import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picker.module";
-import {NoteHourTabModule} from "../components/note-hour-tab/note-hour-tab.module";
-import {NoteDayTabModule} from "../components/note-day-tab/note-day-tab.module";
 import {NoteService} from "../providers/note-service";
 import {SpendEditPage} from "../pages/spend-edit/spend-edit";
+import {SpendPage} from "../pages/spend/spend";
 import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keyboard.module";
+import {SpendPageModule} from "../pages/spend/spend.module";
 
 @NgModule({
   declarations: [
@@ -94,8 +94,7 @@ import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keybo
     MoneyListRowModule,
     ChatInputModule,
     EmojiPickerComponentModule,
-    NoteHourTabModule,
-    NoteDayTabModule,
+    SpendPageModule,
 
     IonDigitKeyboard
   ],
@@ -109,7 +108,8 @@ import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keybo
     LoginPage,
     ChatPage,
     NoteEditPage,
-    SpendEditPage
+    SpendEditPage,
+    SpendPage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },

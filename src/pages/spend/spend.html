@@ -1,0 +1,15 @@
+<ion-content color="background">
+  <div style="margin: 10px 10px 0 10px !important;">
+    <!--<money-list-row></money-list-row>-->
+    <!-- width如果只是设置100%，上万就不显示第一位 -->
+      <div id="chart" style="width: 110%; height: 200px;"></div>
+      <div id="tab-money-chart-types-rank" style="width: 110%; height: 200px"></div>
+
+    <ion-fab class="bottom-fab" top right>
+      <button ion-fab (click)="toEditSpend()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+</ion-content>
+

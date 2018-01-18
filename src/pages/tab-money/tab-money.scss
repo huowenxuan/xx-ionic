@@ -1,3 +1,23 @@
 page-tab-money {
+  // 隐藏super tabs
+  super-tabs {
+    ion-toolbar {
+      position: absolute !important;
+      top: -100px;
+    }
+  }
 
+  ion-segment {
+    width: 70% !important;
+    .segment-button {
+      height: 3.8rem !important;
+      //color: white !important;
+      font-size: 20px !important;
+      border-bottom-color: transparent !important;
+    }
+  }
+
+  .bottom-fab {
+    bottom: 70px;
+  }
 }

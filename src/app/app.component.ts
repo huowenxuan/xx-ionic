@@ -29,7 +29,8 @@ export class MyApp {
 
     platform.ready().then(() => {
       splashScreen.hide();
-      this.statusBar.styleDefault() // styleLightContent
+      // this.statusBar.styleDefault() // styleLightContent
+      this.statusBar.hide()
       keyboard.disableScroll(true)
     });
   }

@@ -1,25 +1,32 @@
 <ion-header no-border>
-  <ion-navbar color="navbar">
-    <ion-title>钱</ion-title>
+  <ion-navbar color="navbar" mode="md">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>
+      <ion-segment mode="md" [(ngModel)]="currentTabIndex">
+        <ion-segment-button value="0">记账</ion-segment-button>
+        <ion-segment-button value="1">理财</ion-segment-button>
+        <ion-segment-button value="2">收支</ion-segment-button>
+      </ion-segment>
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only navPush="NoteSearchPage">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content color="background">
-  <div style="margin: 10px 10px 0 10px !important;">
-    <!--<money-list-row></money-list-row>-->
-    <!-- width如果只是设置100%，上万就不显示第一位 -->
-    <div style="overflow-y: scroll">
-      <div id="chart" style="width: 150%; height: 200px;"></div>
-    </div>
-    <div style="overflow-y: scroll">
-      <div id="tab-money-chart-types-rank" style="width: 150%; height: 200px"></div>
-    </div>
-
-    <ion-fab class="bottom-fab" top right>
-      <button ion-fab (click)="toEditSpend()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
-  </div>
+  <super-tabs>
+    <super-tab [root]="tab1"></super-tab>
+    <super-tab [root]="tab2"></super-tab>
+    <super-tab [root]="tab3"></super-tab>
+  </super-tabs>
 </ion-content>
 

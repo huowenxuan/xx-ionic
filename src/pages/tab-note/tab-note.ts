@@ -52,6 +52,8 @@ export class TabNotePage {
     if (this.userService.userId) {
       this.reload(true)
     }
+
+      this.navCtrl.push(NoteEditPage)
   }
 
   async reload(loading?) {

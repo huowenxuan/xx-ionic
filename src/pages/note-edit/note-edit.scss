@@ -1,2 +1,6 @@
 page-note-edit {
+  // 日期选择、开关等覆盖物隐藏
+  .item-cover {
+    display: none !important;
+  }
 }

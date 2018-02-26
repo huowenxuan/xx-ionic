@@ -12,20 +12,26 @@
 </ion-header>
 
 <ion-content #content>
-  <ion-item float no-lines>
-    <ion-label>开始时间（不写则代表从上个结束时间持续）</ion-label>
-    <ion-checkbox [(ngModel)]="startEnable"></ion-checkbox>
-  </ion-item>
+  <ion-card>
+    <ion-item>
+      <ion-checkbox style="margin: 5px !important;" item-left [(ngModel)]="startEnable"></ion-checkbox>
+      <h2 style="margin: 5px !important;" item-left>开始时间</h2>
 
-  <ion-item *ngIf="startEnable" no-lines>
-    <ion-label>开始时间</ion-label>
-    <ion-datetime displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="startPicker"></ion-datetime>
-  </ion-item>
+      <ion-datetime
+        *ngIf="startEnable"
+        style="margin: 5px !important; padding: 5px !important;"
+        item-left displayFormat="MM/DD HH:mm"
+        pickerFormat="MM DD HH mm"
+        [(ngModel)]="startPicker">
+      </ion-datetime>
 
-  <ion-item no-lines>
-    <ion-label>结束时间</ion-label>
-    <ion-datetime displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="endPicker"></ion-datetime>
-  </ion-item>
+      <h2  style="margin: 5px !important;" item-left>至</h2>
+
+      <ion-datetime style="margin: 5px !important; padding: 5px !important;" item-left displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="endPicker"></ion-datetime>
+
+      <button (click)="upToNow()" ion-button style="margin: 5px !important;" item-right>至今</button>
+    </ion-item>
+  </ion-card>
 
   <textarea
     padding

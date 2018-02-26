@@ -54,6 +54,11 @@ export class NoteEditPage {
     return new Date(date.getTime() + 8*3600*1000).toISOString()
   }
 
+  upToNow() {
+    let end = new Date()
+    this.endPicker = this.dateToISO(end)
+  }
+
   async save() {
     this.start = this.isoToDate(this.startPicker)
     this.end = this.isoToDate(this.endPicker)

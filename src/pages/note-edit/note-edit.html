@@ -1,4 +1,4 @@
-<ion-header no-border>
+<ion-header no-border class="shadow">
   <ion-navbar color="navbar" mode="md">
     <ion-title>{{title}}</ion-title>
 
@@ -9,41 +9,38 @@
     </ion-buttons>
   </ion-navbar>
 
+  <ion-item no-lines style="background-color: white!important;">
+    <ion-checkbox style="margin: 5px !important;" item-left [(ngModel)]="startEnable"></ion-checkbox>
+    <h2 style="margin: 5px !important;" item-left>开始</h2>
+
+    <ion-datetime
+      *ngIf="startEnable"
+      style="margin: 5px !important; padding: 5px !important;"
+      item-left displayFormat="MM/DD HH:mm"
+      pickerFormat="MM DD HH mm"
+      [(ngModel)]="startPicker">
+    </ion-datetime>
+
+    <h2  style="margin: 5px !important;" item-left>至</h2>
+
+    <ion-datetime style="margin: 5px !important; padding: 5px !important;" item-left displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="endPicker"></ion-datetime>
+
+    <button (click)="upToNow()" ion-button style="margin: 5px !important;" item-right>至今</button>
+  </ion-item>
 </ion-header>
 
 <ion-content #content>
-  <ion-card>
-    <ion-item>
-      <ion-checkbox style="margin: 5px !important;" item-left [(ngModel)]="startEnable"></ion-checkbox>
-      <h2 style="margin: 5px !important;" item-left>开始时间</h2>
-
-      <ion-datetime
-        *ngIf="startEnable"
-        style="margin: 5px !important; padding: 5px !important;"
-        item-left displayFormat="MM/DD HH:mm"
-        pickerFormat="MM DD HH mm"
-        [(ngModel)]="startPicker">
-      </ion-datetime>
-
-      <h2  style="margin: 5px !important;" item-left>至</h2>
-
-      <ion-datetime style="margin: 5px !important; padding: 5px !important;" item-left displayFormat="MM/DD HH:mm" pickerFormat="MM DD HH mm" [(ngModel)]="endPicker"></ion-datetime>
-
-      <button (click)="upToNow()" ion-button style="margin: 5px !important;" item-right>至今</button>
-    </ion-item>
-  </ion-card>
-
   <textarea
     padding
     style="width: 100%;height: 100%;"
     placeholder="输入"
-    rows="25"
+    rows="20"
     [(ngModel)]="input"
   >
   </textarea>
 </ion-content>
 
-<ion-footer [keyboardAttach]="content" no-border>
+<ion-footer [keyboardAttach]="content" no-border class="shadow">
   <ion-buttons>
     <button ion-button (click)="command('#')">#</button>
     <button ion-button (click)="command('`')">`</button>

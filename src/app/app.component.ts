@@ -7,6 +7,8 @@ import {TabsPage} from '../pages/tabs/tabs';
 import {Keyboard} from "@ionic-native/keyboard";
 import {SettingsProvider} from "../providers/settings";
 import * as FastClick from 'fastclick'
+import {getTsFilePaths} from "@ionic/app-scripts/dist/upgrade-scripts/add-default-ngmodules";
+import {timeout} from "rxjs/operator/timeout";
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +20,9 @@ export class MyApp {
   selectedTheme: String
   themes = ['theme-pink', 'theme-eveylast', 'theme-fay', 'theme-dark', 'theme-grey-green', 'theme-yellow-purple', 'theme-basic', 'theme-warm']
   _randomThemeToggle
+
+  time = ''
+  timeout = null
 
   constructor(platform: Platform,
               private statusBar: StatusBar,
@@ -32,6 +37,8 @@ export class MyApp {
       // this.statusBar.styleDefault() // styleLightContent
       this.statusBar.hide()
       keyboard.disableScroll(true)
+
+      this.setTime()
     });
   }
 
@@ -59,5 +66,14 @@ export class MyApp {
   public toggleAppTheme(theme) {
     this.selectedTheme = theme
     this.settings.setTheme(theme);
+  }
+
+  setTime() {
+    if (this.timeout) return
+
+    this.timeout = setInterval(()=>{
+      let date = new Date()
+      this.time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    }, 1000)
   }
 }

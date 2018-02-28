@@ -44,6 +44,7 @@ import {SpendEditPage} from "../pages/spend-edit/spend-edit";
 import {SpendPage} from "../pages/spend/spend";
 import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keyboard.module";
 import {SpendPageModule} from "../pages/spend/spend.module";
+import {TestPage} from "../pages/test/test";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {SpendPageModule} from "../pages/spend/spend.module";
     ChatPage,
     NoteEditPage,
     SpendEditPage,
+    TestPage,
 
     KeyboardAttachDirective,
     RelativeTime
@@ -109,7 +111,8 @@ import {SpendPageModule} from "../pages/spend/spend.module";
     ChatPage,
     NoteEditPage,
     SpendEditPage,
-    SpendPage
+    SpendPage,
+    TestPage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },

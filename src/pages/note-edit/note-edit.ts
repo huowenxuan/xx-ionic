@@ -1,9 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service";
 import {ControllersService} from "../../providers/controllers-service";
 import {LCStorageProvider} from "../../providers/lc-storage";
 import {NoteService, Note} from "../../providers/note-service";
+import {MarkdownPage} from "../markdown/markdown";
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class NoteEditPage {
   startEnable = false // 控制是否添加start
 
   constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
               public navParams: NavParams,
               public userService: UserService,
               public noteService: NoteService,
@@ -70,21 +72,30 @@ export class NoteEditPage {
     loader.present()
 
     try {
-      let noteId
+      let newNote
       let start = this.start
       if (!this.startEnable) {
         start = null
       }
 
       if (this.oldNote) {
-        noteId = await this.noteService.updateNote(this.oldNote.id, this.input, start, this.end)
+        newNote = await this.noteService.updateNote(this.oldNote.id, this.input, start, this.end)
       } else {
-        noteId = await this.noteService.createNote(this.userService.userId, start, this.end, this.input)
+        newNote = await this.noteService.createNote(this.userService.userId, start, this.end, this.input)
       }
       loader.dismiss()
-      onSuccess && onSuccess(noteId)
+      onSuccess && onSuccess(newNote)
       this.ctrls.toast('保存成功').present()
-      this.navCtrl.pop()
+      this.navCtrl
+        .push(MarkdownPage, {
+          note: newNote,
+          markdown: newNote.attributes.text
+        }, {animate: false})
+        .then(() => {
+          const index = this.viewCtrl.index;
+          this.navCtrl.remove(index);
+        });
+
     } catch (e) {
       loader.dismiss()
       console.log(e)

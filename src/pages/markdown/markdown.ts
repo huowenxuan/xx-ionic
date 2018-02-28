@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
 import * as showdown from 'showdown'
 import {Clipboard} from "@ionic-native/clipboard";
 import {ControllersService} from "../../providers/controllers-service";
 import {UtilsProvider} from "../../providers/utils";
+import {NoteEditPage} from "../note-edit/note-edit";
 
 /**
  * Generated class for the MarkdownPage page.
@@ -22,10 +23,14 @@ export class MarkdownPage {
   originText: string // 转换前的文字
   isConverted: boolean // 是否转换
 
+  note
+
   constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
               public utils: UtilsProvider,
               public ctrls: ControllersService,
               public navParams: NavParams) {
+    this.note = navParams.get('note') // 用来跳转到编辑页
     this.originText = navParams.get('markdown')
     let converter = new showdown.Converter()
     this.convertedHtml = converter.makeHtml(this.originText);
@@ -40,5 +45,15 @@ export class MarkdownPage {
 
   change() {
     this.isConverted = !this.isConverted
+  }
+
+  toEdit() {
+    // 类似replace效果，先push禁用动画，再把上一页删除掉
+    this.navCtrl
+      .push(NoteEditPage, {note: this.note}, {animate: false})
+      .then(() => {
+        const index = this.viewCtrl.index;
+        this.navCtrl.remove(index);
+      });
   }
 }

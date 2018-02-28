@@ -27,7 +27,7 @@ export class NoteService {
     note.set('text', text);
     return new Promise((resolve, reject) => {
       note.save().then(
-        (res) => resolve(res.id),
+        (res) => resolve(res),
         (error) => reject(error))
     })
   }
@@ -39,7 +39,7 @@ export class NoteService {
     note.set('end', end)
     return new Promise((resolve, reject) => {
       note.save().then(
-        (res) => resolve(res.id),
+        (res) => resolve(res),
         (error) => reject(error))
     })
   }

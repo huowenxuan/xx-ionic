@@ -52,8 +52,6 @@ export class TabNotePage {
     if (this.userService.userId) {
       this.reload(true)
     }
-
-      this.navCtrl.push(NoteEditPage)
   }
 
   async reload(loading?) {
@@ -73,7 +71,10 @@ export class TabNotePage {
   }
 
   toMarkdown(note) {
-    this.navCtrl.push(MarkdownPage, {markdown: note.attributes.text})
+    this.navCtrl.push(MarkdownPage, {
+      note: note,
+      markdown: note.attributes.text
+    })
   }
 
   async loadMore(infiniteScroll) {

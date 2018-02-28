@@ -3,10 +3,8 @@
 ## Next
 * 创建User表、账号密码登陆、推出登陆、登陆UI
 * money首页跳转到编辑spend、编辑类别。下面是所有类别的折线图，与总的折线图
-* spend-edit可跳转上个月 下个月
+* spend-edit可跳转上个月 下个
 * tab-note显示思维导图echarts，tree类型
-* note详情页可编辑，pop后再进入到编辑页面
-* note编辑时结束日期可立刻选择为现在时间
 
 ## 【改版】
 月: 上面放一个日历

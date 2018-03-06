@@ -31,7 +31,7 @@ export class NoteSearchPage {
 
   ionViewDidLoad() {
     setTimeout(()=>{
-      let elem = document.querySelector('.searchbar input')
+      let elem: any = document.querySelector('.searchbar input')
       if (elem) {
         elem.focus();
       }

@@ -1,10 +1,27 @@
 <ion-header no-border>
   <ion-navbar color="navbar" mode="md">
-    <ion-searchbar placeholder="搜索"></ion-searchbar>
+    <!--(ionCancel)="onCancel($event)"-->
+
+    <ion-searchbar
+      class="searchbar"
+      (ionInput)="onSearchInput($event)"
+      animated
+      showCancelButton
+      cancelButtonText="×"
+      placeholder="搜索">
+    </ion-searchbar>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let item of results" (click)="toMarkdown(item)">
+      {{ showItem(item) }}
+    </ion-item>
 
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
 </ion-content>

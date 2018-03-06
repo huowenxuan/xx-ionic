@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Storage} from "@ionic/storage";
 import 'rxjs/add/operator/map';
@@ -18,7 +18,7 @@ export class NoteService {
     lcStorage.registerObject(Note)
   }
 
-  async createNote(userId: string, start:Date, end: Date, text:string) {
+  async createNote(userId: string, start: Date, end: Date, text: string) {
     // 新建一个 Note 对象
     let note = new Note();
     note.set('userId', userId);
@@ -63,8 +63,12 @@ export class NoteService {
    */
   getNotesRange(userId, from: Date, to: Date): Promise<any> {
     // 从第一天第0秒，到最后一天的最后一秒
-    from.setHours(0);from.setMinutes(0);from.setSeconds(0)
-    to.setHours(23);to.setMinutes(59);to.setSeconds(59)
+    from.setHours(0);
+    from.setMinutes(0);
+    from.setSeconds(0)
+    to.setHours(23);
+    to.setMinutes(59);
+    to.setSeconds(59)
 
     let query = new AV.Query(Note)
     query.equalTo('userId', userId)
@@ -96,6 +100,20 @@ export class NoteService {
     return new Promise((resolve, reject) => {
       note.destroy().then(
         (res) => resolve(),
+        (error) => reject(error))
+    })
+  }
+
+  searchNote(text, skip = 0, limit = 10): Promise<any> {
+    let query = new AV.Query(Note);
+    query.contains('text', text);
+    // 降序
+    query.addDescending('end')
+    query.skip(skip)
+    query.limit(limit)
+    return new Promise((resolve, reject) => {
+      query.find().then(
+        (results) => resolve(results),
         (error) => reject(error))
     })
   }

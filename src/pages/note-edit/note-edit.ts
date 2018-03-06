@@ -86,15 +86,16 @@ export class NoteEditPage {
       loader.dismiss()
       onSuccess && onSuccess(newNote)
       this.ctrls.toast('保存成功').present()
-      this.navCtrl
-        .push(MarkdownPage, {
-          note: newNote,
-          markdown: newNote.attributes.text
-        }, {animate: false})
-        .then(() => {
-          const index = this.viewCtrl.index;
-          this.navCtrl.remove(index);
-        });
+      this.navCtrl.pop()
+      // this.navCtrl
+      //   .push(MarkdownPage, {
+      //     note: newNote,
+      //     markdown: newNote.attributes.text
+      //   }, {animate: false})
+      //   .then(() => {
+      //     const index = this.viewCtrl.index;
+      //     this.navCtrl.remove(index);
+      //   });
 
     } catch (e) {
       loader.dismiss()

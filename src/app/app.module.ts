@@ -45,6 +45,7 @@ import {SpendPage} from "../pages/spend/spend";
 import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keyboard.module";
 import {SpendPageModule} from "../pages/spend/spend.module";
 import {TestPage} from "../pages/test/test";
+import {NoteSearchPage} from "../pages/note-search/note-search";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {TestPage} from "../pages/test/test";
     LoginPage,
     ChatPage,
     NoteEditPage,
+    NoteSearchPage,
     SpendEditPage,
     TestPage,
 
@@ -110,6 +112,7 @@ import {TestPage} from "../pages/test/test";
     LoginPage,
     ChatPage,
     NoteEditPage,
+    NoteSearchPage,
     SpendEditPage,
     SpendPage,
     TestPage

@@ -86,9 +86,11 @@ export class UtilsProvider {
         return Math.floor(mseconds / time_std[2]).toString() + ' 小时前';
       }
     } else {
-      let thisYear = new Date().getFullYear();
-      // year = (thisYear === year) ? '' : (year + '/');
-      return month + '月' + day + '日';
+      let res = month + '-' + day ;
+      if (!this.isThisYear(date)) {
+        res = year + '-' + res
+      }
+      return res
     }
   }
 

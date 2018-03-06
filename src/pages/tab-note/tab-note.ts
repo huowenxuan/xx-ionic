@@ -15,6 +15,7 @@ import {CalendarComponentOptions, CalendarModal, CalendarModalOptions} from "ion
 import * as moment from "moment";
 import {NoteEditPage} from "../note-edit/note-edit";
 import {MarkdownPage} from "../markdown/markdown";
+import {NoteSearchPage} from "../note-search/note-search";
 
 @Component({
   selector: 'page-tab-note',
@@ -249,4 +250,7 @@ export class TabNotePage {
     this.navCtrl.push(MarkdownPage, {markdown: markdown})
   }
 
+  toSearch() {
+    this.navCtrl.push(NoteSearchPage)
+  }
 }

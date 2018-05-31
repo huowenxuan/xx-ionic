@@ -76,6 +76,7 @@ export class TabNotePage {
       note: note,
       markdown: note.attributes.text,
       title: this.utils.formatDate(note.attributes.end),
+      onEdit: ()=>this.reload()
     })
   }
 

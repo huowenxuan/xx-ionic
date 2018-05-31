@@ -50,9 +50,10 @@ export class MarkdownPage {
   }
 
   toEdit() {
+    let onEdit = this.navParams.get('onEdit')
     // 类似replace效果，先push禁用动画，再把上一页删除掉
     this.navCtrl
-      .push(NoteEditPage, {note: this.note}, {animate: false})
+      .push(NoteEditPage, {note: this.note, onSuccess: onEdit}, {animate: false})
       .then(() => {
         const index = this.viewCtrl.index;
         this.navCtrl.remove(index);

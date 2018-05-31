@@ -84,9 +84,9 @@ export class NoteEditPage {
         newNote = await this.noteService.createNote(this.userService.userId, start, this.end, this.input)
       }
       loader.dismiss()
-      onSuccess && onSuccess(newNote)
       this.ctrls.toast('保存成功').present()
       this.navCtrl.pop()
+      onSuccess && onSuccess(newNote)
       // this.navCtrl
       //   .push(MarkdownPage, {
       //     note: newNote,

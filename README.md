@@ -28,19 +28,14 @@ ionic serve
 
 ## 打包到mac
 ```
-npm run mac
-// 如果失败，提示no such file or directory, stat '.../mm-ionic/platforms/ios/build/device/libCordova.a
-// 需要跳转到这个地方，随便创建一个文件命名为libCordova.a，再次执行npm run mac
-```
-
-### electron
-```
 // 确保正确打包到www/index.html中
 ionic serve 
 // 直接运行electron
 electron .
-// 打包为mac app
-npm run ele 
+// 打包到mac
+npm run mac // 如果失败，提示no such file or directory, stat '.../mm-ionic/platforms/ios/build/device/libCordova.a，需要跳转到这个地方，随便创建一个文件命名为libCordova.a，再次执行npm run mac
+// 打包到windows
+num run win
 ```
 
 ## 已有功能
@@ -51,9 +46,4 @@ npm run ele
 增删改笔记，编辑时可以选择开始、结束的日期时间
 查看笔记，转换为markdown，一键复制markdown  
 查看某个日期范围内的笔记  
-### 聊天
-文字聊天  
-### 设置
-设置主题  
-可设置随机主题
 

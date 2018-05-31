@@ -26,6 +26,13 @@ npm run serve
 ionic serve
 ```
 
+## 打包到mac
+```
+npm run mac
+// 如果失败，提示no such file or directory, stat '.../mm-ionic/platforms/ios/build/device/libCordova.a
+// 需要跳转到这个地方，随便创建一个文件命名为libCordova.a，再次执行npm run mac
+```
+
 ### electron
 ```
 // 确保正确打包到www/index.html中

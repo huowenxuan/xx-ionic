@@ -26,7 +26,7 @@ npm run serve
 ionic serve
 ```
 
-## 打包到mac
+## Electron
 ```
 // 确保正确打包到www/index.html中
 ionic serve 

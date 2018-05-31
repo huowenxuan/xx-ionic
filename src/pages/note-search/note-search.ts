@@ -48,19 +48,24 @@ export class NoteSearchPage {
       return
     }
 
-    console.log('search: ', val)
     this.results = await this.noteService.searchNote(val, this.skip, this.limit)
+  }
+
+  showTime(item) {
+    const {end, text} = item.attributes
+    return this.utils.formatDate(end)
   }
 
   showItem(item) {
     const {end, text} = item.attributes
-    return `${this.utils.formatDate(end)} | ${text}`
+    return `  ${text}`
   }
 
   toMarkdown(note) {
     this.navCtrl.push(MarkdownPage, {
       note: note,
-      markdown: note.attributes.text
+      markdown: note.attributes.text,
+      title: this.utils.formatDate(note.attributes.end),
     })
   }
 

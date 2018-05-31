@@ -74,7 +74,8 @@ export class TabNotePage {
   toMarkdown(note) {
     this.navCtrl.push(MarkdownPage, {
       note: note,
-      markdown: note.attributes.text
+      markdown: note.attributes.text,
+      title: this.utils.formatDate(note.attributes.end),
     })
   }
 

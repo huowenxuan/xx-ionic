@@ -17,7 +17,10 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let item of results" (click)="toMarkdown(item)">
-      {{ showItem(item) }}
+      <p class="pp">
+        <b>{{showTime(item)}}</b>
+        {{ showItem(item) }}
+      </p>
     </ion-item>
 
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">

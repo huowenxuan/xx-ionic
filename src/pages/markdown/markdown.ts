@@ -19,6 +19,7 @@ import {NoteEditPage} from "../note-edit/note-edit";
   templateUrl: 'markdown.html',
 })
 export class MarkdownPage {
+  title = 'Markdown'
   convertedHtml: string // 转换后的英文
   originText: string // 转换前的文字
   isConverted: boolean // 是否转换
@@ -30,6 +31,7 @@ export class MarkdownPage {
               public utils: UtilsProvider,
               public ctrls: ControllersService,
               public navParams: NavParams) {
+    this.title = navParams.get('title')
     this.note = navParams.get('note') // 用来跳转到编辑页
     this.originText = navParams.get('markdown')
     let converter = new showdown.Converter()

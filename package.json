@@ -16,8 +16,8 @@
     "android": "ionic cordova run android --devices",
     "ios-reload": "ionic cordova run ios --devices --livereload",
     "android-reload": "ionic cordova run android --devices --livereload",
-    "ele": "electron-packager . 来杯小柠檬 --platform=mas --arch=x64 --ignore=node_modules --out /Users/huowenxuan/Desktop --version=0.0.1 --electronVersion=1.6.11 --icon=./src/assets/icon/eleicon.icns --overwrite",
-    "ele-win": "electron-packager . 来杯小柠檬 --platform=win32 --arch=x64 --ignore=node_modules --out C:\\Users\\msi\\Desktop --version=0.0.1 --electronVersion=1.7.9 --overwrite"
+    "mac": "electron-packager . 来杯小柠檬 --platform=mas --arch=x64 --ignore=node_modules --out /Users/huowenxuan/Desktop --version=0.0.1 --electronVersion=1.6.11 --icon=./src/assets/icon/eleicon.icns --overwrite",
+    "win": "electron-packager . 来杯小柠檬 --platform=win32 --arch=x64 --ignore=node_modules --out C:\\Users\\msi\\Desktop --version=0.0.1 --electronVersion=1.7.9 --overwrite"
   },
   "dependencies": {
     "@angular/common": "4.4.3",

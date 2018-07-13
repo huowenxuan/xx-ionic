@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import {TabMoneyPage} from "../tab-money/tab-money";
-import {TabChatPage} from "../tab-chat/tab-chat";
+import {TabToolsPage} from "../tab-tools/tab-tools";
 import {TabNotePage} from "../tab-note/tab-note";
 import {UserService} from "../../providers/user-service";
 import {LoadingController, NavController} from "ionic-angular";
@@ -17,7 +17,7 @@ let _userId = null
 })
 export class TabsPage {
 
-  chat = TabChatPage;
+  tools = TabToolsPage;
   money = TabMoneyPage;
   note = TabNotePage
 

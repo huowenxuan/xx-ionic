@@ -1,0 +1,32 @@
+<!--
+  Generated template for the MomsHolidayPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>妈妈的假期</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item no-lines style="margin-bottom: 15px; background-color: white!important;">
+    <h2 style="margin: 5px !important;" item-left>上次休息时间</h2>
+
+    <ion-datetime
+      item-right
+      displayFormat="YYYY MM/DD"
+      pickerFormat="YYYY MM DD"
+      style="margin: 5px !important; padding: 5px !important;"
+      [(ngModel)]="lastPicker">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-calendar [(ngModel)]="calendar"
+                [type]="type"
+                [options]="calendarOptions"
+                [format]="'YYYY-MM-DD'">
+  </ion-calendar>
+</ion-content>

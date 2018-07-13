@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { TabChatPage } from './tab-chat';
+import { TabToolsPage } from './tab-tools';
 
 @NgModule({
   declarations: [
-    TabChatPage,
+    TabToolsPage,
   ],
   imports: [
-    IonicPageModule.forChild(TabChatPage),
+    IonicPageModule.forChild(TabToolsPage),
   ],
   exports: [
-    TabChatPage
+    TabToolsPage
   ],
   providers: [
   ]
 })
-export class TabChatPageModule {}
+export class TabToolsPageModule {}

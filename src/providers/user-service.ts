@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {Storage} from "@ionic/storage";
 import 'rxjs/add/operator/map';
-import {ChatService} from "./chat-service";
 
 @Injectable()
 export class UserService {
   userId = ''
   constructor(
     public storage: Storage,
-    public http: Http,
-    public chatService: ChatService) {
+    public http: Http,) {
   }
 
   public async login(userId) {
@@ -37,13 +35,8 @@ export class UserService {
   }
 
   private loginSuccess() {
-    this.chatService.loginIM(this.userId)
   }
 
   private logoutSuccess() {
-
   }
-
-
-
 }

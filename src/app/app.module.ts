@@ -15,7 +15,7 @@ import { SuperTabsModule } from 'ionic2-super-tabs';
 // container
 import {TabsPage} from '../pages/tabs/tabs';
 import {TabMoneyPage} from "../pages/tab-money/tab-money";
-import {TabChatPage} from "../pages/tab-chat/tab-chat";
+import {TabToolsPage} from "../pages/tab-tools/tab-tools";
 import {TabNotePage} from "../pages/tab-note/tab-note";
 import {LoginPage} from "../pages/login/login";
 import {NoteEditPage} from "../pages/note-edit/note-edit";
@@ -24,7 +24,6 @@ import {MarkdownPageModule} from "../pages/markdown/markdown.module";
 // service/provider
 import {EmojiProvider} from "../providers/emoji";
 import {MoneyService} from '../providers/money-service';
-import {ChatService} from "../providers/chat-service";
 import {UserService} from "../providers/user-service";
 import {ControllersService} from "../providers/controllers-service";
 import {SettingsProvider} from "../providers/settings";
@@ -34,10 +33,8 @@ import {UtilsProvider} from "../providers/utils";
 // component
 import {MoneyListRowModule} from "../components/money-list-row/money-list-row.module";
 import {Keyboard} from "@ionic-native/keyboard";
-import {ChatPage} from "../pages/chat/chat";
 import {KeyboardAttachDirective} from "../directives/keyboard-attach.directive";
 import {RelativeTime} from "../pipes/relative-time";
-import {ChatInputModule} from "../components/chat-input/chat-input.module";
 import {EmojiPickerComponentModule} from "../components/emoji-picker/emoji-picker.module";
 import {NoteService} from "../providers/note-service";
 import {SpendEditPage} from "../pages/spend-edit/spend-edit";
@@ -46,21 +43,22 @@ import {IonDigitKeyboard} from "../components/ion-digit-keyboard/ion-digit-keybo
 import {SpendPageModule} from "../pages/spend/spend.module";
 import {TestPage} from "../pages/test/test";
 import {NoteSearchPage} from "../pages/note-search/note-search";
+import {MomsHolidayPage} from "../pages/tools/moms-holiday/moms-holiday";
 
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
     TabMoneyPage,
-    TabChatPage,
+    TabToolsPage,
     TabNotePage,
 
     LoginPage,
-    ChatPage,
     NoteEditPage,
     NoteSearchPage,
     SpendEditPage,
     TestPage,
+    MomsHolidayPage,
 
     KeyboardAttachDirective,
     RelativeTime
@@ -96,7 +94,6 @@ import {NoteSearchPage} from "../pages/note-search/note-search";
     // 组件声明
     CalendarModule,
     MoneyListRowModule,
-    ChatInputModule,
     EmojiPickerComponentModule,
     SpendPageModule,
 
@@ -107,15 +104,15 @@ import {NoteSearchPage} from "../pages/note-search/note-search";
     MyApp,
     TabsPage,
     TabMoneyPage,
-    TabChatPage,
+    TabToolsPage,
     TabNotePage,
     LoginPage,
-    ChatPage,
     NoteEditPage,
     NoteSearchPage,
     SpendEditPage,
     SpendPage,
-    TestPage
+    TestPage,
+    MomsHolidayPage,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },
@@ -128,7 +125,6 @@ import {NoteSearchPage} from "../pages/note-search/note-search";
     ControllersService,
     EmojiProvider,
     MoneyService,
-    ChatService,
     UserService,
     SettingsProvider,
     LCStorageProvider,

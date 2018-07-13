@@ -5,6 +5,7 @@ import {ControllersService} from "../../providers/controllers-service";
 import {LCStorageProvider} from "../../providers/lc-storage";
 import {NoteService, Note} from "../../providers/note-service";
 import {MarkdownPage} from "../markdown/markdown";
+import {UtilsProvider} from "../../providers/utils";
 
 @IonicPage()
 @Component({
@@ -27,7 +28,8 @@ export class NoteEditPage {
               public navParams: NavParams,
               public userService: UserService,
               public noteService: NoteService,
-              public ctrls: ControllersService) {
+              public ctrls: ControllersService,
+              public utils: UtilsProvider) {
     this.oldNote = this.navParams.get('note')
     if (this.oldNote) {
       this.title = '编辑'
@@ -38,32 +40,22 @@ export class NoteEditPage {
       this.startEnable = !!this.oldNote.attributes.start
     }
 
-    this.startPicker = this.dateToISO(this.start)
-    this.endPicker = this.dateToISO(this.end)
+    this.startPicker = this.utils.dateToISO(this.start)
+    this.endPicker = this.utils.dateToISO(this.end)
   }
 
   ionViewDidLoad() {
 
   }
 
-  isoToDate(isoString: string): Date {
-    if (!isoString) return null
-    return new Date(new Date(isoString).getTime() - 8*3600*1000)
-  }
-
-  dateToISO(date: Date): string {
-    if (!date) return null
-    return new Date(date.getTime() + 8*3600*1000).toISOString()
-  }
-
   upToNow() {
     let end = new Date()
-    this.endPicker = this.dateToISO(end)
+    this.endPicker = this.utils.dateToISO(end)
   }
 
   async save() {
-    this.start = this.isoToDate(this.startPicker)
-    this.end = this.isoToDate(this.endPicker)
+    this.start = this.utils.isoToDate(this.startPicker)
+    this.end = this.utils.isoToDate(this.endPicker)
 
     if (!this.input) return
 

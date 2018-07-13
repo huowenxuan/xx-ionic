@@ -6,7 +6,7 @@
   "main": "electron.main.js",
   "private": true,
   "scripts": {
-    "start": "ionic serve",
+    "start": "ionic serve -p 8101",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
@@ -17,7 +17,8 @@
     "ios-reload": "ionic cordova run ios --devices --livereload",
     "android-reload": "ionic cordova run android --devices --livereload",
     "mac": "electron-packager . 来杯小柠檬 --platform=mas --arch=x64 --ignore=node_modules --out /Users/huowenxuan/Desktop --version=0.0.1 --electronVersion=1.6.11 --icon=./src/assets/icon/eleicon.icns --overwrite",
-    "win": "electron-packager . 来杯小柠檬 --platform=win32 --arch=x64 --ignore=node_modules --out C:\\Users\\msi\\Desktop --version=0.0.1 --electronVersion=1.7.9 --overwrite"
+    "win": "electron-packager . 来杯小柠檬 --platform=win32 --arch=x64 --ignore=node_modules --out C:\\Users\\msi\\Desktop --version=0.0.1 --electronVersion=1.7.9 --overwrite",
+    "create-page": "ionic g page"
   },
   "dependencies": {
     "@angular/common": "4.4.3",

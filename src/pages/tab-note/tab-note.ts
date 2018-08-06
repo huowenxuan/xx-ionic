@@ -16,6 +16,7 @@ import * as moment from "moment";
 import {NoteEditPage} from "../note-edit/note-edit";
 import {MarkdownPage} from "../markdown/markdown";
 import {NoteSearchPage} from "../note-search/note-search";
+import {MomsHolidayPage} from "../tools/moms-holiday/moms-holiday";
 
 @Component({
   selector: 'page-tab-note',

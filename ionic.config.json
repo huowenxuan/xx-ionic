@@ -1,5 +1,5 @@
 {
-  "name": "mm",
+  "name": "xx",
   "app_id": "",
   "type": "ionic-angular",
   "integrations": {
@@ -9,6 +9,10 @@
     {
       "path": "/fund",
       "proxyUrl": "http://fundgz.1234567.com.cn/js/"
+    },
+    {
+      "path": "/api",
+      "proxyUrl": "https://huowenxuan.leanapp.cn/api"
     }
   ]
 }

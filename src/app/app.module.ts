@@ -11,6 +11,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {Clipboard} from '@ionic-native/clipboard';
 import {CalendarModule} from "ion2-calendar";
 import { SuperTabsModule } from 'ionic2-super-tabs';
+import { FormsModule } from '@angular/forms';
 
 // container
 import {TabsPage} from '../pages/tabs/tabs';
@@ -44,6 +45,9 @@ import {SpendPageModule} from "../pages/spend/spend.module";
 import {TestPage} from "../pages/test/test";
 import {NoteSearchPage} from "../pages/note-search/note-search";
 import {MomsHolidayPage} from "../pages/tools/moms-holiday/moms-holiday";
+import {VoguePage} from "../pages/tools/vogue/vogue";
+import {PhotoLibrary} from "@ionic-native/photo-library";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 @NgModule({
   declarations: [
@@ -59,12 +63,14 @@ import {MomsHolidayPage} from "../pages/tools/moms-holiday/moms-holiday";
     SpendEditPage,
     TestPage,
     MomsHolidayPage,
+    VoguePage,
 
     KeyboardAttachDirective,
     RelativeTime
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
       mode: 'ios',
@@ -113,6 +119,7 @@ import {MomsHolidayPage} from "../pages/tools/moms-holiday/moms-holiday";
     SpendPage,
     TestPage,
     MomsHolidayPage,
+    VoguePage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },
@@ -129,7 +136,9 @@ import {MomsHolidayPage} from "../pages/tools/moms-holiday/moms-holiday";
     SettingsProvider,
     LCStorageProvider,
     UtilsProvider,
-    NoteService
+    NoteService,
+    PhotoLibrary,
+    InAppBrowser
   ]
 })
 export class AppModule {

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import {InAppBrowser} from '@ionic-native/in-app-browser';
 
 import {TabsPage} from '../pages/tabs/tabs';
 import {Keyboard} from "@ionic-native/keyboard";

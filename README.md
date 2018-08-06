@@ -26,6 +26,9 @@ npm run serve
 ionic serve
 ```
 
+## iOS
+> 如果代码没更新，执行cordova run ios | npm run build，再从xcode运行
+
 ## Electron
 ```
 // 确保正确打包到www/index.html中
@@ -49,3 +52,6 @@ num run win
 ### 小工具
 计算妈妈的假期
 
+
+## 注意
+1. WKWebView在http请求时会让程序卡死，使用CDVWebView

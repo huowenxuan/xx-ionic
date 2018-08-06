@@ -78,7 +78,7 @@ export class MomsHolidayPage {
   }
 
   cal() {
-    let weekdays: Date[] = []
+    let dayMsgs = []
     // 上一个假日
     let lastHoliday = moment(this.lastHoliday)
     // 上一个周期的工作日，假日往前提3天。作为周期的开始
@@ -97,22 +97,34 @@ export class MomsHolidayPage {
         continue
       }
 
-      if (index >= 3) {
-        weekdays.push(current.toDate())
-        console.log(current.format('YYYY-MM-DD'))
-        if (index === 4) {
-          console.log('---------')
-        }
+      let msg: any = {date: current.toDate()}
+      switch (index) {
+        case 0:
+          msg.title = '👇'
+          break
+        case 1:
+          msg.title = '☝️'
+          break
+        case 2:
+          msg.title = '🌙'
+          break
+        default:
+          msg.title = '💤'
+          console.log(current.format('YYYY-MM-DD'))
+          if (index === 4) {
+            console.log('---------')
+          }
       }
       current = current.add(1, 'day')
+      dayMsgs.push(msg)
     }
     this.calendarOptions = {
       ...this.calendarOptions,
-      daysConfig: weekdays.map((date) => ({
+      daysConfig: dayMsgs.map(({date, title}) => ({
           date,
           marked: true,
           disabled: false,
-          subTitle: '休',
+          subTitle: title,
         })
       )
     }

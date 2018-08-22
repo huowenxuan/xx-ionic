@@ -15,8 +15,8 @@ import {UtilsProvider} from "../../providers/utils";
 export class NoteEditPage {
   @ViewChild('content') content: any;
   title = '新建'
-  start: Date = new Date() // start必须有初始值，否则无法转换为本地时间
-  end = new Date()
+  start = Date.now() // start必须有初始值，否则无法转换为本地时间
+  end = Date.now()
   input = ''
   oldNote: Note
   startPicker
@@ -33,15 +33,15 @@ export class NoteEditPage {
     this.oldNote = this.navParams.get('note')
     if (this.oldNote) {
       this.title = '编辑'
-      this.input = this.oldNote.attributes.text
-      this.end = this.oldNote.attributes.end
-      this.start = this.oldNote.attributes.start || this.end
+      this.input = this.oldNote.text
+      this.end = this.oldNote.end
+      this.start = this.oldNote.start || this.end
 
-      this.startEnable = !!this.oldNote.attributes.start
+      this.startEnable = !!this.oldNote.start
     }
 
-    this.startPicker = this.utils.dateToISO(this.start)
-    this.endPicker = this.utils.dateToISO(this.end)
+    this.startPicker = this.utils.dateToISO(new Date(this.start))
+    this.endPicker = this.utils.dateToISO(new Date(this.end))
   }
 
   ionViewDidLoad() {
@@ -54,8 +54,8 @@ export class NoteEditPage {
   }
 
   async save() {
-    this.start = this.utils.isoToDate(this.startPicker)
-    this.end = this.utils.isoToDate(this.endPicker)
+    this.start = new Date(this.utils.isoToDate(this.startPicker)).getTime()
+    this.end = new Date(this.utils.isoToDate(this.endPicker)).getTime()
 
     if (!this.input) return
 
@@ -79,16 +79,6 @@ export class NoteEditPage {
       this.ctrls.toast('保存成功').present()
       this.navCtrl.pop()
       onSuccess && onSuccess(newNote)
-      // this.navCtrl
-      //   .push(MarkdownPage, {
-      //     note: newNote,
-      //     markdown: newNote.attributes.text
-      //   }, {animate: false})
-      //   .then(() => {
-      //     const index = this.viewCtrl.index;
-      //     this.navCtrl.remove(index);
-      //   });
-
     } catch (e) {
       loader.dismiss()
       console.log(e)

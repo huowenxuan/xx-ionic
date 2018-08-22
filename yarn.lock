@@ -1166,6 +1166,10 @@ cordova-plugin-add-swift-support@^1.6.0:
   version "1.7.2"
   resolved "http://registry.npm.taobao.org/cordova-plugin-add-swift-support/download/cordova-plugin-add-swift-support-1.7.2.tgz#02ae655f3e123974f6b43da4340e7e8e1f316d48"
 
+cordova-plugin-advanced-http@^1.11.1:
+  version "1.11.1"
+  resolved "http://registry.npm.taobao.org/cordova-plugin-advanced-http/download/cordova-plugin-advanced-http-1.11.1.tgz#56b76d37486500f357ee511c0fadcd126e167002"
+
 cordova-plugin-device@^1.1.7:
   version "1.1.7"
   resolved "http://registry.npm.taobao.org/cordova-plugin-device/download/cordova-plugin-device-1.1.7.tgz#fc94111be6932628c66868938ddf3dc82c9fbfe6"
@@ -1177,6 +1181,10 @@ cordova-plugin-file@^5.0.0:
 cordova-plugin-inappbrowser@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/cordova-plugin-inappbrowser/download/cordova-plugin-inappbrowser-3.0.0.tgz#d4ae00d36676210751057ad258ae4ad4a9161ada"
+
+cordova-plugin-ionic-webview@~1.2.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/cordova-plugin-ionic-webview/download/cordova-plugin-ionic-webview-1.2.1.tgz#6d2162a2b1c593de436359d0746afc28b6a28d57"
 
 cordova-plugin-photo-library@^2.1.1:
   version "2.1.1"
@@ -4194,6 +4202,13 @@ qs@^6.4.0, qs@^6.5.1, qs@~6.5.1:
   version "6.5.2"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
+query-string@^6.1.0:
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/query-string/download/query-string-6.1.0.tgz#01e7d69f6a0940dac67a937d6c6325647aa4532a"
+  dependencies:
+    decode-uri-component "^0.2.0"
+    strict-uri-encode "^2.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "http://registry.npm.taobao.org/querystring-es3/download/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -4935,6 +4950,10 @@ stream-http@^2.7.2:
     readable-stream "^2.3.6"
     to-arraybuffer "^1.0.0"
     xtend "^4.0.0"
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/strict-uri-encode/download/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
 
 string-range@~1.2, string-range@~1.2.1:
   version "1.2.2"

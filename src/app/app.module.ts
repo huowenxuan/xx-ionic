@@ -45,7 +45,6 @@ import {SpendPageModule} from "../pages/spend/spend.module";
 import {TestPage} from "../pages/test/test";
 import {NoteSearchPage} from "../pages/note-search/note-search";
 import {MomsHolidayPage} from "../pages/tools/moms-holiday/moms-holiday";
-import {VoguePage} from "../pages/tools/vogue/vogue";
 import {PhotoLibrary} from "@ionic-native/photo-library";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 
@@ -63,7 +62,6 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
     SpendEditPage,
     TestPage,
     MomsHolidayPage,
-    VoguePage,
 
     KeyboardAttachDirective,
     RelativeTime
@@ -119,7 +117,6 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
     SpendPage,
     TestPage,
     MomsHolidayPage,
-    VoguePage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "zh-CN" },

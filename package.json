@@ -16,8 +16,8 @@
     "android": "ionic cordova run android --devices",
     "ios-reload": "ionic cordova run ios --devices --livereload",
     "android-reload": "ionic cordova run android --devices --livereload",
-    "mac": "electron-packager . 来杯小柠檬 --platform=mas --arch=x64 --ignore=node_modules --out /Users/huowenxuan/Desktop --version=0.0.1 --electronVersion=1.6.11 --icon=./src/assets/icon/eleicon.icns --overwrite",
-    "win": "electron-packager . 来杯小柠檬 --platform=win32 --arch=x64 --ignore=node_modules --out C:\\Users\\msi\\Desktop --version=0.0.1 --electronVersion=1.7.9 --overwrite",
+    "mac": "electron-packager . 来杯小柠檬 --platform=mas --arch=x64 --ignore=node_modules --out /Users/huowenxuan/Desktop --app-version=0.0.1 --electronVersion=1.6.11 --icon=./src/assets/icon/eleicon.icns --overwrite",
+    "win": "electron-packager . 来杯小柠檬 --platform=win32 --arch=x64 --ignore=node_modules --out C:\\Users\\msi\\Desktop --app-version=0.0.1 --electronVersion=1.7.9 --overwrite",
     "create-page": "ionic g page",
     "rebuild-ios": "ionic cordova platform rm ios && ionic cordova platform add ios"
   },
@@ -44,6 +44,7 @@
     "cordova-clipboard": "^1.1.1",
     "cordova-ios": "4.5.4",
     "cordova-plugin-add-swift-support": "^1.6.0",
+    "cordova-plugin-advanced-http": "^1.11.1",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-inappbrowser": "^3.0.0",
@@ -65,10 +66,10 @@
     "leancloud-realtime-plugin-typed-messages": "^2.0.0",
     "leancloud-storage": "^3.3.1",
     "moment": "^2.19.3",
+    "query-string": "^6.1.0",
     "rxjs": "5.4.3",
     "showdown": "^1.8.3",
-    "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18"
+    "sw-toolbox": "3.6.0"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.0.0",
@@ -94,6 +95,8 @@
       "cordova-plugin-transport-security": {},
       "cordova-plugin-ionic-webview": {}
     },
-    "platforms": []
+    "platforms": [
+      "ios"
+    ]
   }
 }

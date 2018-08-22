@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {NoteService} from "../../providers/note-service";
 import {UtilsProvider} from "../../providers/utils";
 import {MarkdownPage} from "../markdown/markdown";
+import {UserService} from "../../providers/user-service";
 
 /**
  * Generated class for the NoteSearchPage page.
@@ -19,13 +20,14 @@ import {MarkdownPage} from "../markdown/markdown";
 export class NoteSearchPage {
   results = []
   searchText = ''
-  skip = 0
+  offset = 0
   limit = 20
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public utils: UtilsProvider,
+    public userService: UserService,
     public noteService: NoteService,) {
   }
 
@@ -40,7 +42,7 @@ export class NoteSearchPage {
 
   async onSearchInput(ev) {
     let val = ev.target.value;
-    this.skip = 0
+    this.offset = 0
     this.searchText = val
 
     if (!val) {
@@ -48,32 +50,32 @@ export class NoteSearchPage {
       return
     }
 
-    this.results = await this.noteService.searchNote(val, this.skip, this.limit)
+    this.results = await this.noteService.searchNote(val, this.userService.userId, this.offset, this.limit)
   }
 
   showTime(item) {
-    const {end, text} = item.attributes
+    const {end, text} = item
     return this.utils.formatDate(end)
   }
 
   showItem(item) {
-    const {end, text} = item.attributes
+    const {end, text} = item
     return `  ${text}`
   }
 
   toMarkdown(note) {
     this.navCtrl.push(MarkdownPage, {
       note: note,
-      markdown: note.attributes.text,
-      title: this.utils.formatDate(note.attributes.end),
+      markdown: note.text,
+      title: this.utils.formatDate(note.end),
     })
   }
 
   async loadMore(infiniteScroll) {
     if (!this.searchText) return
 
-    this.skip += this.limit
-    let note = await this.noteService.searchNote(this.searchText, this.skip, this.limit)
+    this.offset += this.limit
+    let note = await this.noteService.searchNote(this.searchText, this.userService.userId, this.offset, this.limit)
     if (note) {
       this.results.push(...note)
     }

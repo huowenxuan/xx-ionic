@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service";
 import {MomsHolidayPage} from "../tools/moms-holiday/moms-holiday";
-import {VoguePage} from "../tools/vogue/vogue";
 
 @IonicPage()
 @Component({
@@ -24,8 +23,5 @@ export class TabToolsPage {
     this.navCtrl.push(MomsHolidayPage)
   }
 
-  toVogue() {
-    this.navCtrl.push(VoguePage)
-  }
 }
 

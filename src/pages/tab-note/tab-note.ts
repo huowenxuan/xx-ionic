@@ -24,7 +24,7 @@ import {MomsHolidayPage} from "../tools/moms-holiday/moms-holiday";
 })
 export class TabNotePage {
   notes = []
-  skip = 0
+  offset = 0
   limit = 10
 
   calendar
@@ -57,7 +57,7 @@ export class TabNotePage {
   }
 
   async reload(loading?) {
-    this.skip = 0
+    this.offset = 0
 
     let loader = this.ctrls.loading()
     if (loading) {
@@ -75,15 +75,15 @@ export class TabNotePage {
   toMarkdown(note) {
     this.navCtrl.push(MarkdownPage, {
       note: note,
-      markdown: note.attributes.text,
-      title: this.utils.formatDate(note.attributes.end),
+      markdown: note.text,
+      title: this.utils.formatDate(note.end),
       onEdit: ()=>this.reload()
     })
   }
 
   async loadMore(infiniteScroll) {
-    this.skip += this.limit
-    let notes = await this.noteService.getNotes(this.userService.userId, this.skip, this.limit)
+    this.offset += this.limit
+    let notes = await this.noteService.getNotes(this.userService.userId, this.offset, this.limit)
     if (notes) {
       this.notes.push(...notes)
     }
@@ -123,23 +123,19 @@ export class TabNotePage {
     let shouldShow = true
     let index = this.notes.indexOf(note)
     if (index > -1) {
-      let currentEnd = this.notes[index].attributes.end
+      let currentEnd = this.notes[index].end
       if (this.notes[index - 1]) {
-        let lastEnd = this.notes[index - 1].attributes.end
+        let lastEnd = this.notes[index - 1].end
         shouldShow = !this.utils.isSameDay(currentEnd, lastEnd)
       }
     }
 
-    if (!shouldShow) {
-      return null
-    }
-
-    const {end} = note.attributes
-    return this.getDate(end)
+    if (!shouldShow) return null
+    return this.getDate(note.end)
   }
 
   showTime(note) {
-    const {start, end} = note.attributes
+    const {start, end} = note
     let showDate = start && end ? !this.utils.isSameDay(start, end) : false
     let startTime = this.getTime(start, showDate)
     let endTime = this.getTime(end, showDate)
@@ -221,7 +217,7 @@ export class TabNotePage {
 
     let sortedNotes = []
     let todayNotes = []
-    notes.forEach(({attributes: note}: any, index) => {
+    notes.forEach((note: any) => {
       note.end = new Date(note.end)
       if (!this.utils.isSameDay(note.end, lastShowDate)) {
         lastShowDate = note.end
@@ -237,6 +233,7 @@ export class TabNotePage {
 
     lastShowDate = null
     sortedNotes.forEach((note: any, index) => {
+      note.start = new Date(note.start)
       note.end = new Date(note.end)
       if (!this.utils.isSameDay(note.end, lastShowDate)) {
         markdown += '------\n\n'

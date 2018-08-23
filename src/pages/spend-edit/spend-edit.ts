@@ -2,8 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service";
 import {ControllersService} from "../../providers/controllers-service";
-import {LCStorageProvider} from "../../providers/lc-storage";
-import {NoteService, Note} from "../../providers/note-service";
 import {UtilsProvider} from "../../providers/utils";
 import {MoneyService, Spend} from "../../providers/money-service";
 import {IonDigitKeyboardOptions} from "../../components/ion-digit-keyboard";
@@ -64,7 +62,7 @@ export class SpendEditPage {
     this.selectedIndex = -1
     this.inputPrice = ''
     this.spendList = new Array(this.moneyService.spendTypes.length)
-    let spends = await this.moneyService.getMonthSpends(this.userService.userId, this.utils.monthDateClear(this.utils.isoToDate(this.monthPicker)))
+    let spends: any = await this.moneyService.getMonthSpends(this.userService.userId, this.utils.monthDateClear(this.utils.isoToDate(this.monthPicker)))
     // 排序，spend的顺序和type一致，放在对应的位置上
     spends.forEach(item => {
       this.moneyService.spendTypes.some((type, index) => {

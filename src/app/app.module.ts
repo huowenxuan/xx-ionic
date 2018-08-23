@@ -28,7 +28,6 @@ import {MoneyService} from '../providers/money-service';
 import {UserService} from "../providers/user-service";
 import {ControllersService} from "../providers/controllers-service";
 import {SettingsProvider} from "../providers/settings";
-import {LCStorageProvider} from "../providers/lc-storage";
 import {UtilsProvider} from "../providers/utils";
 
 // component
@@ -131,7 +130,6 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
     MoneyService,
     UserService,
     SettingsProvider,
-    LCStorageProvider,
     UtilsProvider,
     NoteService,
     PhotoLibrary,

@@ -2,7 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service";
 import {ControllersService} from "../../providers/controllers-service";
-import {LCStorageProvider} from "../../providers/lc-storage";
 import {NoteService, Note} from "../../providers/note-service";
 import {MarkdownPage} from "../markdown/markdown";
 import {UtilsProvider} from "../../providers/utils";

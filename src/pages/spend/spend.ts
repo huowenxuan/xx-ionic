@@ -29,8 +29,8 @@ export class SpendPage {
   }
 
   ionViewDidLoad() {
-    this.moneyService.getMonthAgoSpends(this.userService.userId, 12)
-      .then((spends) => {
+    this.moneyService.getMonthAgoSpends(this.userService.userId, 20)
+      .then((spends: any) => {
         let data = []
         spends.forEach((spend) => {
           let {time, price, type, text} = spend.attributes

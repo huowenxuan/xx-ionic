@@ -2,12 +2,11 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Storage} from "@ionic/storage";
 import 'rxjs/add/operator/map';
-import * as AV from 'leancloud-storage'
-import {LCStorageProvider} from "./lc-storage";
 import axios from 'axios'
 import queryString from 'querystring'
 
-export class Note extends AV.Object {
+export class Note {
+  id: string
   userId: string
   start?: number // 开始时间，非必须
   end: number  // 日程结束时间
@@ -19,8 +18,7 @@ let host = 'http://www.huowenxuan.top/api'
 
 @Injectable()
 export class NoteService {
-  constructor(public lcStorage: LCStorageProvider,) {
-    lcStorage.registerObject(Note)
+  constructor() {
   }
 
   async createNote(user_id: string, start: number, end: number, text: string) {

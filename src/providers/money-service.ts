@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Storage} from "@ionic/storage";
 import 'rxjs/add/operator/map';
-import * as AV from 'leancloud-storage'
-import {LCStorageProvider} from "./lc-storage";
-import {Note} from "./note-service";
 import * as moment from "moment";
 import {UtilsProvider} from "./utils";
+import axios from 'axios'
+import queryString from "querystring";
 
-export class Spend extends AV.Object {
-  userId: string
-  time: Date
+export class Spend {
+  user_id: string
+  time: number
   type: string
-  price: string
+  price: number
 }
+
+let host = 'http://localhost:7001/api'
+// let host = 'http://www.huowenxuan.top/api'
 
 @Injectable()
 export class MoneyService {
@@ -36,72 +36,38 @@ export class MoneyService {
     // 宠物
   ]
 
-  constructor(
-    public utils: UtilsProvider,
-    public lcStorage: LCStorageProvider) {
-    lcStorage.registerObject(Spend)
+  constructor(public utils: UtilsProvider) {
   }
 
-  getMonthSpends(userId, time): Promise<Array<any>> {
-    let query = new AV.Query(Spend);
-    query.equalTo('userId', userId);
-    query.equalTo('time', time)
-
-    return new Promise((resolve, reject) => {
-      query.find().then(
-        (results) => resolve(results),
-        (error) => reject(error))
-    })
+  async getMonthSpends(userId, time) {
+    // let query = new AV.Query(Spend);
+    // query.equalTo('userId', userId);
+    // query.equalTo('time', time)
   }
 
-  createSpend(userId, price, time, type) {
-    let spend = new Spend()
-    spend.set('userId', userId)
-    spend.set('time', time)
-    spend.set('price', price)
-    spend.set('type', type)
-    return new Promise((resolve, reject) => {
-      spend.save().then(
-        (res) => resolve(res),
-        (error) => reject(error))
-    })
+  async createSpend(userId, price, time, type) {
+    // let spend = new Spend()
+    // spend.set('userId', userId)
+    // spend.set('time', time)
+    // spend.set('price', price)
+    // spend.set('type', type)
   }
 
-  updateSpend(id, price, time, type) {
-    let spend = AV.Object.createWithoutData('Spend', id)
-    spend.set('time', time)
-    spend.set('price', price)
-    spend.set('type', type)
-    return new Promise((resolve, reject) => {
-      spend.save().then(
-        (res) => resolve(res),
-        (error) => reject(error))
-    })
+  async updateSpend(id, price, time, type) {
+    // spend.set('time', time)
+    // spend.set('price', price)
+    // spend.set('type', type)
   }
 
-  deleteSpend(id) {
-    let spend = AV.Object.createWithoutData('Spend', id);
-    return new Promise((resolve, reject) => {
-      spend.destroy().then(
-        (res) => resolve(),
-        (error) => reject(error))
-    })
+  async deleteSpend(id) {
   }
 
-  getMonthAgoSpends(userId, num): Promise<any> {
+  async getMonthAgoSpends(userId, num) {
     let monthAgo = moment().subtract(num, "months").toDate()
     monthAgo = this.utils.monthDateClear(monthAgo)
-    let query = new AV.Query(Spend)
-    query.equalTo('userId', userId)
-    // 升序
-    query.addAscending('time')
-    query.greaterThanOrEqualTo('time', monthAgo)
-    // query.lessThanOrEqualTo('end', to)
-
-    return new Promise((resolve, reject) => {
-      query.find().then(
-        (results) => resolve(results),
-        (error) => reject(error))
-    })
+    // query.equalTo('userId', userId)
+    // // 升序
+    // query.addAscending('time')
+    // query.greaterThanOrEqualTo('time', monthAgo)
   }
 }

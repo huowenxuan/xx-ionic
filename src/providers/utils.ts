@@ -98,7 +98,7 @@ export class UtilsProvider {
     return moment(date).year() === moment().year()
   }
 
-  isSameDay(d1, d2) {
+  isSameDay(d1: Date | String | Number, d2: Date | String | Number) {
     if (!d1 || !d2) return false
 
     let m1 = moment(d1)

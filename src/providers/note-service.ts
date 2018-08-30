@@ -63,17 +63,23 @@ export class NoteService {
    */
   async getNotesRange(userId, from: Date, to: Date) {
     // 从第一天第0秒，到最后一天的最后一秒
-    from.setHours(0);
-    from.setMinutes(0);
-    from.setSeconds(0)
+    if (from) {
+      from.setHours(0);
+      from.setMinutes(0);
+      from.setSeconds(0)
+    }
+
     to.setHours(23);
     to.setMinutes(59);
     to.setSeconds(59)
 
     let url = host + '/notes/range?'
-    url += queryString.stringify({user_id: userId, from: from.getTime(), to: to.getTime()})
+    url += queryString.stringify({
+      user_id: userId,
+      from: from ? from.getTime(): null,
+      to: to.getTime()
+    })
     let response: any = await axios.get(url)
     return response.data.data
   }
-
 }

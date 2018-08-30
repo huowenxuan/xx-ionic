@@ -77,7 +77,7 @@ export class TabNotePage {
       note: note,
       markdown: note.text,
       title: this.utils.formatDate(note.end),
-      onEdit: ()=>this.reload()
+      onEdit: () => this.reload()
     })
   }
 
@@ -197,17 +197,15 @@ export class TabNotePage {
 
     myCalendar.present();
     this.ctrls.toast('如果只选择一天，点击两下即可').present()
-    myCalendar.onDidDismiss(date => {
+    myCalendar.onDidDismiss(async date => {
       if (!date) return
       let from = date.from.dateObj
       let to = date.to.dateObj
       let loading = this.ctrls.loading()
       loading.present()
-      this.noteService.getNotesRange(this.userService.userId, from, to)
-        .then((notes) => {
-          loading.dismiss()
-          this.createDaysMarkdown(notes)
-        })
+      let notes = await this.noteService.getNotesRange(this.userService.userId, from, to)
+      loading.dismiss()
+      this.createDaysMarkdown(notes)
     })
   }
 
@@ -233,16 +231,16 @@ export class TabNotePage {
 
     lastShowDate = null
     sortedNotes.forEach((note: any, index) => {
-      note.start = new Date(note.start)
-      note.end = new Date(note.end)
-      if (!this.utils.isSameDay(note.end, lastShowDate)) {
+      let start = note.start && new Date(note.start)
+      let end = new Date(note.end)
+      if (!this.utils.isSameDay(end, lastShowDate)) {
         markdown += '------\n\n'
-        lastShowDate = note.end
-        markdown += `## ${note.end.getMonth() + 1}.${note.end.getDate()} \n`
+        lastShowDate = end
+        markdown += `## ${end.getMonth() + 1}.${end.getDate()} \n`
       }
 
-      let showStart = note.start ? `${note.start.getHours()}.${note.start.getMinutes()}` : ''
-      let showEnd = `${note.end.getHours()}.${note.end.getMinutes()}`
+      let showStart = start ? `${start.getHours()}.${start.getMinutes()}` : ''
+      let showEnd = `${end.getHours()}.${end.getMinutes()}`
       markdown += `### ${showStart}-${showEnd} \n`
       markdown += note.text + '\n\n'
     })

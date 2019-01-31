@@ -28,34 +28,37 @@ export class NoteService {
       end, text
     }
     let response: any = await axios.post(url, body)
-    return response.data.data
+    return response.data
   }
 
   async updateNote(id, text, start, end) {
     let url = host + '/note/' + id
     let body = {start, end, text}
     let response: any = await axios.put(url, body)
-    return response.data.data
+    return response.data
   }
 
   async getNotes(user_id, offset = 0, limit = 10) {
-    let url = host + '/note?'
+    let url = host + '/notes?'
     url += queryString.stringify({user_id, offset, limit})
     let response: any = await axios.get(url)
-    return response.data.data
+    return response.data
   }
 
   async deleteNote(id) {
     let url = host + '/note/' + id
     let response: any = await axios.delete(url)
-    return response.data.data
+    return response.data
   }
 
   async searchNote(text, userId, offset = 0, limit = 10) {
-    let url = host + '/note/search/' + encodeURI(text) + '?'
-    url += queryString.stringify({user_id: userId, offset, limit})
+    let url = host + '/notes/?'
+    url += queryString.stringify({
+      search: encodeURI(text),
+      user_id: userId, offset, limit
+    })
     let response: any = await axios.get(url)
-    return response.data.data
+    return response.data
   }
 
   /**
@@ -73,13 +76,13 @@ export class NoteService {
     to.setMinutes(59);
     to.setSeconds(59)
 
-    let url = host + '/note/range?'
+    let url = host + '/notes/range?'
     url += queryString.stringify({
       user_id: userId,
       from: from ? from.getTime(): null,
       to: to.getTime()
     })
     let response: any = await axios.get(url)
-    return response.data.data
+    return response.data
   }
 }

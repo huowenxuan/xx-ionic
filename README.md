@@ -18,6 +18,13 @@
 * windows的icon
 * 有时滚动到底部无法加载更多，往上滚一下才会好，一直都存在
 
+## INSTALL
+如遇到node-sass install失败，执行：
+```
+nvm use 8 ???
+sudo rm -rf node_modules && npm rebuild node-sass && npm i
+```
+
 ## 运行
 ### ionic
 ```
@@ -55,3 +62,4 @@ num run win
 
 ## 注意
 1. WKWebView在http请求时会让程序卡死，使用CDVWebView
+

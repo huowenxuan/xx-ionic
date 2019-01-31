@@ -29,13 +29,12 @@ export class MyApp {
               public settings: SettingsProvider,
               splashScreen: SplashScreen) {
     this.initTheme()
-    // FastClick.attach(document.body)
 
     platform.ready().then(() => {
       splashScreen.hide();
       // this.statusBar.styleDefault() // styleLightContent
       this.statusBar.hide()
-      keyboard.disableScroll(true)
+      // keyboard.disableScroll(true)
 
     });
 

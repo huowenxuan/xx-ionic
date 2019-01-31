@@ -28,27 +28,27 @@ export class NoteService {
       end, text
     }
     let response: any = await axios.post(url, body)
-    return response.data
+    return response.data.data
   }
 
   async updateNote(id, text, start, end) {
     let url = host + '/note/' + id
     let body = {start, end, text}
     let response: any = await axios.put(url, body)
-    return response.data
+    return response.data.data
   }
 
   async getNotes(user_id, offset = 0, limit = 10) {
     let url = host + '/notes?'
     url += queryString.stringify({user_id, offset, limit})
     let response: any = await axios.get(url)
-    return response.data
+    return response.data.data
   }
 
   async deleteNote(id) {
     let url = host + '/note/' + id
     let response: any = await axios.delete(url)
-    return response.data
+    return response.data.data
   }
 
   async searchNote(text, userId, offset = 0, limit = 10) {
@@ -58,7 +58,7 @@ export class NoteService {
       user_id: userId, offset, limit
     })
     let response: any = await axios.get(url)
-    return response.data
+    return response.data.data
   }
 
   /**
@@ -83,6 +83,6 @@ export class NoteService {
       to: to.getTime()
     })
     let response: any = await axios.get(url)
-    return response.data
+    return response.data.data
   }
 }

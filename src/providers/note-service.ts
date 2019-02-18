@@ -13,8 +13,8 @@ export class Note {
   text: string
 }
 
-// let host = 'http://localhost:7001/api'
-let host = 'https://www.huowenxuan.top/api'
+// let host = 'http://localhost:7001'
+let host = 'https://api.huowenxuan.top'
 
 @Injectable()
 export class NoteService {

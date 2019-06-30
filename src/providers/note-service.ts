@@ -14,7 +14,7 @@ export class Note {
 }
 
 // let host = 'http://localhost:7001'
-let host = 'https://api.huowenxuan.top'
+let host = 'http://huowenxuan.zicp.vip'
 
 @Injectable()
 export class NoteService {

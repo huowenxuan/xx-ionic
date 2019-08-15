@@ -47,6 +47,7 @@
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-ionic-webview": "~1.2.1",
     "cordova-plugin-photo-library": "^2.1.1",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar": "^2.4.0",
@@ -63,10 +64,9 @@
     "moment": "^2.19.3",
     "query-string": "^6.1.0",
     "rxjs": "5.4.3",
-    "showdown": "^1.8.3",
+    "showdown": "1.9.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "^0.8.26",
-    "cordova-plugin-ionic-webview": "~1.2.1"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.2",

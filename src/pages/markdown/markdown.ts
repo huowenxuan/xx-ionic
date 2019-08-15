@@ -34,7 +34,13 @@ export class MarkdownPage {
     this.title = navParams.get('title')
     this.note = navParams.get('note') // 用来跳转到编辑页
     this.originText = navParams.get('markdown')
-    let converter = new showdown.Converter()
+    let converter = new showdown.Converter({
+      strikethrough: true, // 删除线
+      tables: true, // 表格
+      tasklists: true, // 任务列表
+      simpleLineBreaks: true, // 解析换行符<br>，不需要在行尾增加2空格
+
+    })
     this.convertedHtml = converter.makeHtml(this.originText);
     this.isConverted = true
   }

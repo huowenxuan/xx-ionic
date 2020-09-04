@@ -46,7 +46,7 @@
     "cordova-plugin-advanced-http": "^1.11.1",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
-    "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-ionic-webview": "~1.2.1",
     "cordova-plugin-photo-library": "^2.1.1",
     "cordova-plugin-splashscreen": "^4.1.0",

@@ -1051,9 +1051,9 @@ cordova-plugin-file@^5.0.0:
   version "5.0.0"
   resolved "http://registry.npm.taobao.org/cordova-plugin-file/download/cordova-plugin-file-5.0.0.tgz#d397682321669c000be8c71f8ef4438aae8f925d"
 
-cordova-plugin-inappbrowser@^3.0.0:
-  version "3.0.0"
-  resolved "http://registry.npm.taobao.org/cordova-plugin-inappbrowser/download/cordova-plugin-inappbrowser-3.0.0.tgz#d4ae00d36676210751057ad258ae4ad4a9161ada"
+cordova-plugin-inappbrowser@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-3.1.0.tgz#61520b8de3eb75b37842d2340f5d90a84a073747"
 
 cordova-plugin-ionic-webview@~1.2.1:
   version "1.2.1"
